@@ -2,37 +2,48 @@
     <div>
         <div>
             <select id="recipe-select" v-model="recipe_name">
-            <option v-for="recipe in recipe_list" v-bind:key="recipe">
-                {{ recipe }}
+            <option v-for="(item, index) in recipe_list" v-bind:key="index">
+                {{ item }}
             </option>
             </select>
         </div>
         <div>
-            <input type="text" list="ingredients-list">
-            <datalist id="ingredients-list">
-            <option v-for="ingredient in ingredients_list" v-bind:key="ingredient">
-                {{ ingredient }}
+            <select id="ingredients-list" v-model="ingredient_name">
+            <option v-for="(item, index) in ingredients_list" v-bind:key="index">
+                {{ item }}
             </option>
-            </datalist>
+            </select>
         </div>
-<!--         <div>
-            <button v-on:click="recipe_builder()">Show Recipe</button>
-        </div> -->
-        <div>
-            <h1 v-bind:key="recipe_name">{{ recipe_name }}</h1>
+        <div id="recipe-card" class="display-toggle">
+            <div> 
+                <h1 v-bind:key="recipe_name">{{ recipe_name }}</h1>
+            </div>
+            <div> 
             <h2>Ingredients</h2>
-            <ul> 
-                <li v-for="item in recipe_ingredients" v-bind:key="item">
-                    {{ item.name }} {{ item.amount }}{{ item.type }}
-                </li>
-            </ul>
+                <ul> 
+                    <li v-for="(item, index) in recipe_ingredients" v-bind:key="index">
+                        {{ item.name }} {{ index.amount }}{{ index.type }}
+                    </li>
+                </ul>
+            </div> 
+            <div> 
             <h2>Method</h2>
-            <ol>
-                <li v-for="step in recipe_method" v-bind:key="step">
-                    {{ step.instruction }}
-                </li>
-            </ol>
+                <ol>
+                    <li v-for="(item, index) in recipe_method" v-bind:key="index">
+                        {{ item.instruction }}
+                    </li>
+                </ol>
+            </div> 
         </div>   
+        <div id="ingredients-card" class="display-toggle">
+            <h1>Ingredients with {{ ingredient_name }}</h1>
+                <ul>
+                    <li v-for="(item, index) in ingredient_recipes" v-bind:key="index">
+                        {{ item }}
+                    </li>
+                </ul>
+
+        </div>
     </div>
 </template>
 
@@ -60,6 +71,8 @@ export default {
    return {
       recipe_list: recipe_list,
       ingredients_list: ingredients_list,
+      ingredient_name: null,
+      ingredient_recipes: null,
       recipe_name: null,
       recipe_ingredients: null,
       recipe_method: null,
@@ -75,12 +88,32 @@ export default {
     }, 
   watch: {
       recipe_name: function() {
+                if (document.getElementById("recipe-card").classList.contains("display-toggle")){
+                    let element = document.getElementById("recipe-card");
+                    element.classList.toggle("display-toggle");
+                }
                 console.log("recipe name changed");
                 let index = Recipes.findIndex(x => x.recipe == this.recipe_name);
                 this.recipe_name = Recipes[index].recipe;
                 this.recipe_ingredients = Recipes[index].ingredients;
                 this.recipe_method = Recipes[index].method; 
 
+          },
+      ingredient_name: function() {
+                let with_ingredient = []
+                if (document.getElementById("ingredients-card").classList.contains("display-toggle")){
+                    let element = document.getElementById("ingredients-card");
+                    element.classList.toggle("display-toggle");
+                }
+                let ingredient = this.ingredient_name;
+                for (var recipe in Recipes){
+                    if (Recipes[recipe].ingredients.findIndex(x => x.name == ingredient) != -1){
+                    with_ingredient.push(Recipes[recipe].recipe)
+                    }
+                }
+                this.ingredient_recipes = with_ingredient
+                console.log(with_ingredient)
+                
           }
       
 
@@ -93,5 +126,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.display-toggle {
+  display: none;
+}
 
 </style>
