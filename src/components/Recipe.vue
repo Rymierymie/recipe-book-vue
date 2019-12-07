@@ -1,20 +1,6 @@
 <template>
     <div>
-        <div>
-            <select>
-            <option v-for="recipe in recipe_list" v-bind:key="recipe">
-                {{ recipe }}
-            </option>
-            </select>
-        </div>
-        <div>
-            <input type="text" list="ingredients-list">
-            <datalist id="ingredients-list">
-            <option v-for="ingredient in ingredients_list" v-bind:key="ingredient">
-                {{ ingredient }}
-            </option>
-            </datalist>
-        </div>
+        
     </div>
 </template>
 
@@ -46,7 +32,7 @@ export default {
     }   
   },
   methods: {
-      recipe_list_builder(){
+      recipe_builder(){
           
   }
 } 
