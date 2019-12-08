@@ -1,28 +1,39 @@
 <template>
     <div>
         <div>
+            <h2>Menu</h2>
+                <button @click="clear_menu()">Clear menu</button>
+                <ul> 
+                    <li v-for="(item, index) in menu" v-bind:key="index">
+                        {{ item }}
+                        <button @click="remove_from_menu(item)">Remove from menu</button>
+                    </li>
+                </ul>
+        </div>
+        <div>
             <select id="recipe-select" v-model="recipe_name">
-            <option v-for="(item, index) in recipe_list" v-bind:key="index">
-                {{ item }}
-            </option>
+                <option v-for="(item, index) in recipe_list" v-bind:key="index">
+                    {{ item }}
+                </option>
             </select>
         </div>
         <div>
             <select id="ingredients-list" v-model="ingredient_name">
-            <option v-for="(item, index) in ingredients_list" v-bind:key="index">
-                {{ item }}
-            </option>
+                <option v-for="(item, index) in ingredients_list" v-bind:key="index">
+                    {{ item }}
+                </option>
             </select>
         </div>
         <div id="recipe-card" class="display-toggle">
-            <div> 
-                <h1 v-bind:key="recipe_name">{{ recipe_name }}</h1>
+            <div v-bind:key="recipe_name"> 
+                <h1 >{{ recipe_name }}</h1>
+                <button @click="add_to_menu(recipe_name)">Add to menu</button>
             </div>
             <div> 
             <h2>Ingredients</h2>
                 <ul> 
                     <li v-for="(item, index) in recipe_ingredients" v-bind:key="index">
-                        {{ item.name }} {{ index.amount }}{{ index.type }}
+                        {{ item.name }} {{ item.amount }}{{ item.type }}
                     </li>
                 </ul>
             </div> 
@@ -40,15 +51,19 @@
                 <ul>
                     <li v-for="(item, index) in ingredient_recipes" v-bind:key="index">
                         {{ item }}
+                        <button @click="view_recipe(item)">View</button>
+                        <button @click="add_to_menu(item)">Add to menu</button>
                     </li>
                 </ul>
-
         </div>
     </div>
 </template>
 
 <script>
 import Recipes from '../assets/Recipes.json';
+
+import { eventBus } from '../event-bus';
+
 
 export default {
   data () {
@@ -68,6 +83,7 @@ export default {
       }
    ingredients_list.sort()
 
+
    return {
       recipe_list: recipe_list,
       ingredients_list: ingredients_list,
@@ -76,23 +92,44 @@ export default {
       recipe_name: null,
       recipe_ingredients: null,
       recipe_method: null,
+      menu: []
         }   
   },
   methods: {
-      /* recipe_builder(){
-          let index = Recipes.findIndex(x => x.recipe == this.recipe_name);
-          this.recipe_name = Recipes[index].recipe;
-          this.recipe_ingredients = Recipes[index].ingredients;
-          this.recipe_method = Recipes[index].method; 
-        } */
+      view_recipe(recipe){
+          this.recipe_name = recipe;
+          },
+      add_to_menu(recipe){
+          if (this.menu.findIndex(x => x == recipe) == -1){
+            console.log("adding to menu");
+            this.menu.push(recipe);
+            console.log(this.menu);
+            eventBus.$emit('menu_edit', this.menu);
+          } else {
+              alert("That's already on your menu!");
+              }  
+          
+        },
+      remove_from_menu(recipe){
+          let index = this.menu.findIndex(x => x == recipe);
+          this.menu.splice(index, 1); 
+          eventBus.$emit('menu_edit', this.menu);         
+          },
+      clear_menu(){
+          localStorage.removeItem('menu')
+          }
     }, 
+  mounted() {
+      if (localStorage.menu) {
+      this.menu = JSON.parse(localStorage.getItem('menu'))
+    }
+  },
   watch: {
       recipe_name: function() {
                 if (document.getElementById("recipe-card").classList.contains("display-toggle")){
                     let element = document.getElementById("recipe-card");
                     element.classList.toggle("display-toggle");
                 }
-                console.log("recipe name changed");
                 let index = Recipes.findIndex(x => x.recipe == this.recipe_name);
                 this.recipe_name = Recipes[index].recipe;
                 this.recipe_ingredients = Recipes[index].ingredients;
@@ -111,9 +148,10 @@ export default {
                     with_ingredient.push(Recipes[recipe].recipe)
                     }
                 }
-                this.ingredient_recipes = with_ingredient
-                console.log(with_ingredient)
-                
+                this.ingredient_recipes = with_ingredient             
+          },
+      menu: function() {
+                localStorage.setItem('menu', JSON.stringify(this.menu)) 
           }
       
 

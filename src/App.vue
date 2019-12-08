@@ -1,9 +1,12 @@
 <template>
   <div id="app">
-    <Nav msg="Recipe Book App"/>
+    <navigation msg="Recipe Book App"/>
     <div>
-      <button @click="display('search-component')">Show Search</button>
-      <Search id="search-component" class="display-toggle" />
+      <button @click="display('search')">Show Search</button>
+      <button @click="display('meal_planner')">Show Meal Plan</button>
+      <keep-alive>
+      <component v-bind:is="selected"></component>
+      </keep-alive>
     </div>
 
     
@@ -13,26 +16,34 @@
 <script>
 import Nav from './components/Nav.vue'
 import Search from './components/Search.vue'
+import Plan from './components/Plan.vue'
 
 export default {
   name: 'app',
+  data () {
+    return {
+      selected: null
+    }
+  },
   components: {
-    Nav,
-    Search
+    navigation: Nav,
+    search: Search,
+    meal_planner: Plan,
   },
   methods: {
-    display(id) {
+    /* display(id) {
       let element = document.getElementById(id);
       element.classList.toggle("display-toggle");
+    } */
+    display(elem){
+       this.selected = elem;
+       console.log(this.selected);
     }
+
   }
 }
 </script>
 
 <style>
-
-.display-toggle {
-  display: none;
-}
 
 </style>
