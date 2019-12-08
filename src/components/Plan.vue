@@ -1,32 +1,30 @@
 <template>
     <div>
         <h1>Plan</h1>
-        <div>
-            <h2>Sunday</h2>
-                <div>
-                    <h3>Lunch</h3>
-                    <select>
-                        <option v-for="(item, index) in menu" v-bind:key="index">
-                            {{ item }}
-                        </option>
-                    </select>
-                    <p>
-                    <button v-on:click="meal_plan.sunday.lunch.serves -= 1">-</button>
-                    {{ meal_plan.sunday.lunch.serves }}
-                    <button v-on:click="meal_plan.sunday.lunch.serves += 1">+</button>
-                    </p>
-                </div>
-                <div>
-                    <h3>Dinner</h3>
-                    <select>
-                        <option v-for="(item, index) in menu" v-bind:key="index">
-                            {{ item }}
-                        </option>
-                    </select>
-                </div>
-        </div>
         <div v-for="(value, name, index) in meal_plan" v-bind:key="index">
             <h2>{{ name }}</h2>
+            <h3>Lunch</h3>
+            <select v-model="value.lunch.recipe">
+                <option v-for="(item, index) in menu" v-bind:key="index">
+                    {{ item }}
+                </option>
+            </select>
+            <p>
+            <button @click="value.lunch.serves -= 1">-</button>
+            {{ value.lunch.serves }}
+            <button @click="value.lunch.serves += 1">+</button>
+            </p>
+            <h3>Dinner</h3>
+            <select v-model="value.dinner.recipe">
+                <option v-for="(item, index) in menu" v-bind:key="index">
+                    {{ item }}
+                </option>
+            </select>
+            <p>
+            <button @click="value.dinner.serves -= 1">-</button>
+            {{ value.dinner.serves }}
+            <button @click="value.dinner.serves += 1">+</button>
+            </p>
         </div>
     </div>
 </template>
@@ -125,13 +123,15 @@ export default {
                 });
     
   },
-  watch: {
-      
-        },
-  methods: {
-      recipe_builder(){
-          
+  watch: { 
+        meal_plan: function(){
+            localStorage.setItem('meal_plan', JSON.stringify(this.meal_plan)) 
+        }
+
   },
+
+  methods: {
+
 } 
 }      
 
