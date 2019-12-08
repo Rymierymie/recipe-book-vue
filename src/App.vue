@@ -2,14 +2,13 @@
   <div id="app">
     <navigation msg="Recipe Book App"/>
     <div>
-      <button @click="display('search')">Show Search</button>
-      <button @click="display('meal_planner')">Show Meal Plan</button>
-      <keep-alive>
-      <component v-bind:is="selected"></component>
-      </keep-alive>
+      <button @click="display('search')">Search</button>
+      <button @click="display('meal_planner')">Plan</button>
+      <button @click="display('shop')">Shop</button>
+        <keep-alive>
+        <component v-bind:is="selected"></component>
+        </keep-alive>
     </div>
-
-    
   </div>
 </template>
 
@@ -17,6 +16,7 @@
 import Nav from './components/Nav.vue'
 import Search from './components/Search.vue'
 import Plan from './components/Plan.vue'
+import Shop from './components/Shop.vue'
 
 export default {
   name: 'app',
@@ -29,6 +29,7 @@ export default {
     navigation: Nav,
     search: Search,
     meal_planner: Plan,
+    shop: Shop
   },
   methods: {
     /* display(id) {

@@ -26,6 +26,7 @@
             <button @click="value.dinner.serves += 1">+</button>
             </p>
         </div>
+        {{ meal_plan }}
     </div>
 </template>
 
@@ -114,6 +115,10 @@ export default {
     }   
   },
   mounted() {
+      if (localStorage.meal_plan) {
+          this.meal_plan = JSON.parse(localStorage.getItem('meal_plan'));
+          }
+
       if (localStorage.menu) {
       this.menu = JSON.parse(localStorage.getItem('menu'));
       }
@@ -124,10 +129,13 @@ export default {
     
   },
   watch: { 
-        meal_plan: function(){
-            localStorage.setItem('meal_plan', JSON.stringify(this.meal_plan)) 
-        }
-
+        'meal_plan': { 
+            handler: function() {
+                eventBus.$emit('meal_plan_edit', this.meal_plan); 
+                localStorage.setItem('meal_plan', JSON.stringify(this.meal_plan)) 
+            },
+            deep: true,
+            },
   },
 
   methods: {
