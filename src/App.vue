@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <navigation msg="Recipe Book App"/>
-    <mealplanner />
+    <shop2 />
     <div>
       <button @click="display('search')">Search</button>
       <button @click="display('mealplanner')">Plan</button>
@@ -18,6 +18,7 @@ import Nav from './components/Nav.vue'
 import Search from './components/Search.vue'
 import Plan from './components/Plan.vue'
 import Shop from './components/Shop.vue'
+import Shop_2 from './components/Shop_2.vue'
 
 export default {
   name: 'app',
@@ -30,13 +31,10 @@ export default {
     navigation: Nav,
     search: Search,
     mealplanner: Plan,
-    shop: Shop
+    shop: Shop,
+    shop2: Shop_2
   },
   methods: {
-    /* display(id) {
-      let element = document.getElementById(id);
-      element.classList.toggle("display-toggle");
-    } */
     display(elem){
        this.selected = elem;
        console.log(this.selected);

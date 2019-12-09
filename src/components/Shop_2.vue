@@ -2,10 +2,10 @@
     <div>
         <h1>Shop</h1>
         <ul> 
-            <li v-for="(item, index) in shopping_list" v-bind:key="index">
-                <input type="checkbox" class="checkbox" @click="check_click(item.item)">
-                <span>
-                {{ item.item }} {{ item.amount }} {{ item.type }}
+            <li v-for="(item, index) in shopping_list" v-bind:key="index" >
+                <span v-if="item.amount != 0">
+                    <input type="checkbox" class="checkbox" @click="check_click(item.item)">
+                    {{ item.item }} {{ item.amount }} {{ item.type }}
                 </span>
             </li>
         </ul>
@@ -33,7 +33,6 @@ export default {
            this.shopping_list[index].checked = true;
        },
        shopping_list_builder: function(meal_object){
-
    
     
         /* Code from V2  */   
