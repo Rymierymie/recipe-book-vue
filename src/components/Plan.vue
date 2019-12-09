@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>Plan</h1>
+        <button @click="reset_planner()">Reset</button>
         <div v-for="(value, name, index) in meal_plan" v-bind:key="index">
             <h2>{{ name }}</h2>
             <h3>Lunch</h3>
@@ -26,7 +27,6 @@
             <button @click="value.dinner.serves += 1">+</button>
             </p>
         </div>
-        {{ meal_plan }}
     </div>
 </template>
 
@@ -42,7 +42,7 @@ export default {
       meal_plan: {
         sunday: {
             lunch: {
-                recipe: 'Test',
+                recipe: '',
                 serves: 0
             },
             dinner: {
@@ -139,6 +139,80 @@ export default {
   },
 
   methods: {
+      reset_planner(){
+          this.meal_plan = {
+        sunday: {
+            lunch: {
+                recipe: '',
+                serves: 0
+            },
+            dinner: {
+                recipe: '',
+                serves: 0
+            }
+        },
+        monday: {
+            lunch: {
+                recipe: '',
+                serves: 0
+            },
+            dinner: {
+                recipe: '',
+                serves: 0
+            }
+        },
+        tuesday: {
+            lunch: {
+                recipe: '',
+                serves: 0
+            },
+            dinner: {
+                recipe: '',
+                serves: 0
+            }
+        },
+        wednesday: {
+            lunch: {
+                recipe: '',
+                serves: 0
+            },
+            dinner: {
+                recipe: '',
+                serves: 0
+            }
+        },
+        thursday: {
+            lunch: {
+                recipe: '',
+                serves: 0
+            },
+            dinner: {
+                recipe: '',
+                serves: 0
+            }
+        },
+        friday: {
+            lunch: {
+                recipe: '',
+                serves: 0
+            },
+            dinner: {
+                recipe: '',
+                serves: 0
+            }
+        },
+        saturday: {
+            lunch: {
+                recipe: '',
+                serves: 0
+            },
+            dinner: {
+                recipe: '',
+                serves: 0
+            }
+        }
+    }
+      }
 
 } 
 }      

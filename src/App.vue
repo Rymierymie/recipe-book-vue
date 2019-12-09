@@ -1,9 +1,10 @@
 <template>
   <div id="app">
     <navigation msg="Recipe Book App"/>
+    <mealplanner />
     <div>
       <button @click="display('search')">Search</button>
-      <button @click="display('meal_planner')">Plan</button>
+      <button @click="display('mealplanner')">Plan</button>
       <button @click="display('shop')">Shop</button>
         <keep-alive>
         <component v-bind:is="selected"></component>
@@ -28,7 +29,7 @@ export default {
   components: {
     navigation: Nav,
     search: Search,
-    meal_planner: Plan,
+    mealplanner: Plan,
     shop: Shop
   },
   methods: {
