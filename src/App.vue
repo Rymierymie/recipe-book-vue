@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <navigation msg="Recipe Book App"/>
+    <navigation msg="Nav"/>
     <shop2 />
     <div>
       <button @click="display('search')">Search</button>

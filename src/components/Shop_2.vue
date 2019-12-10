@@ -34,16 +34,38 @@ export default {
            this.shopping_list[index].checked = true;
        },
        meal_plan_summary_builder: function(){
+           let meals = [];
            console.log("hey");
            let meal_plan = this.meal_plan;
            console.log(meal_plan);
            let keys = Object.keys(meal_plan)
+           let times = ['lunch','dinner'];
            console.log(keys)
-/*            for (var day in meal_plan){
-               let array = meal_plan[day].filter(x => x.dinner.recipe != '' || x.lunch.recipe != '')
-               console.log(array);
-           } */
-           
+           for (var key in keys){
+               for (var time in times){                   
+                   if (meal_plan[keys[key]][times[time]].recipe != ''){
+                       let meal = meal_plan[keys[key]][times[time]].recipe;
+                       let serves = meal_plan[keys[key]][times[time]].serves;
+                       console.log(meal);
+                       console.log(meals.findIndex(x => x.recipe == meal));
+                       if (meals.findIndex(x => x.recipe == meal)){
+                           console.log("There's no " + meal + " already in the meal plan")
+                           //add a push to the meals array here
+                           meals.push({
+                               recipe: meal,
+                               serves: serves
+                           })
+                       } else {
+                           console.log(meal + " is already in the list. Just updating the serve")
+                           //update the serve for the meal in the meals array
+                           let index = meals.findIndex(x => x.recipe == meal);
+                           console.log(meals[index].serves);
+                           meals[index].serves = meals[index].serves + serves;
+                           console.log(meals[index].serves)
+                       }
+                       }
+               }
+           }           
        },
        shopping_list_builder: function(meal_object){
    
