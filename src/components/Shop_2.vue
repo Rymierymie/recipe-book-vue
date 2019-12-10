@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>Shop</h1>
+        <button @click="meal_plan_summary_builder()">Summary Builder</button>
         <ul> 
             <li v-for="(item, index) in shopping_list" v-bind:key="index" >
                 <span v-if="item.amount != 0">
@@ -31,6 +32,18 @@ export default {
            console.log("hey" + item);
            let index = this.shopping_list.findIndex(x => x.item == item);
            this.shopping_list[index].checked = true;
+       },
+       meal_plan_summary_builder: function(){
+           console.log("hey");
+           let meal_plan = this.meal_plan;
+           console.log(meal_plan);
+           let keys = Object.keys(meal_plan)
+           console.log(keys)
+/*            for (var day in meal_plan){
+               let array = meal_plan[day].filter(x => x.dinner.recipe != '' || x.lunch.recipe != '')
+               console.log(array);
+           } */
+           
        },
        shopping_list_builder: function(meal_object){
    
