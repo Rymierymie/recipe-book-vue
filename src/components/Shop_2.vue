@@ -2,6 +2,8 @@
     <div>
         <h1>Shop</h1>
         <button @click="meal_plan_summary_builder()">Summary Builder</button>
+        <h2>Summary</h2>
+        {{ meal_plan_summary }}
         <ul> 
             <li v-for="(item, index) in shopping_list" v-bind:key="index" >
                 <span v-if="item.amount != 0">
@@ -10,6 +12,7 @@
                 </span>
             </li>
         </ul>
+        <h2>Shopping List</h2>
         {{ shopping_list }}
     </div>
     
@@ -24,6 +27,7 @@ export default {
     data ()  {
         return {
             meal_plan: {},
+            meal_plan_summary: Array,
             shopping_list: []
         }
     },
@@ -34,6 +38,7 @@ export default {
            this.shopping_list[index].checked = true;
        },
        meal_plan_summary_builder: function(){
+           let component = this;
            let meals = [];
            console.log("hey");
            let meal_plan = this.meal_plan;
@@ -65,7 +70,10 @@ export default {
                        }
                        }
                }
-           }           
+           } 
+           console.log("component");
+           component.meal_plan_summary = meals;
+           console.log(component.meal_plan_summary);         
        },
        shopping_list_builder: function(meal_object){
    
@@ -149,7 +157,11 @@ export default {
          }  
         eventBus.$on('meal_plan_edit', new_meal_plan => {
             this.shopping_list = this.shopping_list_builder(new_meal_plan);
-                    });    
+                    });   
+        eventBus.$on('meal_plan_edit', new_meal_plan => {
+            this.meal_plan_summary = this.meal_plan_summary_builder();
+            console.log(new_meal_plan);
+                    });  
     },
   watch: { 
         'shopping_list': { 
