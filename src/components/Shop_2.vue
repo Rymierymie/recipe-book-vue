@@ -37,6 +37,38 @@ export default {
            let index = this.shopping_list.findIndex(x => x.item == item);
            this.shopping_list[index].checked = true;
        },
+       shop_list_builder_2: function(plan_summary){
+           let list = []
+           console.log(plan_summary);
+           for (var meal in plan_summary){
+               let recipe = plan_summary[meal].recipe;
+               let serves = plan_summary[meal].serves;
+               console.log(recipe + " & " + serves)
+
+               let index = Recipes.findIndex(x => x.recipe == recipe);
+               console.log(index);
+
+               let ingredients = Recipes[index].ingredients;
+            for (var item in ingredients){
+                let measure = (ingredients[item].amount/Recipes[index].serves)*serves;
+                console.log(measure);
+
+                let list_item = {
+                                item: ingredients[item].name,
+                                amount: measure,
+                                type: ingredients[item].type,
+                                checked: false,
+                                removed: false
+                            }
+                console.log(list_item);
+                list.push(list_item)
+                }
+               
+
+           }
+           console.log("the new list!")
+           return list;
+       },
        shopping_list_builder: function(meal_object){
    
     
@@ -125,8 +157,27 @@ export default {
             console.log(new_meal_plan);
                     }); 
         eventBus.$on('meal_plan_summary_change', new_summary => {
+            let component = this;
             console.log("the new summary");
             console.log(new_summary);
+            console.log("the test");
+            // The new summary passed in from the plan page is now going to be run through the shopping list builder
+            //ONCE THE SHOPPING LIST BUILDER 2 function is working, need to turn off the eventbus for the old shopping list builder
+                //and make sure that I can bring in a new plan and compare with the current BEFORE overriding.
+            let new_list = this.shop_list_builder_2(new_summary);
+            console.log(new_list);
+            /* Use this to assign the correct meal_plan summary to the data for the page when needed
+            component.meal_plan_summary = new_summary;
+            console.log(component.meal_plan_summary); */
+
+            //Now checking if the new_list matches the current list
+            let current_list = component.shopping_list
+            console.log("the current list");
+            console.log(current_list);
+            //Interesting that these lists are already returning different values... Weird caching going on!
+
+
+
             //the new summary is being passed to the shopping list whenever a change is made to the meal plan!
             //now this needs to check if there is currently a meal_plan_summary present in this component
             //if there is, it needs to check itself against it 
