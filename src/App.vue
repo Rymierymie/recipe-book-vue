@@ -5,7 +5,7 @@
     <div>
       <button @click="display('search')">Search</button>
       <button @click="display('mealplanner')">Plan</button>
-      <button @click="display('shop')">Shop</button>
+      <!-- <button @click="display('shop2')">Shop</button> -->
         <keep-alive>
         <component v-bind:is="selected"></component>
         </keep-alive>
@@ -17,7 +17,7 @@
 import Nav from './components/Nav.vue'
 import Search from './components/Search.vue'
 import Plan from './components/Plan.vue'
-import Shop from './components/Shop.vue'
+/* import Shop from './components/Shop.vue' */
 import Shop_2 from './components/Shop_2.vue'
 
 export default {
@@ -31,7 +31,7 @@ export default {
     navigation: Nav,
     search: Search,
     mealplanner: Plan,
-    shop: Shop,
+/*     shop: Shop, */
     shop2: Shop_2
   },
   methods: {

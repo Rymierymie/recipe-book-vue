@@ -12,6 +12,7 @@
         </div>
         <div>
             <select id="recipe-select" v-model="recipe_name">
+                <option selected></option>
                 <option v-for="(item, index) in recipe_list" v-bind:key="index">
                     {{ item }}
                 </option>
@@ -19,6 +20,7 @@
         </div>
         <div>
             <select id="ingredients-list" v-model="ingredient_name">
+                <option selected></option>
                 <option v-for="(item, index) in ingredients_list" v-bind:key="index">
                     {{ item }}
                 </option>

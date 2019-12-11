@@ -37,44 +37,6 @@ export default {
            let index = this.shopping_list.findIndex(x => x.item == item);
            this.shopping_list[index].checked = true;
        },
-       meal_plan_summary_builder: function(){
-           let component = this;
-           let meals = [];
-           console.log("hey");
-           let meal_plan = this.meal_plan;
-           console.log(meal_plan);
-           let keys = Object.keys(meal_plan)
-           let times = ['lunch','dinner'];
-           console.log(keys)
-           for (var key in keys){
-               for (var time in times){                   
-                   if (meal_plan[keys[key]][times[time]].recipe != ''){
-                       let meal = meal_plan[keys[key]][times[time]].recipe;
-                       let serves = meal_plan[keys[key]][times[time]].serves;
-                       console.log(meal);
-                       console.log(meals.findIndex(x => x.recipe == meal));
-                       if (meals.findIndex(x => x.recipe == meal)){
-                           console.log("There's no " + meal + " already in the meal plan")
-                           //add a push to the meals array here
-                           meals.push({
-                               recipe: meal,
-                               serves: serves
-                           })
-                       } else {
-                           console.log(meal + " is already in the list. Just updating the serve")
-                           //update the serve for the meal in the meals array
-                           let index = meals.findIndex(x => x.recipe == meal);
-                           console.log(meals[index].serves);
-                           meals[index].serves = meals[index].serves + serves;
-                           console.log(meals[index].serves)
-                       }
-                       }
-               }
-           } 
-           console.log("component");
-           component.meal_plan_summary = meals;
-           console.log(component.meal_plan_summary);         
-       },
        shopping_list_builder: function(meal_object){
    
     
@@ -161,7 +123,18 @@ export default {
         eventBus.$on('meal_plan_edit', new_meal_plan => {
             this.meal_plan_summary = this.meal_plan_summary_builder();
             console.log(new_meal_plan);
-                    });  
+                    }); 
+        eventBus.$on('meal_plan_summary_change', new_summary => {
+            console.log("the new summary");
+            console.log(new_summary);
+            //the new summary is being passed to the shopping list whenever a change is made to the meal plan!
+            //now this needs to check if there is currently a meal_plan_summary present in this component
+            //if there is, it needs to check itself against it 
+            //Only then may you delete the V2 code from above and bring in a single shopping list that is built 
+            // Ooooor, maybe in this event, I call a function to build a shopping list, then grab the current shopping 
+                //list and check that with the new one.  – yep, I think that will work.
+
+        }); 
     },
   watch: { 
         'shopping_list': { 

@@ -6,6 +6,8 @@
 </template>
 
 <script>
+//import { eventBus } from '../event-bus';
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -14,6 +16,7 @@ export default {
   methods: {
     clear_all_local(){
       localStorage.clear();
+      /* eventBus.$emit('local_cleared', true); */
       alert("Local Storage Cleared!")
     }
   }
