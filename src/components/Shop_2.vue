@@ -40,6 +40,7 @@ export default {
        }, */
        shop_list_builder_2: function(plan_summary){
            let list = []
+           console.log("inside the shopping list builder");
            console.log(plan_summary);
            for (var meal in plan_summary){
                let recipe = plan_summary[meal].recipe;
@@ -54,15 +55,35 @@ export default {
                 let measure = (ingredients[item].amount/Recipes[index].serves)*serves;
                 console.log(measure);
 
-                let list_item = {
+                let list_index = list.findIndex(x => x.item == ingredients[item].name)
+                console.log("the index is:")
+                console.log(list_index);
+                console.log(ingredients[item].name);
+
+                if (list_index == -1){
+                    let list_item = {
                                 item: ingredients[item].name,
                                 amount: measure,
                                 type: ingredients[item].type,
                                 checked: false,
                                 removed: false
                             }
-                console.log(list_item);
-                list.push(list_item)
+                    //console.log(list_item);
+                    list.push(list_item)
+                } else {
+                    list[list_index].amount = list[list_index].amount + measure;
+                }
+
+         /*        if (meals.findIndex(indexOf) == -1){
+                        meals.push(meal)
+                    } else {
+                        let i = meals.findIndex(indexOf)
+                        let key = Object.keys(meals[i])
+                        meals[i][key] += Number(s)
+                    } */
+
+
+                
                 }
                
 
@@ -79,9 +100,12 @@ export default {
         //let app = this;
         if (localStorage.shopping_list) {
           this.shopping_list = JSON.parse(localStorage.getItem('shopping_list'));
+          console.log("shopping list set from local storage")
 
           } else {
               console.log("no local storage to build a list from");
+              localStorage.setItem('shopping_list', JSON.stringify(this.shopping_list))
+              
           //this.shopping_list = this.shopping_list_builder(this.meal_plan);
          }  
 /*         eventBus.$on('meal_plan_edit', new_meal_plan => {
@@ -106,7 +130,9 @@ export default {
             console.log(component.meal_plan_summary); */
 
             //Now checking if the new_list matches the current list
-            let current_list = component.shopping_list
+            console.log("local storage shopping list");
+            console.log(localStorage.shopping_list)
+            let current_list = JSON.parse(localStorage.getItem('shopping_list'));
             console.log("the current list");
             console.log(current_list);
             //Interesting that these lists are already returning different values... Weird caching going on!
@@ -123,30 +149,46 @@ export default {
             if (current_list.length === 0){
                 console.log("the original list is empty, so you can just assign the new list to being the current list!");
                 component.shopping_list = new_list;
+                console.log("component shopping list:");
+                console.log(component.shopping_list);
+                localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
+                console.log("local storage shopping list");
+                console.log(localStorage.shopping_list)
             } else if (current_list.length > new_list.length){
                  // if current list is longer than the new list, need to remove some items before returning the list
                 console.log("the current list is longer, so we'll need to remove some items!");
+                console.log(current_list);
+                let holder_list = current_list;
                 for (let item in current_list){
                     console.log("item! be a number")
-                    console.log(item);
+                    console.log(item)
                     let index = new_list.findIndex(x => x.item == current_list[item].item);
-                    if (index == -1){
-                        console.log("this item needs to be removed");
-                        //current_list.splice(item,1)
+                    if (index === -1){
+                        console.log("this item needs to be removed. Index:");
+                        console.log(item);
+                        holder_list.splice(item,1)
                     }
 
                     if (index != -1){
                         console.log("this items amount needs to be updated in the current list");
-                    }
+                        holder_list[item].amount = new_list[index].amount;
+                    }    
                 }
+                current_list = holder_list;
+                component.shopping_list = current_list;
+                console.log("component shopping list:");
+                console.log(component.shopping_list);
+                localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
+                console.log("local storage shopping list");
+                console.log(localStorage.shopping_list)
 
             } else if (current_list.length < new_list.length){
                  // if the current list is shorter than the new list, need to add some items before updating the list
                 console.log("the current list is shorter, so we'll need to add some items!");
                 for (let item in new_list){
-                    console.log(new_list[item].item);
+                    //console.log(new_list[item].item);
                     let index = current_list.findIndex(x => x.item == new_list[item].item);
-                    console.log(index);
+                    //console.log(index);
                     if (index === -1){
                         console.log("this item is in the new list but not the current list - needs to be added!");
                         let list_item = {
@@ -166,6 +208,12 @@ export default {
                     }
                 }
                 component.shopping_list = current_list;
+                console.log("component shopping list:");
+                console.log(component.shopping_list);
+                localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
+                console.log("local storage shopping list");
+                console.log(localStorage.shopping_list)
+
             } else if (current_list.length === new_list.length){
                 // if the current list is the same length as the new list, we can assume no items have changed, so just need to update any amounts
                 console.log("The new and current lists are the same length, so we'll just need to update the amounts on the current list");
@@ -174,6 +222,11 @@ export default {
                     current_list[item].amount = new_list[index].amount;
                 }
                 component.shopping_list = current_list;
+                console.log("component shopping list:");
+                console.log(component.shopping_list);
+                localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
+                console.log("local storage shopping list");
+                console.log(localStorage.shopping_list)
             }
 
 /* Try and use this code to update the checkboxes after the list has rendered
@@ -208,14 +261,14 @@ export default {
 
     },
   watch: { 
-        'shopping_list': { 
+        /* 'shopping_list': { 
             handler: function() {
                 localStorage.setItem('shopping_list', JSON.stringify(this.shopping_list)) 
                 
                 
             },
             deep: true,
-            },
+            }, */
   },
 }
 </script>

@@ -148,7 +148,7 @@ export default {
                 console.log("huh?")
                 console.log(this.meal_plan) */
                 this.meal_plan_summary = this.meal_plan_summary_builder()
-                console.log("is the meal plan summary a thing??")
+                //console.log("is the meal plan summary a thing??")
                 console.log(this.meal_plan_summary)
                 eventBus.$emit('meal_plan_summary_change', this.meal_plan_summary);
                 localStorage.setItem('meal_plan', JSON.stringify(this.meal_plan)) 
@@ -161,20 +161,20 @@ export default {
       meal_plan_summary_builder: function(){
            let component = this;
            let meals = [];
-           console.log("hey");
+           //console.log("hey");
            let new_meal_plan = component.meal_plan;
-           console.log(new_meal_plan);
+           //console.log(new_meal_plan);
            let keys = Object.keys(new_meal_plan)
-           console.log(keys);
+           //console.log(keys);
            let times = ['lunch','dinner'];
-           console.log(keys)
+           //console.log(keys)
            for (var key in keys){
                for (var time in times){                   
                    if (new_meal_plan[keys[key]][times[time]].recipe != ''){
                        let meal = new_meal_plan[keys[key]][times[time]].recipe;
                        let serves = new_meal_plan[keys[key]][times[time]].serves;
-                       console.log(meal);
-                       console.log(meals.findIndex(x => x.recipe == meal));
+                       //console.log(meal);
+                       //console.log(meals.findIndex(x => x.recipe == meal));
                        if (meals.findIndex(x => x.recipe == meal) == -1){
                            console.log("There's no " + meal + " already in the meal plan")
                            //add a push to the meals array here
@@ -186,14 +186,14 @@ export default {
                            console.log(meal + " is already in the list. Just updating the serve")
                            //update the serve for the meal in the meals array
                            let index = meals.findIndex(x => x.recipe == meal);
-                           console.log(meals[index].serves);
+                           //console.log(meals[index].serves);
                            meals[index].serves = meals[index].serves + serves;
-                           console.log(meals[index].serves)
+                           //console.log(meals[index].serves)
                        }
                        }
                }
            } 
-           console.log("component");
+           //console.log("component");
            component.meal_plan_summary = meals;
            console.log(component.meal_plan_summary);       
            return component.meal_plan_summary  
