@@ -1,13 +1,10 @@
 <template>
     <div>
         <h1>Shop</h1>
-        <button @click="meal_plan_summary_builder()">Summary Builder</button>
-        <h2>Summary</h2>
-        {{ meal_plan_summary }}
         <ul> 
             <li v-for="(item, index) in shopping_list" v-bind:key="index" >
                 <span v-if="item.amount != 0">
-                    <input type="checkbox" class="checkbox" @click="check_click(item.item)">
+                    <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click(item.item)">
                     {{ item.item }} {{ item.amount }} {{ item.type }}
                 </span>
             </li>
@@ -26,8 +23,8 @@ import { eventBus } from '../event-bus';
 export default {
     data ()  {
         return {
-            meal_plan: {},
-            meal_plan_summary: Array,
+            //meal_plan: {},
+            //meal_plan_summary: Array,
             shopping_list: []
         }
     },
@@ -37,6 +34,10 @@ export default {
            let index = this.shopping_list.findIndex(x => x.item == item);
            this.shopping_list[index].checked = true;
        },
+/*        shop_list_difference_checker: function(long_list, short_list){
+
+           for (let item in long_list
+       }, */
        shop_list_builder_2: function(plan_summary){
            let list = []
            console.log(plan_summary);
@@ -68,94 +69,28 @@ export default {
            }
            console.log("the new list!")
            return list;
-       },
-       shopping_list_builder: function(meal_object){
-   
-    
-        /* Code from V2  */   
-        let days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
-        let times = ['lunch','dinner'];
-        let meals = []
-        let list = []
-        let meal_plan = meal_object
-        let ingredients
-
-//THIS SECTION OF CODE IS SETTING UNDEFINED MEALS. IT IS BAD AND I SHOULD HAVE RE-WRITTEN IT FROM THE START
-
-        // Going through every planned meal
-        days.forEach(day => {
-            times.forEach(time => {
-                let r = meal_plan[day][time].recipe;
-                let s = meal_plan[day][time].serves;
-
-                function indexOf(element) {
-                    return (Object.keys(element) == r);
-                  }
-
-                if (r != ""){
-                    let meal = {
-                        [r] : s
-                    }
-                    if (meals.findIndex(indexOf) == -1){
-                        meals.push(meal)
-                    } else {
-                        let i = meals.findIndex(indexOf)
-                        let key = Object.keys(meals[i])
-                        meals[i][key] += Number(s)
-                    }
-                }
-            })
-        })
-
-        console.log(meals)
-        /* End code from V2 */
-
-        for (var meal in meals) {
-            let recipe = Object.keys(meals[meal])
-            let serves = Object.values(meals[meal])
-
-            let index = Recipes.findIndex(x => x.recipe == recipe[0]);
-            ingredients = Recipes[index].ingredients;
-            for (var item in ingredients){
-                let measure = (ingredients[item].amount/Recipes[index].serves)*serves;
-
-                let list_item = {
-                                item: ingredients[item].name,
-                                amount: measure,
-                                type: ingredients[item].type,
-                                checked: false,
-                                removed: false
-                            }
-                    if (list.findIndex(x => x.item == ingredients[item].name) == -1){
-                                list.push(list_item)
-                            } else {
-                            let i = list.findIndex(x => x.item == ingredients[item].name)    
-                            list[i]['amount'] += Number(measure)
-                            }
-                    }  
-             }
-
-    return list;
-
        }
     },
     mounted () {
         console.log("mounted");
-        if (localStorage.meal_plan) {
+        /* if (localStorage.meal_plan) {
             this.meal_plan = JSON.parse(localStorage.getItem('meal_plan'));
-            }
+            } */
+        //let app = this;
         if (localStorage.shopping_list) {
           this.shopping_list = JSON.parse(localStorage.getItem('shopping_list'));
+
           } else {
-          this.shopping_list = this.shopping_list_builder(this.meal_plan);
+              console.log("no local storage to build a list from");
+          //this.shopping_list = this.shopping_list_builder(this.meal_plan);
          }  
-        eventBus.$on('meal_plan_edit', new_meal_plan => {
+/*         eventBus.$on('meal_plan_edit', new_meal_plan => {
             this.shopping_list = this.shopping_list_builder(new_meal_plan);
-                    });   
-        eventBus.$on('meal_plan_edit', new_meal_plan => {
+                    });   */ 
+        /* eventBus.$on('meal_plan_edit', new_meal_plan => {
             this.meal_plan_summary = this.meal_plan_summary_builder();
             console.log(new_meal_plan);
-                    }); 
+                    });  */
         eventBus.$on('meal_plan_summary_change', new_summary => {
             let component = this;
             console.log("the new summary");
@@ -176,8 +111,6 @@ export default {
             console.log(current_list);
             //Interesting that these lists are already returning different values... Weird caching going on!
 
-
-
             //the new summary is being passed to the shopping list whenever a change is made to the meal plan!
             //now this needs to check if there is currently a meal_plan_summary present in this component
             //if there is, it needs to check itself against it 
@@ -185,12 +118,101 @@ export default {
             // Ooooor, maybe in this event, I call a function to build a shopping list, then grab the current shopping 
                 //list and check that with the new one.  – yep, I think that will work.
 
-        }); 
+
+            //if current list is empty, then set it to the new list
+            if (current_list.length === 0){
+                console.log("the original list is empty, so you can just assign the new list to being the current list!");
+                component.shopping_list = new_list;
+            } else if (current_list.length > new_list.length){
+                 // if current list is longer than the new list, need to remove some items before returning the list
+                console.log("the current list is longer, so we'll need to remove some items!");
+                for (let item in current_list){
+                    console.log("item! be a number")
+                    console.log(item);
+                    let index = new_list.findIndex(x => x.item == current_list[item].item);
+                    if (index == -1){
+                        console.log("this item needs to be removed");
+                        //current_list.splice(item,1)
+                    }
+
+                    if (index != -1){
+                        console.log("this items amount needs to be updated in the current list");
+                    }
+                }
+
+            } else if (current_list.length < new_list.length){
+                 // if the current list is shorter than the new list, need to add some items before updating the list
+                console.log("the current list is shorter, so we'll need to add some items!");
+                for (let item in new_list){
+                    console.log(new_list[item].item);
+                    let index = current_list.findIndex(x => x.item == new_list[item].item);
+                    console.log(index);
+                    if (index === -1){
+                        console.log("this item is in the new list but not the current list - needs to be added!");
+                        let list_item = {
+                                item: new_list[item].item,
+                                amount: new_list[item].amount,
+                                type: new_list[item].type,
+                                checked: false,
+                                removed: false
+                            }
+                        console.log("list item to be added!");
+                        console.log(list_item);
+                        current_list.push(list_item)
+                    }
+                    if (index != -1){
+                        console.log("this item was already in the list, so we want to maintain any checked/removed meta it may have, but update the amount to the new amount");
+                        current_list[index].amount = new_list[item].amount;
+                    }
+                }
+                component.shopping_list = current_list;
+            } else if (current_list.length === new_list.length){
+                // if the current list is the same length as the new list, we can assume no items have changed, so just need to update any amounts
+                console.log("The new and current lists are the same length, so we'll just need to update the amounts on the current list");
+                for (let item in current_list){
+                    let index = new_list.findIndex(x => x.item == current_list[item].item);
+                    current_list[item].amount = new_list[index].amount;
+                }
+                component.shopping_list = current_list;
+            }
+
+/* Try and use this code to update the checkboxes after the list has rendered
+            let list = this.shopping_list; 
+                for (let item in list){
+                    if (list[item].checked == true){
+                        console.log("this item is checked!");
+                        let id = list[item].item;
+                        console.log(id);
+                        let selected = document.getElementById(id);
+                        console.log(selected);
+                        //selected.checked = true;
+                    }
+                } */
+
+        /*     //check if new_list and current_list match
+            var x = current_list.map(function(item, index) {
+                console.log("in them map function");
+                console.log(item)
+                console.log(new_list[index])
+            // In this case item correspond to currentValue of array a, 
+            // using index to get value from array b
+            //return item - new_list[index];
+            })
+            console.log(x);
+ */
+
+
+
+        });
+
+
     },
   watch: { 
         'shopping_list': { 
             handler: function() {
                 localStorage.setItem('shopping_list', JSON.stringify(this.shopping_list)) 
+                
+                
             },
             deep: true,
             },
@@ -207,7 +229,7 @@ ul {
 }
 
 /* Start of custom checkbox styling */
-input.checkbox {
+/* input.checkbox {
     margin: 0px 10px 0px 0px;
     -webkit-appearance: none;
 	background-color: #fafafa;
@@ -239,7 +261,7 @@ input.checkbox:checked:after {
 }
 input.checkbox:focus {
     outline: none;
-}
+} */
 /* End of custom checkbox styling */
 
 </style>

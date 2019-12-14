@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <navigation msg="Nav"/>
-    <shop2 />
     <div>
-      <button @click="display('search')">Search</button>
-      <button @click="display('mealplanner')">Plan</button>
-      <!-- <button @click="display('shop2')">Shop</button> -->
-        <keep-alive>
-        <component v-bind:is="selected"></component>
-        </keep-alive>
+      <search />
+    </div>  
+    <div>  
+      <mealplanner />
+    </div>
+    <div>
+      <shop2 />
     </div>
   </div>
 </template>
