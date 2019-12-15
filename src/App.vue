@@ -1,14 +1,17 @@
 <template>
   <div id="app">
     <navigation msg="Nav"/>
-    <div class="component">
+    <button @click="display('search')">Search</button>
+    <button @click="display('plan')">Plan</button>
+    <button @click="display('shop')">Shop</button>
+    <div v-if="this.selected=='search'" class="component" id="search-component">
       <search />
     </div>  
-    <div class="component">  
+    <div v-if="this.selected=='plan'" class="component" id="plan-component">  
       <mealplanner />
     </div>
-    <div class="component">
-      <shop2 />
+    <div v-if="this.selected=='shop'" class="component" id="shop-component">
+      <shop />
     </div>
   </div>
 </template>
@@ -17,7 +20,7 @@
 import Nav from './components/Nav.vue'
 import Search from './components/Search.vue'
 import Plan from './components/Plan.vue'
-import Shop_2 from './components/Shop_2.vue'
+import Shop from './components/Shop.vue'
 
 export default {
   name: 'app',
@@ -30,7 +33,7 @@ export default {
     navigation: Nav,
     search: Search,
     mealplanner: Plan,
-    shop2: Shop_2
+    shop: Shop
   },
   methods: {
     display(elem){
@@ -45,7 +48,9 @@ export default {
 <style>
 
 .component {
-  margin: 20px 20px;
+  margin: 10px 10px;
+  padding: 10px 10px;
+  border: solid 1px black;
 }
 
 </style>

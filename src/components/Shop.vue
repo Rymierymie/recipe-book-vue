@@ -1,11 +1,13 @@
 <template>
     <div>
         <h1 id="headline">Shop</h1>
+        <button @click="edit_list()">Edit List</button>
         <ul> 
             <li v-for="(item, index) in shopping_list" v-bind:key="index" >
                 <span v-if="item.amount != 0">
                     <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click(item.item)">
                     {{ item.item }} {{ item.amount }} {{ item.type }}
+                    <button style="display:none;" class="delete-button" @click="remove_item(item.item)">remove</button>
                 </span>
             </li>
         </ul>
@@ -29,6 +31,37 @@ export default {
         }
     },
     methods: {
+        remove_item: function(item){
+            let index = this.shopping_list.findIndex(x => x.item == item);
+            console.log(index)
+            //Do I actually want to remove this item, or just declare that it has been removed. 
+            //The item has to be able to return on a meal plan edit. I think it's easier just to remove it
+            //And then scrap the 'removed' true/false from the item.
+            let list = this.shopping_list;
+            list.splice(index,1);
+
+        },
+
+        edit_list: function(){
+        
+        let delete_buttons = document.getElementsByClassName('delete-button')
+        console.log(delete_buttons)
+
+      /*   for (let elem in delete_buttons){
+            delete_buttons[elem].classList.toggle("display-toggle");
+        } */
+       
+        for (let i = 0; i < delete_buttons.length; i++) {
+            if (delete_buttons.item(i).style.display == "inline"){
+                
+                delete_buttons.item(i).style.display = "none";
+                //document.getElementById("edit_list_button").src = "icons/edit.png";
+            } else {
+                delete_buttons.item(i).style.display = "inline";
+                //document.getElementById("edit_list_button").src = "icons/check.png";
+            }
+        } 
+    },
        check_click: function(item){
            console.log("hey" + item);
            let index = this.shopping_list.findIndex(x => x.item == item);
@@ -118,6 +151,19 @@ export default {
                     });  */
         eventBus.$on('meal_plan_summary_change', new_summary => {
             let component = this;
+            let delete_buttons = document.getElementsByClassName('delete-button')
+            console.log(delete_buttons)
+
+            /*   for (let elem in delete_buttons){
+                    delete_buttons[elem].classList.toggle("display-toggle");
+                } */
+            
+                for (let i = 0; i < delete_buttons.length; i++) {
+                        
+                        delete_buttons.item(i).style.display = "none";
+                        //document.getElementById("edit_list_button").src = "icons/edit.png";
+                    } 
+
             console.log("the new summary");
             console.log(new_summary);
             console.log("the test");
@@ -158,9 +204,9 @@ export default {
                 component.shopping_list = new_list;
                 console.log("component shopping list:");
                 console.log(component.shopping_list);
-                /* localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
+                localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
                 console.log("local storage shopping list");
-                console.log(localStorage.shopping_list) */
+                console.log(localStorage.shopping_list)
             } else if (current_list_length > new_list_length){
                 let placeholder_list = current_list.slice()
                 console.log("placeholder list");
@@ -196,9 +242,9 @@ export default {
                 component.shopping_list = current_list;
                 console.log("component shopping list:");
                 console.log(component.shopping_list);
-               /*  localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
+                localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
                 console.log("local storage shopping list");
-                console.log(localStorage.shopping_list) */
+                console.log(localStorage.shopping_list)
 
             } else if (current_list_length < new_list_length){
                  // if the current list is shorter than the new list, need to add some items before updating the list
@@ -228,9 +274,9 @@ export default {
                 component.shopping_list = current_list;
 /*                 console.log("component shopping list:");
                 console.log(component.shopping_list); */
-                /* localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
+                localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
                 console.log("local storage shopping list");
-                console.log(localStorage.shopping_list) */
+                console.log(localStorage.shopping_list)
 
             } else if (current_list_length === new_list_length){
                 // if the current list is the same length as the new list, we can assume no items have changed, so just need to update any amounts
@@ -242,9 +288,9 @@ export default {
                 component.shopping_list = current_list;
                 console.log("component shopping list:");
                 console.log(component.shopping_list);
-                /* localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
+                localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
                 console.log("local storage shopping list");
-                console.log(localStorage.shopping_list) */
+                console.log(localStorage.shopping_list)
             }
 
 
@@ -306,6 +352,10 @@ export default {
 ul {
     list-style-type:none;
     padding: 0px 0px;
+}
+
+.display-toggle {
+    display: none;
 }
 
 /* Start of custom checkbox styling */
