@@ -7,7 +7,7 @@
             <h2>{{ name }}</h2>
             <h3>Lunch</h3>
             <select v-model="value.lunch.recipe">
-                <option selected></option>
+                <option value="" selected></option>
                 <option v-for="(item, index) in menu" v-bind:key="index">
                     {{ item }}
                 </option>
@@ -19,7 +19,7 @@
             </p>
             <h3>Dinner</h3>
             <select v-model="value.dinner.recipe">
-                <option selected></option>
+                <option value="" selected></option>
                 <option v-for="(item, index) in menu" v-bind:key="index">
                     {{ item }}
                 </option>

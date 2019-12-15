@@ -125,6 +125,9 @@ export default {
                 //and make sure that I can bring in a new plan and compare with the current BEFORE overriding.
             let new_list = this.shop_list_builder_2(new_summary);
             console.log(new_list);
+            let new_list_length = new_list.length
+            console.log("new list length")
+            console.log(new_list_length)
             /* Use this to assign the correct meal_plan summary to the data for the page when needed
             component.meal_plan_summary = new_summary;
             console.log(component.meal_plan_summary); */
@@ -135,6 +138,9 @@ export default {
             let current_list = JSON.parse(localStorage.getItem('shopping_list'));
             console.log("the current list");
             console.log(current_list);
+            let current_list_length = current_list.length
+            console.log("current list length")
+            console.log(current_list_length)
             //Interesting that these lists are already returning different values... Weird caching going on!
 
             //the new summary is being passed to the shopping list whenever a change is made to the meal plan!
@@ -146,7 +152,7 @@ export default {
 
 
             //if current list is empty, then set it to the new list
-            if (current_list.length === 0){
+            if (current_list_length === 0){
                 console.log("the original list is empty, so you can just assign the new list to being the current list!");
                 component.shopping_list = new_list;
                 console.log("component shopping list:");
@@ -154,27 +160,38 @@ export default {
                 localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
                 console.log("local storage shopping list");
                 console.log(localStorage.shopping_list)
-            } else if (current_list.length > new_list.length){
+            } else if (current_list_length > new_list_length){
+                let placeholder_list = current_list.slice()
+                console.log("placeholder list");
+                console.log(placeholder_list);
                  // if current list is longer than the new list, need to remove some items before returning the list
                 console.log("the current list is longer, so we'll need to remove some items!");
                 console.log(current_list);
-                let holder_list = current_list;
-                for (let item in current_list){
+                //let holder_list = current_list;
+                /* let holder_list = current_list.slice();
+                console.log("holder list");
+                console.log(holder_list); */
+                for (let list_item in current_list){
                     console.log("item! be a number")
-                    console.log(item)
-                    let index = new_list.findIndex(x => x.item == current_list[item].item);
+                    console.log(list_item)
+                    let index = new_list.findIndex(x => x.item == current_list[list_item].item);
+                    console.log("the index of the item")
+                    console.log(index)
                     if (index === -1){
                         console.log("this item needs to be removed. Index:");
-                        console.log(item);
-                        holder_list.splice(item,1)
-                    }
-
-                    if (index != -1){
+                        let placeholder_index = placeholder_list.findIndex(x => x.item == current_list[list_item].item)
+                        placeholder_list.splice(placeholder_index,1);
+                        console.log(placeholder_list);
+                        /* console.log(current_list[list_item].item);
+                        current_list.splice(list_item,1);
+                        console.log(JSON.stringify(current_list)) */
+                    } else {
                         console.log("this items amount needs to be updated in the current list");
-                        holder_list[item].amount = new_list[index].amount;
+                        current_list[list_item].amount = new_list[index].amount;
                     }    
                 }
-                current_list = holder_list;
+                //current_list = holder_list;
+                current_list = placeholder_list;
                 component.shopping_list = current_list;
                 console.log("component shopping list:");
                 console.log(component.shopping_list);
@@ -182,7 +199,7 @@ export default {
                 console.log("local storage shopping list");
                 console.log(localStorage.shopping_list)
 
-            } else if (current_list.length < new_list.length){
+            } else if (current_list_length < new_list_length){
                  // if the current list is shorter than the new list, need to add some items before updating the list
                 console.log("the current list is shorter, so we'll need to add some items!");
                 for (let item in new_list){
@@ -214,7 +231,7 @@ export default {
                 console.log("local storage shopping list");
                 console.log(localStorage.shopping_list)
 
-            } else if (current_list.length === new_list.length){
+            } else if (current_list_length === new_list_length){
                 // if the current list is the same length as the new list, we can assume no items have changed, so just need to update any amounts
                 console.log("The new and current lists are the same length, so we'll just need to update the amounts on the current list");
                 for (let item in current_list){
