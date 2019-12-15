@@ -2,7 +2,6 @@
     <div>
         <h1>Plan</h1>
         <button @click="reset_planner()">Reset</button>
-        <button @click="meal_plan_summary_builder()">Summary Builder</button>
         <div v-for="(value, name, index) in meal_plan" v-bind:key="index">
             <h2>{{ name }}</h2>
             <h3>Lunch</h3>
@@ -147,7 +146,8 @@ export default {
 /*                 eventBus.$emit('meal_plan_edit', this.meal_plan); 
                 console.log("huh?")
                 console.log(this.meal_plan) */
-                this.meal_plan_summary = this.meal_plan_summary_builder()
+                //this.meal_plan_summary = 
+                this.meal_plan_summary_builder()
                 //console.log("is the meal plan summary a thing??")
                 console.log(this.meal_plan_summary)
                 eventBus.$emit('meal_plan_summary_change', this.meal_plan_summary);

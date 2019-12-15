@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <navigation msg="Nav"/>
-    <div>
+    <div class="component">
       <search />
     </div>  
-    <div>  
+    <div class="component">  
       <mealplanner />
     </div>
-    <div>
+    <div class="component">
       <shop2 />
     </div>
   </div>
@@ -43,5 +43,9 @@ export default {
 </script>
 
 <style>
+
+.component {
+  margin: 20px 20px;
+}
 
 </style>

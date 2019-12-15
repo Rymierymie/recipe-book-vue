@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Shop</h1>
+        <h1 id="headline">Shop</h1>
         <ul> 
             <li v-for="(item, index) in shopping_list" v-bind:key="index" >
                 <span v-if="item.amount != 0">
@@ -41,24 +41,24 @@ export default {
        shop_list_builder_2: function(plan_summary){
            let list = []
            console.log("inside the shopping list builder");
-           console.log(plan_summary);
+           //console.log(plan_summary);
            for (var meal in plan_summary){
                let recipe = plan_summary[meal].recipe;
                let serves = plan_summary[meal].serves;
-               console.log(recipe + " & " + serves)
+               //console.log(recipe + " & " + serves)
 
                let index = Recipes.findIndex(x => x.recipe == recipe);
-               console.log(index);
+               //console.log(index);
 
                let ingredients = Recipes[index].ingredients;
             for (var item in ingredients){
                 let measure = (ingredients[item].amount/Recipes[index].serves)*serves;
-                console.log(measure);
+                //console.log(measure);
 
                 let list_index = list.findIndex(x => x.item == ingredients[item].name)
-                console.log("the index is:")
+                /* console.log("the index is:")
                 console.log(list_index);
-                console.log(ingredients[item].name);
+                console.log(ingredients[item].name); */
 
                 if (list_index == -1){
                     let list_item = {
@@ -92,8 +92,9 @@ export default {
            return list;
        }
     },
-    mounted () {
-        console.log("mounted");
+    created () {
+        console.log("this is created!");
+
         /* if (localStorage.meal_plan) {
             this.meal_plan = JSON.parse(localStorage.getItem('meal_plan'));
             } */
@@ -157,9 +158,9 @@ export default {
                 component.shopping_list = new_list;
                 console.log("component shopping list:");
                 console.log(component.shopping_list);
-                localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
+                /* localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
                 console.log("local storage shopping list");
-                console.log(localStorage.shopping_list)
+                console.log(localStorage.shopping_list) */
             } else if (current_list_length > new_list_length){
                 let placeholder_list = current_list.slice()
                 console.log("placeholder list");
@@ -195,9 +196,9 @@ export default {
                 component.shopping_list = current_list;
                 console.log("component shopping list:");
                 console.log(component.shopping_list);
-                localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
+               /*  localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
                 console.log("local storage shopping list");
-                console.log(localStorage.shopping_list)
+                console.log(localStorage.shopping_list) */
 
             } else if (current_list_length < new_list_length){
                  // if the current list is shorter than the new list, need to add some items before updating the list
@@ -215,8 +216,8 @@ export default {
                                 checked: false,
                                 removed: false
                             }
-                        console.log("list item to be added!");
-                        console.log(list_item);
+                        /* console.log("list item to be added!");
+                        console.log(list_item); */
                         current_list.push(list_item)
                     }
                     if (index != -1){
@@ -225,11 +226,11 @@ export default {
                     }
                 }
                 component.shopping_list = current_list;
-                console.log("component shopping list:");
-                console.log(component.shopping_list);
-                localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
+/*                 console.log("component shopping list:");
+                console.log(component.shopping_list); */
+                /* localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
                 console.log("local storage shopping list");
-                console.log(localStorage.shopping_list)
+                console.log(localStorage.shopping_list) */
 
             } else if (current_list_length === new_list_length){
                 // if the current list is the same length as the new list, we can assume no items have changed, so just need to update any amounts
@@ -241,23 +242,12 @@ export default {
                 component.shopping_list = current_list;
                 console.log("component shopping list:");
                 console.log(component.shopping_list);
-                localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
+                /* localStorage.setItem('shopping_list', JSON.stringify(component.shopping_list))
                 console.log("local storage shopping list");
-                console.log(localStorage.shopping_list)
+                console.log(localStorage.shopping_list) */
             }
 
-/* Try and use this code to update the checkboxes after the list has rendered
-            let list = this.shopping_list; 
-                for (let item in list){
-                    if (list[item].checked == true){
-                        console.log("this item is checked!");
-                        let id = list[item].item;
-                        console.log(id);
-                        let selected = document.getElementById(id);
-                        console.log(selected);
-                        //selected.checked = true;
-                    }
-                } */
+
 
         /*     //check if new_list and current_list match
             var x = current_list.map(function(item, index) {
@@ -277,15 +267,35 @@ export default {
 
 
     },
+    mounted () {
+        console.log("mounted");
+        
+
+    },
   watch: { 
-        /* 'shopping_list': { 
+        'shopping_list': { 
             handler: function() {
                 localStorage.setItem('shopping_list', JSON.stringify(this.shopping_list)) 
+
+                //Try and use this code to update the checkboxes after the list has rendered
+            let list = this.shopping_list; 
+                for (let item in list){
+                    if (list[item].checked == true){
+                        console.log("this item is checked!");
+                        let id = list[item].item;
+                        //
+                        console.log(id);
+                        let selected = document.getElementById(id);
+                        //`${id}`
+                        console.log(selected);
+                        selected.checked = true;
+                    }
+                }
                 
                 
             },
             deep: true,
-            }, */
+            },
   },
 }
 </script>
