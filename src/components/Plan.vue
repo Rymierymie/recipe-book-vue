@@ -39,6 +39,8 @@ import { eventBus } from '../event-bus';
 
 export default {
   data () {
+      console.log("start of data");
+
    return {
       menu: [],
       meal_plan_summary: Array,
@@ -118,6 +120,7 @@ export default {
     }   
   },
   mounted() {
+      console.log("mounted")
       if (localStorage.meal_plan) {
           this.meal_plan = JSON.parse(localStorage.getItem('meal_plan'));
           }
@@ -133,7 +136,9 @@ export default {
   },
   watch: { 
         'meal_plan': { 
+            immediate: false,
             handler: function() {
+                console.log("watch kicked in!");
                 for (var meal in this.meal_plan) {
                     if (this.meal_plan[meal].lunch.recipe == '' || this.meal_plan[meal].lunch.serves <= 0){
                         this.meal_plan[meal].lunch.serves = 0;
@@ -147,6 +152,8 @@ export default {
                 console.log("huh?")
                 console.log(this.meal_plan) */
                 //this.meal_plan_summary = 
+
+            //NEED TO ADD IN SOMETHING CONDITIONAL HERE TO CONTROL WHEN THESE EVENTS FIRE!!    
                 this.meal_plan_summary_builder()
                 //console.log("is the meal plan summary a thing??")
                 console.log(this.meal_plan_summary)

@@ -2,6 +2,12 @@
     <div>
         <h1 id="headline">Shop</h1>
         <button @click="edit_list()">Edit List</button>
+        <button @click="add_to_list_input()">Add To List</button>
+        <div id="add_to_list_input" class="display-toggle">
+                <input type="text" id="custom_list_item" placeholder="Toilet paper">
+                <img src="../assets/icons/plus.png" id="custom_list_add_button" @click="custom_list_addition()"/>
+        </div>
+        <h3>Shopping list from meal planner:</h3>
         <ul> 
             <li v-for="(item, index) in shopping_list" v-bind:key="index" >
                 <span v-if="item.amount != 0">
@@ -11,8 +17,19 @@
                 </span>
             </li>
         </ul>
-        <h2>Shopping List</h2>
+        <h3>Custom items</h3>
+        <ul>
+            <li v-for="(item, index) in custom_list" v-bind:key="index">
+                <span class="custom-list-item">
+                <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click_custom(item.item)">
+                {{ item.item }}
+                <button style="display:none;" class="delete-button" @click="remove_custom_item(item.item)">remove</button>
+                </span>
+            </li>
+        </ul>
+<!--         <h2>Shopping List</h2>
         {{ shopping_list }}
+        {{ custom_list }} -->
     </div>
     
 </template>
@@ -27,18 +44,42 @@ export default {
         return {
             //meal_plan: {},
             //meal_plan_summary: Array,
-            shopping_list: []
+            shopping_list: [],
+            custom_list: []
         }
     },
     methods: {
+        custom_list_addition: function(){
+            let custom_item_value = document.getElementById("custom_list_item").value;
+            let custom_item = {
+                item: custom_item_value,
+                checked: false
+            }
+            console.log(custom_item);
+            this.custom_list.push(custom_item);
+        },
+        add_to_list_input: function(){
+            let elem = document.getElementById("add_to_list_input")
+            console.log(elem);
+            elem.classList.toggle("display-toggle");
+        },
+        remove_custom_item: function(item){
+            let index = this.custom_list.findIndex(x => x.item == item);
+            console.log(index)
+            let list = this.custom_list;
+            list.splice(index,1);
+
+        },
         remove_item: function(item){
             let index = this.shopping_list.findIndex(x => x.item == item);
             console.log(index)
+            this.shopping_list[index].removed = true;
+            this.shopping_list[index].amount = 0;
             //Do I actually want to remove this item, or just declare that it has been removed. 
             //The item has to be able to return on a meal plan edit. I think it's easier just to remove it
             //And then scrap the 'removed' true/false from the item.
-            let list = this.shopping_list;
-            list.splice(index,1);
+            /* let list = this.shopping_list;
+            list.splice(index,1); */
 
         },
 
@@ -62,10 +103,30 @@ export default {
             }
         } 
     },
+    check_click_custom: function(item){
+           console.log("hey custom " + item);
+           let index = this.custom_list.findIndex(x => x.item == item);
+           console.log(this.custom_list)
+           console.log("inded?" +index);
+           if(this.custom_list[index].checked == true){
+               this.custom_list[index].checked = false
+           } else {
+               this.custom_list[index].checked = true;
+           }
+
+           
+           /* let index = this.shopping_list.findIndex(x => x.item == item);
+           this.shopping_list[index].checked = true; */
+       },
        check_click: function(item){
-           console.log("hey" + item);
+           console.log("hey " + item);
            let index = this.shopping_list.findIndex(x => x.item == item);
-           this.shopping_list[index].checked = true;
+           if (this.shopping_list[index].checked == true){
+               this.shopping_list[index].checked = false;
+           } else {
+               this.shopping_list[index].checked = true;
+           }
+        
        },
 /*        shop_list_difference_checker: function(long_list, short_list){
 
@@ -142,6 +203,17 @@ export default {
               
           //this.shopping_list = this.shopping_list_builder(this.meal_plan);
          }  
+
+         if (localStorage.custom_list) {
+          this.custom_list = JSON.parse(localStorage.getItem('custom_list'));
+          console.log("custom list set from local storage")
+
+          } else {
+              console.log("no local storage to build a list from");
+              localStorage.setItem('custom_list', JSON.stringify(this.custom_list))
+              
+          //this.shopping_list = this.shopping_list_builder(this.meal_plan);
+         } 
 /*         eventBus.$on('meal_plan_edit', new_meal_plan => {
             this.shopping_list = this.shopping_list_builder(new_meal_plan);
                     });   */ 
@@ -342,7 +414,29 @@ export default {
             },
             deep: true,
             },
-  },
+
+  'custom_list': {
+      handler: function() {
+          localStorage.setItem('custom_list', JSON.stringify(this.custom_list)) 
+          let list = this.custom_list; 
+                for (let item in list){
+                    if (list[item].checked == true){
+                        console.log("this item is checked!");
+                        let id = list[item].item;
+                        //
+                        console.log(id);
+                        let selected = document.getElementById(id);
+                        //`${id}`
+                        console.log(selected);
+                        selected.checked = true;
+                    }
+                }
+                },
+            deep: true,
+            },
+
+      
+  }
 }
 </script>
 
@@ -358,8 +452,12 @@ ul {
     display: none;
 }
 
+.custom-list-item {
+    color: blue;
+}
+
 /* Start of custom checkbox styling */
-/* input.checkbox {
+input.checkbox {
     margin: 0px 10px 0px 0px;
     -webkit-appearance: none;
 	background-color: #fafafa;
@@ -391,7 +489,7 @@ input.checkbox:checked:after {
 }
 input.checkbox:focus {
     outline: none;
-} */
+}
 /* End of custom checkbox styling */
 
 </style>

@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <navigation msg="Nav"/>
+    <button @click="display('shop')">Shop</button>
     <button @click="display('search')">Search</button>
     <button @click="display('plan')">Plan</button>
-    <button @click="display('shop')">Shop</button>
     <div v-if="this.selected=='search'" class="component" id="search-component">
       <search />
     </div>  
@@ -26,7 +26,7 @@ export default {
   name: 'app',
   data () {
     return {
-      selected: null
+      selected: 'shop'
     }
   },
   components: {
