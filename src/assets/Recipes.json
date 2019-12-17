@@ -2,20 +2,20 @@
   {
    "recipe": "Hot smoked salmon and lentil salad",
    "serves": 4,
-   "ingredients": [  {"name":"lentils","type":"gm","amount":400,"notes":"1 can (drained)"  },  {"name":"red capsicum","type":"gm","amount":271,"notes":"Thinly slice 1 regular sized capsicum"  },  {"name":"red onion","type":"gm","amount":95,"notes":"Dice 1/2 regular sized red onion"  },  {"name":"parsley (fresh)","type":"cup","amount":0.33,"notes":"Roughly chop 1/3 cup of fresh parsley"  },  {"name":"baby spinach","type":"gm","amount":80,"notes":"Wash and chop roughly if quite large leaves"  },  {"name":"hot smoked salmon","type":"gm","amount":150,"notes":"Skin removed and salmon flaked with a fork"  },  {"name":"orange","type":"whole","amount":1,"notes":""  }],
+   "ingredients": [  {"name":"lentils","type":"gm","amount":400,"notes":"1 can (drained)"  },  {"name":"red capsicum","type":"whole","amount":1,"notes":"Thinly slice 1 regular sized capsicum"  },  {"name":"red onion","type":"whole","amount":0.5,"notes":"Dice 1/2 regular sized red onion"  },  {"name":"parsley (fresh)","type":"cup","amount":0.33,"notes":"Roughly chop 1/3 cup of fresh parsley"  },  {"name":"baby spinach","type":"gm","amount":80,"notes":"Wash and chop roughly if quite large leaves"  },  {"name":"hot smoked salmon","type":"gm","amount":150,"notes":"Skin removed and salmon flaked with a fork"  },  {"name":"orange","type":"whole","amount":1,"notes":""  }],
    "method": [  {"step_number":1,"type":"preparation","action":"mix","ingredients":["lentils","red capsiucm","red onion","parsley (fresh)","baby spinach","hot smoked salmon"],"instruction":"Place the lentils, capsicum, onion, parsley, spinach and salmon in a large bowl. Gently toss to combine."   },  {"step_number":2,"type":"serving","action":"mix","ingredients":["orange"],"instruction":"Squeeze over orange juice to taste. Season. Gently toss to combine. Divide among serving plates."   }],
    "source": "https://www.taste.com.au/recipes/hot-smoked-salmon-lentil-salad/77e76476-c514-41e1-8298-dfe486d8d4f2",
    "vegetarian": false,
-   "category": "Salad"
+   "category": ["Meal","Salad"]
   },
   {
    "recipe": "Roast pumpkin, chickpea and rocket salad",
    "serves": 4,
-   "ingredients": [{"name":"olive oil","type":"ml","amount":60,"notes":"1 can (drained)" },  {"name":"red capsicum","type":"gm","amount":600,"notes":"Chop 2 regular sized red capsicum into chunks, discarding all seeds"  },  {"name":"red onion","type":"gm","amount":95,"notes":"Dice 1/2 regular sized red onion"  },  {"name":"pumpkin","type":"gm","amount":750,"notes":"Chop into 2-3cm chunks"  },  {"name":"rocket","type":"gm","amount":120,"notes":"Wash and chop roughly if quite large leaves"  },  {"name":"danish feta","type":"gm","amount":150,"notes":"crumbled"  },  {"name":"chickpeas","type":"gm","amount":400,"notes":"Drain and rinse 1 can of chickpeas"  },  {"name":"balsamic vinegar","type":"ml","amount":60,"notes":""  }],
+   "ingredients": [{"name":"olive oil","type":"ml","amount":60,"notes":"1 can (drained)" },  {"name":"red capsicum","type":"whole","amount":2,"notes":"Chop 2 regular sized red capsicum into chunks, discarding all seeds"  },  {"name":"red onion","type":"whole","amount":0.5,"notes":"Dice 1/2 regular sized red onion"  },  {"name":"pumpkin","type":"whole","amount":0.5,"notes":"Half a butternup pumpkin cut into 2-3cm chunks"  },  {"name":"rocket","type":"gm","amount":120,"notes":"Wash and chop roughly if quite large leaves"  },  {"name":"danish feta","type":"gm","amount":150,"notes":"crumbled"  },  {"name":"chickpeas","type":"gm","amount":400,"notes":"Drain and rinse 1 can of chickpeas"  },  {"name":"balsamic vinegar","type":"ml","amount":60,"notes":""  }],
    "method": [{"step_number":1,"type":"preparation","action":"chop","ingredients":["pumpkin","red capsiucm","red onion"],"instruction":"Place the pumpkin, capsicum and red onion in baking trays. Season and drizzle with olive oil"   },  {"step_number":2,"type":"cooking","action":"bake","ingredients":["pumpkin","red capsiucm","red onion"],"instruction":"Bake items at 180C (fan bake) for 25-30 minutes (or until desired tenderness). Bake on separate trays to allow for removal of capsicum and red onion if cooked before the pumpkin"   },  {"step_number":3,"type":"serving","action":"mix","ingredients":["olive oil","balsamic vinegar","pumpkin","red capsiucm","red onion","chickpeas","danish feta","rocket"],"instruction":"Combine the capsicum, pumpkin, onion, feta, chickpeas and rocket in large bowl. Combine the vinegar and remaining oil in a small bowl. Pour over the salad and toss to combine."}],
    "source": "https://www.taste.com.au/recipes/roast-pumpkin-chickpea-rocket-salad/2b5c147b-7ea2-4536-afce-13a030f87ce6",
    "vegetarian": true,
-   "category": "Salad"
+   "category": ["Meal","Salad"]
   },
   {
    "recipe": "Mediterranean Bean Salad",
@@ -24,15 +24,443 @@
    "method": [{"step_number":1,"type":"preparation","action":"mix","ingredients":["olive oil","red wine vinegar","garlic","mixed herbs","salt","pepper"],"instruction":"Whisk the dressing ingredients (olive oil, red wine vinegar, garlic, mixed herbs, salt, pepper) together and taste to adjust any of them. Add more vinegar if you want a tangier flavor. Set aside."   },  {"step_number":2,"type":"serving","action":"mix","ingredients":["dressing","mixed beans","cherry tomato","cucumber","red onion","red capsicum","kalamata olives","green olives","danish feta","marinated artichoke","basil (fresh)"],"instruction":"Put the beans in a large salad bowl. Add the rest of the ingredients and toss with a generous amount of the dressing."}],
    "source": "https://theviewfromgreatisland.com/mediterranean-bean-salad-recipe/",
    "vegetarian": true,
-   "category": "Salad"
+   "category": ["Meal","Salad"]
   },
   {
    "recipe": "Zucchini Fritters",
    "serves": 4,
-   "ingredients": [ {  "name": "zucchini",  "type": "cup",  "amount": 3,  "notes": "shredded and drained" }, {  "name": "carrot",  "type": "cup",  "amount": 2,  "notes": "shredded" }, {  "name": "garlic",  "type": "clove",  "amount": 2,  "notes": "crushed" }, {  "name": "flour",  "type": "cup",  "amount": 0.66,  "notes": "" }, {  "name": "parmesan",  "type": "cup",  "amount": 0.33,  "notes": "grated" }, {  "name": "egg",  "type": "whole",  "amount": 2,  "notes": "lightly beaten" }, {  "name": "spring onion",  "type": "cup",  "amount": 0.5,  "notes": "roughly chopped" }, {  "name": "olive oil",  "type": "ml",  "amount": 40,  "notes": "2 tablespoons" }, {  "name": "greek yoghurt",  "type": "",  "amount": "",  "notes": "to taste" }],
+   "ingredients": [ {  "name": "zucchini",  "type": "whole",  "amount": 3,  "notes": "shredded and drained" }, {  "name": "carrot",  "type": "whole",  "amount": 3,  "notes": "shredded" }, {  "name": "garlic",  "type": "clove",  "amount": 2,  "notes": "crushed" }, {  "name": "flour",  "type": "cup",  "amount": 0.66,  "notes": "" }, {  "name": "parmesan",  "type": "cup",  "amount": 0.33,  "notes": "grated" }, {  "name": "egg",  "type": "whole",  "amount": 2,  "notes": "lightly beaten" }, {  "name": "spring onion",  "type": "cup",  "amount": 0.5,  "notes": "roughly chopped" }, {  "name": "olive oil",  "type": "ml",  "amount": 40,  "notes": "2 tablespoons" }, {  "name": "greek yoghurt",  "type": "",  "amount": "",  "notes": "to taste" }],
    "method": [ { "type": "preparation",  "step_number": 1,  "action": "",  "ingredients": [   "zucchini",   "salt"  ],  "instruction": "Place shredded zucchini in a strainer and sprinkle with salt. Drain for 10 minutes then squeeze out as much liquid as possible with your hands. This will prevent the fritters from being too soggy." }, {  "type": "preparation",  "step_number": 2,  "action": "",  "ingredients": [   ""  ],  "instruction": "Mix the zucchini with the carrots, garlic, flour, eggs, spring onion, salt and pepper in a large bowl." }, {  "type": "cooking",  "step_number": 3,  "action": "",  "ingredients": [   ""  ],  "instruction": "Heat a large pan over medium-high heat and add the olive oil. Scoop big sppons of mixture into the pan, flattening and shaping them evenly. Proceed in batches to avoid overcrowding the pan." }, {  "type": "cooking",  "step_number": 4,  "action": "cooking",  "ingredients": [   ""  ],  "instruction": "Cook the fritters until they’re golden brown and crispy. Transfer to the paper towel-lined plate, season with salt and repeat the process with the remaining mixture." }, {  "type": "serving",  "step_number": 5,  "action": "",  "ingredients": [   ""  ],  "instruction": "Serve the fritters immediately with greek yogurt." }],
    "source": "https://www.eatwell101.com/zucchini-fritters-recipe",
    "vegetarian": true,
-   "category": "Meal"
+   "category": ["Meal"]
+  },
+  {
+    "recipe": "Chickpea, Avocado, & Feta Salad",
+    "serves": 4,
+    "ingredients": [
+      {
+        "name": "chickpeas",
+        "type": "gm",
+        "amount": 400,
+        "notes": "1 can (drained)"
+      },
+      {
+        "name": "avocado",
+        "type": "whole",
+        "amount": 2,
+        "notes": "pitted and chopped"
+      },
+      {
+        "name": "coriander (fresh)",
+        "type": "cup",
+        "amount": 0.33,
+        "notes": ""
+      },
+      {
+        "name": "red onion",
+        "type": "whole",
+        "amount": 0.5,
+        "notes": "roughly chop half a mid-sized red onion (adjust to your taste)"
+      },
+      {
+        "name": "danish feta",
+        "type": "gm",
+        "amount": 100,
+        "notes": "crumbled (adjust to your taste)"
+      },
+      {
+        "name": "lime juice",
+        "type": "ml",
+        "amount": 40,
+        "notes": "juice of 1 lime"
+      },
+      {
+        "name": "salt",
+        "type": "tsp",
+        "amount": 0.5,
+        "notes": "to taste"
+      },
+      {
+        "name": "pepper",
+        "type": "tsp",
+        "amount": 0.5,
+        "notes": "to taste"
+      }
+    ],
+    "method": [
+      {
+        "type": "preparation",
+        "step_number": 1,
+        "action": "",
+        "ingredients": [],
+        "instruction": "Combine chickpeas, avocado, coriander, red onion, danish feta, and lime juice in a bowl."
+      },
+      {
+        "type": "serving",
+        "step_number": 2,
+        "action": "",
+        "ingredients": [],
+        "instruction": "Season with salt and peper, mix well and serve."
+      }
+    ],
+    "source": "https://www.twopeasandtheirpod.com/chickpea-avocado-feta-salad/",
+    "vegetarian": true,
+    "category": ["Meal","Salad"]
+  },
+  {
+    "recipe": "High Protein Kidney Bean Salad",
+    "serves": 4,
+    "ingredients": [
+      {
+        "name": "kidney beans",
+        "type": "gm",
+        "amount": 400,
+        "notes": "1 can drained and rinsed"
+      },
+      {
+        "name": "corn",
+        "type": "gm",
+        "amount": 400,
+        "notes": "1 can corn kernals drained and rinsed"
+      },
+      {
+        "name": "chickpeas",
+        "type": "gm",
+        "amount": 400,
+        "notes": "1 can drained and rinsed"
+      },
+      {
+        "name": "cucumber",
+        "type": "whole",
+        "amount": 0.5,
+        "notes": "chop half a large cucumber or a whole lebanese cucumber"
+      },
+      {
+        "name": "danish feta",
+        "type": "gm",
+        "amount": 150,
+        "notes": "crumbled"
+      },
+      {
+        "name": "coriander",
+        "type": "cup",
+        "amount": 0.5,
+        "notes": "roughly chopped (you can use parsley as an alternative)"
+      },
+      {
+        "name": "red onion",
+        "type": "whole",
+        "amount": 0.5,
+        "notes": "dice half a mid-sized red onion"
+      },
+      {
+        "name": "lime juice",
+        "type": "ml",
+        "amount": 20,
+        "notes": "juice of half a lime"
+      },
+      {
+        "name": "olive oil",
+        "type": "ml",
+        "amount": 40,
+        "notes": "2 tablespoons"
+      },
+      {
+        "name": "dijon mustard",
+        "type": "tsp",
+        "amount": 1,
+        "notes": ""
+      },
+      {
+        "name": "cumin",
+        "type": "tsp",
+        "amount": 1,
+        "notes": ""
+      },
+      {
+        "name": "oregano (dried)",
+        "type": "tsp",
+        "amount": 0.5,
+        "notes": ""
+      },
+      {
+        "name": "honey",
+        "type": "tsp",
+        "amount": 1,
+        "notes": ""
+      },
+      {
+        "name": "salt",
+        "type": "tsp",
+        "amount": 0.5,
+        "notes": "to taste"
+      },
+      {
+        "name": "pepper",
+        "type": "tsp",
+        "amount": 0.5,
+        "notes": "to taste"
+      }
+    ],
+    "method": [
+      {
+        "type": "preparation",
+        "step_number": 1,
+        "action": "",
+        "ingredients": [],
+        "instruction": "Throw kidney beans, corn, chickpeas, cucumber, red onion and danish feta into a big bowl and give it a good mix."
+      },
+      {
+        "type": "preparation",
+        "step_number": 2,
+        "action": "",
+        "ingredients": [],
+        "instruction": "Combine the dressing ingredients (lime juice, olive oil, mustard, cumin, oregano, honey, salt and pepper) in a small and whisk to combine."
+      },
+      {
+        "type": "serving",
+        "step_number": 3,
+        "action": "",
+        "ingredients": [],
+        "instruction": "Drizzle the dressing over your salad, stir to combine, then serve."
+      }
+    ],
+    "source": "https://hurrythefoodup.com/high-protein-kidney-bean-salad/",
+    "vegetarian": true,
+    "category": ["Meal","Salad"]
+  },
+  {
+    "recipe": "Spinach Pie",
+    "serves": 4,
+    "ingredients": [
+      {
+        "name": "puff pastry",
+        "type": "sheet",
+        "amount": 1,
+        "notes": "frozen pastry"
+      },
+      {
+        "name": "spinach (frozen)",
+        "type": "gm",
+        "amount": 250,
+        "notes": ""
+      },
+      {
+        "name": "lentils",
+        "type": "gm",
+        "amount": 400,
+        "notes": "1 can drained and rinsed (optional)"
+      },
+      {
+        "name": "egg",
+        "type": "whole",
+        "amount": 1,
+        "notes": ""
+      },
+      {
+        "name": "milk",
+        "type": "ml",
+        "amount": 175,
+        "notes": "3/4 cup"
+      },
+      {
+        "name": "cheddar cheese",
+        "type": "cup",
+        "amount": 0.5,
+        "notes": "grated"
+      },
+      {
+        "name": "parmesan cheese",
+        "type": "cup",
+        "amount": 0.25,
+        "notes": ""
+      },
+      {
+        "name": "nutmeg",
+        "type": "tsp",
+        "amount": 0.25,
+        "notes": ""
+      },
+      {
+        "name": "paprika",
+        "type": "tsp",
+        "amount": 0.25,
+        "notes": "to sprinkle on top"
+      },
+      {
+        "name": "salt",
+        "type": "tsp",
+        "amount": 0.5,
+        "notes": "to taste"
+      },
+      {
+        "name": "pepper",
+        "type": "tsp",
+        "amount": 0.5,
+        "notes": "to taste"
+      }
+    ],
+    "method": [
+      {
+        "type": "preparation",
+        "step_number": 1,
+        "action": "",
+        "ingredients": [],
+        "instruction": "Thaw frozen spinach and drain excess water."
+      },
+      {
+        "type": "preparation",
+        "step_number": 2,
+        "action": "",
+        "ingredients": [],
+        "instruction": "Combine egg and milk in a bowl. Add drained spinach, milk, both cheeses and nutmeg and season with salt & pepper."
+      },
+      {
+        "type": "preparation",
+        "step_number": 3,
+        "action": "",
+        "ingredients": [],
+        "instruction": "Line pie tin with thawed pastry. Add spinach mixture to pie plate and lightly dust with paprika."
+      },
+      {
+        "type": "cooking",
+        "step_number": 4,
+        "action": "",
+        "ingredients": [],
+        "instruction": "Bake for 35 – 40 mins at 180C until pie is firm and golden."
+      }
+    ],
+    "source": "",
+    "vegetarian": true,
+    "category": [
+      "Meal",
+      "Pie"
+    ]
+  },
+  {
+    "recipe": "Simple Quinoa Salad",
+    "serves": 4,
+    "ingredients": [
+      {
+        "name": "quinoa",
+        "type": "cup",
+        "amount": 1,
+        "notes": "1 cup uncooked quinoa cooked in 2 cups of water"
+      },
+      {
+        "name": "chickpeas",
+        "type": "gm",
+        "amount": 400,
+        "notes": "1 cup drained and rinsed"
+      },
+      {
+        "name": "cucumber",
+        "type": "whole",
+        "amount": 1,
+        "notes": "1 regular cucumber or 2 lebanese cucumbers"
+      },
+      {
+        "name": "red capsicum",
+        "type": "whole",
+        "amount": 1,
+        "notes": "chopped"
+      },
+      {
+        "name": "red onion",
+        "type": "whole",
+        "amount": 1,
+        "notes": "1 small red onion finely diced"
+      },
+      {
+        "name": "danish feta",
+        "type": "gm",
+        "amount": 100,
+        "notes": "crumbled"
+      },
+      {
+        "name": "cherry tomato",
+        "type": "gm",
+        "amount": 150,
+        "notes": "quartered "
+      },
+      {
+        "name": "parsley (fresh)",
+        "type": "cup",
+        "amount": 1,
+        "notes": "chopped "
+      },
+      {
+        "name": "olive oil",
+        "type": "ml",
+        "amount": 60,
+        "notes": "quarter cup (3 tablespoons)"
+      },
+      {
+        "name": "lemon juice",
+        "type": "ml",
+        "amount": 60,
+        "notes": "quarter cup (3 tablespoons)"
+      },
+      {
+        "name": "red wine vinegar",
+        "type": "ml",
+        "amount": 20,
+        "notes": "1 tablespoon"
+      },
+      {
+        "name": "garlic",
+        "type": "clove",
+        "amount": 2,
+        "notes": "minced"
+      },
+      {
+        "name": "salt",
+        "type": "tsp",
+        "amount": 0.5,
+        "notes": ""
+      },
+      {
+        "name": "pepper",
+        "type": "tsp",
+        "amount": 0.5,
+        "notes": "to taste"
+      }
+    ],
+    "method": [
+      {
+        "type": "preparation",
+        "step_number": 1,
+        "action": "",
+        "ingredients": [],
+        "instruction": "Bring the quinoa to a boil and simmer for 15 minutes (or until the water has absorbed). Take off the heat and allow to cool, stirring to fluff the quinoa as it cools."
+      },
+      {
+        "type": "preparation",
+        "step_number": 2,
+        "action": "",
+        "ingredients": [],
+        "instruction": "In a large serving bowl, combine the chickpeas, cucumber, cherry tomatoes, red capsicum, red onion and parsley. "
+      },
+      {
+        "type": "preparation",
+        "step_number": 3,
+        "action": "",
+        "ingredients": [],
+        "instruction": "In a small bowl, combine the olive oil, lemon juice, vinegar, garlic and salt. Whisk until blended, then set aside."
+      },
+      {
+        "type": "serving",
+        "step_number": 4,
+        "action": "",
+        "ingredients": [],
+        "instruction": "Once the quinoa is mostly cool, add it to the serving bowl, and drizzle the dressing on top. Toss until the mixture is thoroughly combined. Season with black pepper, to taste, and add an extra pinch of salt if necessary."
+      }
+    ],
+    "source": "https://cookieandkate.com/best-quinoa-salad-recipe/",
+    "vegetarian": true,
+    "category": [
+      "Salad"
+    ]
   }
  ]
