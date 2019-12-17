@@ -31,6 +31,9 @@
                 <h1 >{{ recipe_name }}</h1>
                 <button @click="add_to_menu(recipe_name)">Add to menu</button>
             </div>
+            <div v-bind:key="recipe_description">
+                <p><strong>Description:</strong> {{ recipe_description }}</p>
+            </div>
             <div> 
             <h2>Ingredients</h2>
                 <ul> 
@@ -94,6 +97,7 @@ export default {
       recipe_name: null,
       recipe_ingredients: null,
       recipe_method: null,
+      recipe_description: null,
       menu: []
         }   
   },
@@ -136,6 +140,7 @@ export default {
                 this.recipe_name = Recipes[index].recipe;
                 this.recipe_ingredients = Recipes[index].ingredients;
                 this.recipe_method = Recipes[index].method; 
+                this.recipe_description = Recipes[index].description; 
 
           },
       ingredient_name: function() {
