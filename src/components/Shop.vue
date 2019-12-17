@@ -268,7 +268,6 @@ export default {
                     if (list[item].checked == true){
                         console.log("this item is checked!");
                         let id = list[item].item;
-                        //
                         console.log(id);
                         let selected = document.getElementById(id);
                         //`${id}`

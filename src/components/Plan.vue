@@ -160,7 +160,6 @@ export default {
             mealPlanChange: function(){
                 console.log("mealPlanChange")
                 this.meal_plan_summary_builder()
-                console.log(this.meal_plan_summary)
                 eventBus.$emit('meal_plan_summary_change', this.meal_plan_summary);
                 localStorage.setItem('meal_plan', JSON.stringify(this.meal_plan)) 
             },
@@ -188,10 +187,9 @@ export default {
                             }
                             }
                     }
-                } 
-           // Need to confirm if I'm doubling up things here assignging to the component and then returning     
+                }      
            component.meal_plan_summary = meals;      
-           return component.meal_plan_summary  
+           //return component.meal_plan_summary  
        },
       reset_planner(){
           this.meal_plan = {
@@ -266,6 +264,8 @@ export default {
             }
         }
     }
+    this.meal_plan_summary_builder()
+    eventBus.$emit('meal_plan_summary_change', this.meal_plan_summary);
       }
 
 } 

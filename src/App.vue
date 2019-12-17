@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <navigation msg="Nav"/>
     <button @click="display('shop')">Shop</button>
     <button @click="display('search')">Search</button>
     <button @click="display('plan')">Plan</button>
@@ -13,11 +12,11 @@
     <div v-if="this.selected=='shop'" class="component" id="shop-component">
       <shop />
     </div>
+    <button @click="clear_all_local()">Clear All Local</button>
   </div>
 </template>
 
 <script>
-import Nav from './components/Nav.vue'
 import Search from './components/Search.vue'
 import Plan from './components/Plan.vue'
 import Shop from './components/Shop.vue'
@@ -30,7 +29,6 @@ export default {
     }
   },
   components: {
-    navigation: Nav,
     search: Search,
     mealplanner: Plan,
     shop: Shop
@@ -39,6 +37,11 @@ export default {
     display(elem){
        this.selected = elem;
        console.log(this.selected);
+    },
+    clear_all_local(){
+      localStorage.clear();
+      /* eventBus.$emit('local_cleared', true); */
+      alert("Local Storage Cleared!")
     }
 
   }
@@ -47,10 +50,15 @@ export default {
 
 <style>
 
+#app {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .component {
   margin: 10px 10px;
   padding: 10px 10px;
-  border: solid 1px black;
+  border: solid 1px rgba(0, 0, 0,0.1);
+  border-radius: 5px;
 }
 
 </style>
