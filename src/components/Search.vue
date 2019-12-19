@@ -61,6 +61,9 @@
                     </li>
                 </ul>
         </div>
+        <div v-if="related_recipe != ''" v-bind:key="related_recipe">
+            <p><strong>Related Recipe:</strong> {{ related_recipe }} <button @click="view_recipe(related_recipe)">View</button></p>
+        </div>
     </div>
 </template>
 
@@ -98,6 +101,7 @@ export default {
       recipe_ingredients: null,
       recipe_method: null,
       recipe_description: null,
+      related_recipe: null,
       menu: []
         }   
   },
@@ -141,6 +145,7 @@ export default {
                 this.recipe_ingredients = Recipes[index].ingredients;
                 this.recipe_method = Recipes[index].method; 
                 this.recipe_description = Recipes[index].description; 
+                this.related_recipe = Recipes[index].related_recipe;
 
           },
       ingredient_name: function() {
