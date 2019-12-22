@@ -3,8 +3,9 @@
         <h1>Plan</h1>
         <button @click="reset_planner()">Reset</button>
         <div v-for="(value, name, index) in meal_plan" v-bind:key="index">
-            <h2>{{ name }}</h2>
-            <h3>Lunch</h3>
+            <h2 id="dayHeadline">{{ name }}</h2>
+            <div>
+            <span>Lunch &nbsp;</span>
             <select v-model="value.lunch.recipe" v-on:change="mealPlanChange">
                 <option value="" selected></option>
                 <option v-for="(item, index) in menu" v-bind:key="index">
@@ -16,7 +17,9 @@
             {{ value.lunch.serves }}
             <button @click="value.lunch.serves += 1" v-on:click="mealPlanChange">+</button>
             </p>
-            <h3>Dinner</h3>
+            </div>
+            <div>
+            <span>Dinner &nbsp;</span>
             <select v-model="value.dinner.recipe" v-on:change="mealPlanChange">
                 <option value="" selected></option>
                 <option v-for="(item, index) in menu" v-bind:key="index">
@@ -28,6 +31,7 @@
             {{ value.dinner.serves }}
             <button @click="value.dinner.serves += 1" v-on:click="mealPlanChange">+</button>
             </p>
+            </div>
         </div>
     </div>
 </template>
@@ -277,5 +281,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+#dayHeadline {
+    margin-bottom: 0px;
+}
 
 </style>

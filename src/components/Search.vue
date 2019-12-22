@@ -133,6 +133,9 @@ export default {
       if (localStorage.menu) {
       this.menu = JSON.parse(localStorage.getItem('menu'))
     }
+    eventBus.$on('viewRecentClick', item => {
+                this.recipe_name = item;
+                });
   },
   watch: {
       recipe_name: function() {
@@ -146,6 +149,10 @@ export default {
                 this.recipe_method = Recipes[index].method; 
                 this.recipe_description = Recipes[index].description; 
                 this.related_recipe = Recipes[index].related_recipe;
+                /* let recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed'));
+                recentlyViewed.push(this.recipe_name);
+                localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed)) */
+                eventBus.$emit('recentView', this.recipe_name);
 
           },
       ingredient_name: function() {
