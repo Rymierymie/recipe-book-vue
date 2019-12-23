@@ -9,7 +9,7 @@
    "source": "https://www.taste.com.au/recipes/hot-smoked-salmon-lentil-salad/77e76476-c514-41e1-8298-dfe486d8d4f2",
    "vegetarian": false,
    "category": ["Meal","Salad"],
-   "related_recipe": ""
+   "related_recipe": null
   },
   {
    "id": 2, 
@@ -21,7 +21,7 @@
    "source": "https://www.taste.com.au/recipes/roast-pumpkin-chickpea-rocket-salad/2b5c147b-7ea2-4536-afce-13a030f87ce6",
    "vegetarian": true,
    "category": ["Meal","Salad"],
-   "related_recipe": ""
+   "related_recipe": null
   },
   {
    "id": 3,
@@ -33,7 +33,7 @@
    "source": "https://theviewfromgreatisland.com/mediterranean-bean-salad-recipe/",
    "vegetarian": true,
    "category": ["Meal","Salad"],
-   "related_recipe": ""
+   "related_recipe": null
   },
   {
    "id": 4,
@@ -45,7 +45,7 @@
    "source": "https://www.eatwell101.com/zucchini-fritters-recipe",
    "vegetarian": true,
    "category": ["Meal"],
-   "related_recipe": ""
+   "related_recipe": null
   },
   {
     "id": 5,
@@ -121,7 +121,7 @@
     "source": "https://www.twopeasandtheirpod.com/chickpea-avocado-feta-salad/",
     "vegetarian": true,
     "category": ["Meal","Salad"],
-    "related_recipe": ""
+    "related_recipe": null
   },
   {
     "id": 6,
@@ -246,7 +246,7 @@
     "source": "https://hurrythefoodup.com/high-protein-kidney-bean-salad/",
     "vegetarian": true,
     "category": ["Meal","Salad"],
-    "related_recipe": ""
+    "related_recipe": null
   },
   {
     "id": 7,
@@ -357,7 +357,7 @@
       "Meal",
       "Pie"
     ],
-    "related_recipe": ""
+    "related_recipe": null
   },
   {
     "id": 8,
@@ -485,7 +485,7 @@
     "category": [
       "Salad"
     ],
-    "related_recipe": ""
+    "related_recipe": null
   },
   {
     "id": 9,

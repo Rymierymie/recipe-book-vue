@@ -1,10 +1,14 @@
 <template>
     <div>
-        <h1>Plan</h1>
+        <h1>Plan
         <button @click="reset_planner()">Reset</button>
+        </h1>
         <div v-for="(value, name, index) in meal_plan" v-bind:key="index">
-            <h2 id="dayHeadline">{{ name }}</h2>
-            <div>
+            <h2 id="dayHeadline">{{ name }}
+            <button v-show="value.lunch.serves === 0" @click="show_day(name, 'Lunch')" class="addMealButton">Add lunch</button> 
+            <button v-show="value.dinner.serves === 0" @click="show_day(name, 'Dinner')" class="addMealButton">Add dinner</button>    
+            </h2> 
+            <div class="display-toggle" :id="`${name}LunchSelectors`">
             <span>Lunch &nbsp;</span>
             <select v-model="value.lunch.recipe" v-on:change="mealPlanChange">
                 <option value="" selected></option>
@@ -12,13 +16,13 @@
                     {{ item }}
                 </option>
             </select>
-            <p v-if="value.lunch.recipe != ''">
+            <p v-show="value.lunch.recipe != ''">
             <button @click="value.lunch.serves -= 1" v-on:click="mealPlanChange">-</button>
             {{ value.lunch.serves }}
             <button @click="value.lunch.serves += 1" v-on:click="mealPlanChange">+</button>
             </p>
             </div>
-            <div>
+            <div class="display-toggle" :id="`${name}DinnerSelectors`">
             <span>Dinner &nbsp;</span>
             <select v-model="value.dinner.recipe" v-on:change="mealPlanChange">
                 <option value="" selected></option>
@@ -26,7 +30,7 @@
                     {{ item }}
                 </option>
             </select>
-            <p v-if="value.dinner.recipe != ''">
+            <p v-show="value.dinner.recipe != ''">
             <button @click="value.dinner.serves -= 1" v-on:click="mealPlanChange">-</button>
             {{ value.dinner.serves }}
             <button @click="value.dinner.serves += 1" v-on:click="mealPlanChange">+</button>
@@ -161,6 +165,17 @@ export default {
   },
 
   methods: {
+            show_day: function(dayName, dayTime){
+                console.log(dayName + dayTime);
+                let id = dayName + dayTime + 'Selectors';
+                let elem = document.getElementById(id);
+                console.log(elem);
+                elem.classList.toggle("display-toggle");
+                /* this.meal_plan[dayName][dayTime].serves = 1
+                this.meal_plan[dayName][dayTime].recipe = ; */
+
+            },
+
             mealPlanChange: function(){
                 console.log("mealPlanChange")
                 this.meal_plan_summary_builder()
@@ -284,6 +299,14 @@ export default {
 
 #dayHeadline {
     margin-bottom: 0px;
+}
+
+.display-toggle {
+    display: none;
+}
+
+.addMealButton {
+    margin: 5px 5px;
 }
 
 </style>

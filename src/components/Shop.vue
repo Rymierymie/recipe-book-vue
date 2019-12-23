@@ -1,13 +1,13 @@
 <template>
     <div>
-        <h1 id="headline">Shop</h1>
+        <h1 id="headline">Shop
         <button @click="edit_list()">Edit List</button>
         <button @click="add_to_list_input()">Add To List</button>
+        </h1>
         <div id="add_to_list_input" class="display-toggle">
                 <input type="text" id="custom_list_item" placeholder="Toilet paper">
                 <img src="../assets/icons/plus.png" id="custom_list_add_button" @click="custom_list_addition()"/>
         </div>
-        <h3>Shopping list from meal planner:</h3>
         <ul> 
             <li v-for="(item, index) in shopping_list" v-bind:key="index" >
                 <span v-if="item.amount != 0">
@@ -17,7 +17,7 @@
                 </span>
             </li>
         </ul>
-        <h3>Custom items</h3>
+<!--         <h3 v-if="custom_list.length !== 0">Custom items:</h3> -->
         <ul>
             <li v-for="(item, index) in custom_list" v-bind:key="index">
                 <span class="custom-list-item">
@@ -290,6 +290,7 @@ export default {
 ul {
     list-style-type:none;
     padding: 0px 0px;
+    margin: 0px 0px;
 }
 
 .display-toggle {
