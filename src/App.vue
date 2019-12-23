@@ -5,7 +5,7 @@
     <img src="./assets/icons/calendar.png" class="nav-icon" @click="display('plan')" />
     <img src="./assets/icons/tasks.png" class="nav-icon" @click="display('shop')" />
   </div>  
-  <div>
+  <div v-if="selected === 'search'">
     <p id="recentlyViewedList">Recent:&nbsp;
       <span class="recentlyViewedItem" v-for="(item, index) in recentlyViewed" v-bind:key="index" @click="viewRecentView(item)">{{ item }}<img class="recentlyViewedDivide" src="./assets/icons/divider.png" v-if="recentlyViewed.length > 1"></span>
     </p>
@@ -19,7 +19,9 @@
     <div v-show="this.selected=='shop'" class="component" id="shop-component">
       <shop />
     </div>
+    <div style="padding: 20px 0px 20px 0px">
     <button @click="clear_all_local()">Clear All Local</button>
+    </div>
   </div>
 </template>
 
@@ -157,6 +159,24 @@ select {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.icon {
+    width: 10px;
+    opacity: 0.4;
+}
+
+.icon:hover {
+    opacity: 0.9;
+}
+
+.icon-big {
+  width: 20px;
+  opacity: 0.4;
+}
+
+.icon-big:hover {
+    opacity: 0.9;
 }
 
 </style>

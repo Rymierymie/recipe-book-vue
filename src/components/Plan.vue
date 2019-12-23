@@ -1,7 +1,19 @@
 <template>
     <div>
+        <div>
+            <h1>Menu
+                <button @click="clear_menu()">Clear menu</button>
+            </h1>    
+                <ul> 
+                    <li v-for="(item, index) in menu" v-bind:key="index">
+                        {{ item }}
+                        <img src="../assets/icons/cancel.png" class="icon" id="menuDeleteIcon" @click="remove_from_menu(item)" />
+                    </li>
+                </ul>
+        </div>
+
         <h1>Plan
-        <button @click="reset_planner()">Reset</button>
+        <img src="../assets/icons/reset.png" @click="reset_planner()" class="icon-big"/>
         </h1>
         <div v-for="(value, name, index) in meal_plan" v-bind:key="index">
             <h2 id="dayHeadline">{{ name }}
@@ -308,5 +320,11 @@ export default {
 .addMealButton {
     margin: 5px 5px;
 }
+
+#menuDeleteIcon {
+    position: relative;
+    left: 5px;
+}
+
 
 </style>

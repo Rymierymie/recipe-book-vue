@@ -6,7 +6,7 @@
         </h1>
         <div id="add_to_list_input" class="display-toggle">
                 <input type="text" id="custom_list_item" placeholder="Toilet paper">
-                <img src="../assets/icons/plus.png" id="custom_list_add_button" @click="custom_list_addition()"/>
+                <img src="../assets/icons/plus.png" id="custom_list_add_button" class="icon" @click="custom_list_addition()"/>
         </div>
         <ul> 
             <li v-for="(item, index) in shopping_list" v-bind:key="index" >

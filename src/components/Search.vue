@@ -1,23 +1,11 @@
 <template>
     <div>
-        <div>
-            <h1>Menu
-                <button @click="clear_menu()">Clear menu</button>
-            </h1>    
-                <ul> 
-                    <li v-for="(item, index) in menu" v-bind:key="index">
-                        {{ item }}
-                        <button @click="remove_from_menu(item)">Remove from menu</button>
-                    </li>
-                </ul>
-        </div>
-
         <div id="recipe-card" class="display-toggle">
             <div class="divider">
             </div>
             <div v-bind:key="recipe_name"> 
                 <h1 >{{ recipe_name }}
-                <button @click="add_to_menu(recipe_name)">Add to menu</button>
+                <span @click="add_to_menu(recipe_name)" class="customButton">Add to menu</span>
                 </h1>
             </div>
             <div v-bind:key="recipe_description" id="recipeDescription">
@@ -27,9 +15,9 @@
             </div>
             <div id="ingredientsContainer"> 
             <h2>Ingredients</h2>
-                <div  v-for="(item, index) in recipe_ingredients" v-bind:key="index" :id="`${item.name}_menuList`" class="ingredientsListItem" @click="opacityToggle(item.name)"> 
+                <div  v-for="(item, index) in recipe_ingredients" v-bind:key="index" :id="`${item.name}`" class="ingredientsListItem" @click="opacityToggle(item.name)"> 
                     <p class="ingredientItem">
-                        <strong>{{ item.name }}</strong> {{ item.amount }}<span style="opacity:0;" v-if="item.type === 'whole' || item.type === 'cup' ">-</span>{{ item.type }}
+                        <strong>{{ item.name }}</strong> {{ item.amount }}<span style="opacity:0;" v-if="item.type === 'whole' || item.type === 'cup' || item.type === 'clove' ">-</span>{{ item.type }}
                     </p>
                     <p class="ingredientNotes">
                         {{ item.notes }}
@@ -41,7 +29,7 @@
             <div> 
             <h2>Method</h2>
                 <ol>
-                    <li v-for="(item, index) in recipe_method" v-bind:key="index" class="methodListItem">
+                    <li v-for="(item, index) in recipe_method" v-bind:key="index" class="methodListItem" :id="`${item.step_number}`" @click="opacityToggle(item.step_number)">
                         {{ item.instruction }}
                     </li>
                 </ol>
@@ -57,16 +45,18 @@
                     {{ item }}
                 </option>
             </select> -->
-            <button>View all recipes</button>
+           <!--  <button>View all recipes</button> -->
             <div v-for="(item, index) in recipesData" v-bind:key="index" class="recipeListItem">
                 <h3>{{ item.recipe }}</h3>
                 <p class="recipeDescription">{{ item.description }}</p>
-                <button @click="add_to_menu(item.recipe)">Add to menu</button>
-                <button @click="view_recipe(item.recipe)">View</button>
+                <span class="customButton" @click="add_to_menu(item.recipe)">Add to menu</span>
+                <span class="customButton" @click="view_recipe(item.recipe)">View</span>
             </div>   
         </div>
-        <div>
-            <h3>Browse by ingredients:</h3>
+        <div class="divider">
+        </div>
+        <div id="ingredientSelectDiv">
+            <h4>Browse by ingredients</h4>
             <select id="ingredients-list" v-model="ingredient_name">
                 <option selected></option>
                 <option v-for="(item, index) in ingredients_list" v-bind:key="index">
@@ -76,14 +66,12 @@
         </div>
   
         <div id="ingredients-card" class="display-toggle">
-            <h1>Ingredients with {{ ingredient_name }}</h1>
-                <ul>
-                    <li v-for="(item, index) in ingredient_recipes" v-bind:key="index">
-                        {{ item }}
-                        <button @click="view_recipe(item)">View</button>
-                        <button @click="add_to_menu(item)">Add to menu</button>
-                    </li>
-                </ul>
+            <h4>Recipes with {{ ingredient_name }}</h4>
+                    <div v-for="(item, index) in ingredient_recipes" v-bind:key="index" class="recipeListItem">
+                        <h3>{{ item }}</h3>
+                        <span class="customButton" @click="view_recipe(item)">View</span>
+                        <span class="customButton" @click="add_to_menu(item)">Add to menu</span>
+                    </div>
         </div>
         <div v-if="related_recipe !== null" v-bind:key="related_recipe">
             <p><strong>Related Recipe:</strong> {{ related_recipe }} <button @click="view_recipe(related_recipe)">View</button></p>
@@ -132,8 +120,8 @@ export default {
   },
   methods: {
       opacityToggle(item){
-          console.log(document.getElementById(item + "_menuList"));
-          let elem = document.getElementById(item + "_menuList")
+          console.log(document.getElementById(item));
+          let elem = document.getElementById(item)
           elem.classList.toggle("opacity_toggle")
       },
       view_recipe(recipe){
@@ -244,15 +232,25 @@ ol {
     border-radius: 5px;
 }
 
+#recipeDescription {
+    padding-bottom: 20px;
+}
+
 .methodListItem {
     font-size: 1.1rem;
     padding-bottom: 20px;
+    line-height: 1.7rem;
+    color: #333333
+}
+
+#ingredients-list {
+    margin-bottom: 20px;
 }
 
 .divider {
     content: "";
     background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.7) 0%, rgba(228, 228, 228, 0.7) 15%, rgba(228, 228, 228, 0.7) 85%, rgba(255, 255, 255, 0.7) 100%);
-    height: 2px;
+    height: 1px;
     width: 100%;
 /*     position: absolute;
     bottom: 0;
@@ -262,16 +260,14 @@ ol {
 .divider-light {
     content: "";
     background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.2) 0%, rgba(228, 228, 228, 0.2) 15%, rgba(228, 228, 228, 0.2) 85%, rgba(255, 255, 255, 0.2) 100%);
-    height: 2px;
+    height: 1px;
     width: 100%;
 /*     position: absolute;
     bottom: 0;
     display: block; */
 }
 
-#recipeDescription {
-    padding-bottom: 20px;
-}
+
 
 .ingredientItem {
     margin-bottom: 5px;
@@ -305,8 +301,45 @@ button {
     margin-right: 20px;
 }
 
+
+.customButton {
+    font-size: 0.8rem;
+    font-weight: 100;
+    position: relative;
+    bottom: 3px;
+    opacity: 0.4;
+    border: solid 1px rgba(0, 0, 0,0.4);
+    padding: 5px 5px;
+    border-radius: 5px;
+}
+
+.customButton:hover {
+    opacity: 0.9;
+}
+
+.recipeListItem .customButton {
+    margin: 10px 10px 10px 0px;
+}
+
+.recipeDescription {
+    padding-bottom: 20px;
+}
+
+
 .opacity_toggle {
     opacity: 0.3;
+}
+
+#ingredients-card h3 {
+    padding-bottom: 10px;
+}
+
+#ingredients-card h4 {
+    margin: 0px 0px -15px 0px;
+}
+
+#ingredientSelectDiv h4 {
+    margin: 15px 0px 0px 0px;
 }
 
 </style>
