@@ -4,12 +4,12 @@
             <div class="divider">
             </div>
             <div v-bind:key="recipe_name"> 
-                <h1 >{{ recipe_name }}
-                <span @click="add_to_menu(recipe_name)" class="customButton">Add to menu</span>
+                <h1 id="recipeHeadline">{{ recipe_name }}
+                <span @click="add_to_menu(recipe_name)" class="customButton" id="headlineButton">Add to menu</span>
                 </h1>
             </div>
             <div v-bind:key="recipe_description" id="recipeDescription">
-                <p><strong>Description:</strong> {{ recipe_description }}</p>
+                <p>{{ recipe_description }}</p>
             </div>
             <div class="divider-light">
             </div>
@@ -36,6 +36,11 @@
             </div> 
             <div class="divider">
             </div>
+            <div v-if="related_recipe !== null" v-bind:key="related_recipe">
+            <p><strong>Related Recipe:</strong> {{ related_recipe }} <button @click="view_recipe(related_recipe)">View</button></p>
+            <div class="divider">
+            </div>
+        </div>
         </div> 
 
         <div>
@@ -46,11 +51,12 @@
                 </option>
             </select> -->
            <!--  <button>View all recipes</button> -->
+           <h4 id="allRecipesHeadline">All Recipes</h4>
             <div v-for="(item, index) in recipesData" v-bind:key="index" class="recipeListItem">
                 <h3>{{ item.recipe }}</h3>
                 <p class="recipeDescription">{{ item.description }}</p>
                 <span class="customButton" @click="add_to_menu(item.recipe)">Add to menu</span>
-                <span class="customButton" @click="view_recipe(item.recipe)">View</span>
+                <a href="#recipe-card"><span class="customButton" @click="view_recipe(item.recipe)">View</span></a>
             </div>   
         </div>
         <div class="divider">
@@ -72,9 +78,6 @@
                         <span class="customButton" @click="view_recipe(item)">View</span>
                         <span class="customButton" @click="add_to_menu(item)">Add to menu</span>
                     </div>
-        </div>
-        <div v-if="related_recipe !== null" v-bind:key="related_recipe">
-            <p><strong>Related Recipe:</strong> {{ related_recipe }} <button @click="view_recipe(related_recipe)">View</button></p>
         </div>
     </div>
 </template>
@@ -202,6 +205,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 p {
     margin: 0px 0px;
 }
@@ -230,6 +234,7 @@ ol {
     padding: 10px 10px;
     border: solid 1px rgba(0, 0, 0,0.1);
     border-radius: 5px;
+    cursor: pointer;
 }
 
 #recipeDescription {
@@ -240,7 +245,8 @@ ol {
     font-size: 1.1rem;
     padding-bottom: 20px;
     line-height: 1.7rem;
-    color: #333333
+    color: #333333;
+    cursor: pointer;
 }
 
 #ingredients-list {
@@ -276,6 +282,7 @@ ol {
 .ingredientsListItem {
     font-size: 1.2rem;
     margin: 20px 0px;
+    cursor: pointer;
 }
 
 .ingredientNotes {
@@ -340,6 +347,21 @@ button {
 
 #ingredientSelectDiv h4 {
     margin: 15px 0px 0px 0px;
+}
+
+#recipeHeadline {
+    margin-top: 30px;
+    /* margin-bottom: 20px; */
+    padding-bottom: 20px;
+}
+
+#headlineButton {
+    float: right;
+    margin: 10px 10px 10px 0px;
+}
+
+#allRecipesHeadline {
+    margin-bottom: -10px;
 }
 
 </style>

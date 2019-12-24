@@ -7,7 +7,7 @@
   </div>  
   <div v-if="selected === 'search'">
     <p id="recentlyViewedList">Recent:&nbsp;
-      <span class="recentlyViewedItem" v-for="(item, index) in recentlyViewed" v-bind:key="index" @click="viewRecentView(item)">{{ item }}<img class="recentlyViewedDivide" src="./assets/icons/divider.png" v-if="recentlyViewed.length > 1"></span>
+      <a href="#recipe-card"><span class="recentlyViewedItem" v-for="(item, index) in recentlyViewed" v-bind:key="index" @click="viewRecentView(item)">{{ item }}<img class="recentlyViewedDivide" src="./assets/icons/divider.png" v-if="recentlyViewed.length > 1"></span></a>
     </p>
   </div>
     <div v-if="this.selected=='search'" class="component" id="search-component">
@@ -95,6 +95,10 @@ export default {
 
 <style>
 
+html {
+  scroll-behavior: smooth;
+}
+
 #app {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -110,6 +114,11 @@ body {
   border-radius: 5px; */
 }
 
+a {
+    text-decoration: none;
+    color: inherit
+}
+
 #recentlyViewedList {
   font-size: 0.8rem;
   color: rgba(0, 0, 0, 0.5);
@@ -117,6 +126,7 @@ body {
 
 .recentlyViewedItem {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .recentlyViewedDivide {
@@ -139,6 +149,7 @@ h1 {
 .nav-icon {
   width: 30px;
   margin: 10px 30px; 
+  cursor: pointer;
 }
 
 /* #nav::after {
