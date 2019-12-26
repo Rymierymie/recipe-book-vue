@@ -2,12 +2,13 @@
     <div>
         <div>
             <h1>Menu
-                <button @click="clear_menu()">Clear menu</button>
+                <button @click="edit_menu()" class="customButton">Edit menu</button>
+                <button @click="clear_menu()" class="customButton display-toggle" id="clearMenuButton">Clear menu</button>
             </h1>    
                 <ul> 
                     <li v-for="(item, index) in menu" v-bind:key="index">
                         {{ item }}
-                        <img src="../assets/icons/cancel.png" class="icon" id="menuDeleteIcon" @click="remove_from_menu(item)" />
+                        <img src="../assets/icons/cancel.png" class="icon display-toggle menuDeleteIcon" id="menuDeleteIcon" @click="remove_from_menu(item)" />
                     </li>
                 </ul>
         </div>
@@ -17,8 +18,8 @@
         </h1>
         <div v-for="(value, name, index) in meal_plan" v-bind:key="index">
             <h2 id="dayHeadline">{{ name }}
-            <button v-show="value.lunch.serves === 0" @click="show_day(name, 'Lunch')" class="addMealButton">Add lunch</button> 
-            <button v-show="value.dinner.serves === 0" @click="show_day(name, 'Dinner')" class="addMealButton">Add dinner</button>    
+            <button @click="show_day(name, 'Lunch')" id="showLunchButton" class="addMealButton customButton">Add lunch</button> 
+            <button @click="show_day(name, 'Dinner')" id="showDinnerButton" class="addMealButton customButton">Add dinner</button>    
             </h2> 
             <div class="display-toggle" :id="`${name}LunchSelectors`">
             <span>Lunch &nbsp;</span>
@@ -159,10 +160,20 @@ export default {
             handler: function() {
                 console.log("watch kicked in!");
                 for (var meal in this.meal_plan) {
-                    if (this.meal_plan[meal].lunch.recipe == '' || this.meal_plan[meal].lunch.serves <= 0){
+                    if (this.meal_plan[meal].lunch.serves <= 0){
                         this.meal_plan[meal].lunch.serves = 0;
+
+                    if (this.meal_plan[meal].lunch.recipe == ''){
+                        this.meal_plan[meal].lunch.serves = 0;
+                    }    
+
+                    if (this.meal_plan[meal].dinner.recipe == ''){
+                        this.meal_plan[meal].dinner.serves = 0;
+                    }    
+
+                        // may need to add this back: this.meal_plan[meal].dinner.recipe == '' || 
                     }
-                    if (this.meal_plan[meal].dinner.recipe == '' || this.meal_plan[meal].dinner.serves <= 0){
+                    if (this.meal_plan[meal].dinner.serves <= 0){
                         this.meal_plan[meal].dinner.serves = 0;
                     }
                 }
@@ -177,6 +188,15 @@ export default {
   },
 
   methods: {
+            edit_menu: function(){
+                let elems = document.getElementsByClassName("menuDeleteIcon");
+                console.log(elems);
+                Array.from(elems).forEach(function (element) { 
+                    console.log(element) 
+                    element.classList.toggle("display-toggle");
+                }); 
+                document.getElementById("clearMenuButton").classList.toggle("display-toggle");
+            },
             show_day: function(dayName, dayTime){
                 console.log(dayName + dayTime);
                 let id = dayName + dayTime + 'Selectors';
@@ -185,6 +205,10 @@ export default {
                 elem.classList.toggle("display-toggle");
                 /* this.meal_plan[dayName][dayTime].serves = 1
                 this.meal_plan[dayName][dayTime].recipe = ; */
+                let buttonId = 'show' + dayTime + 'Button'
+                let button = document.getElementById(buttonId)
+                console.log(button)
+                //need to decide what to do with this button here. Do I want the add lunch/dinner button to disappear or change the text?
 
             },
 
@@ -308,6 +332,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+ul {
+    list-style-type:none;
+    padding: 0px 0px;
+    margin: 0px 0px;
+}
 
 #dayHeadline {
     margin-bottom: 0px;

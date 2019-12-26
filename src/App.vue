@@ -143,7 +143,8 @@ h1 {
 
 #nav {
   text-align: center;
-  position: sticky;
+/*   position: sticky;
+  top: 0; */
 }
 
 .nav-icon {
@@ -187,6 +188,21 @@ select {
 }
 
 .icon-big:hover {
+    opacity: 0.9;
+}
+
+.customButton {
+    font-size: 0.8rem;
+    font-weight: 100;
+    position: relative;
+    bottom: 3px;
+    opacity: 0.4;
+    border: solid 1px rgba(0, 0, 0,0.4);
+    padding: 5px 5px;
+    border-radius: 5px;
+}
+
+.customButton:hover {
     opacity: 0.9;
 }
 

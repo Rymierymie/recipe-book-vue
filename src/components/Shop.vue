@@ -1,8 +1,8 @@
 <template>
     <div>
         <h1 id="headline">Shop
-        <button @click="edit_list()">Edit List</button>
-        <button @click="add_to_list_input()">Add To List</button>
+        <button @click="edit_list()" class="customButton">Edit List</button>
+        <button @click="add_to_list_input()" class="customButton">Add To List</button>
         </h1>
         <div id="add_to_list_input" class="display-toggle">
                 <input type="text" id="custom_list_item" placeholder="Toilet paper">

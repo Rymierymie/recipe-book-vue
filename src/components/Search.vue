@@ -309,21 +309,6 @@ button {
 }
 
 
-.customButton {
-    font-size: 0.8rem;
-    font-weight: 100;
-    position: relative;
-    bottom: 3px;
-    opacity: 0.4;
-    border: solid 1px rgba(0, 0, 0,0.4);
-    padding: 5px 5px;
-    border-radius: 5px;
-}
-
-.customButton:hover {
-    opacity: 0.9;
-}
-
 .recipeListItem .customButton {
     margin: 10px 10px 10px 0px;
 }
