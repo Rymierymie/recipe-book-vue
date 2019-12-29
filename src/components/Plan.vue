@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div>
+        <div id="menuDiv" v-show="this.menu.length !== 0">
             <h1>Menu
-                <button @click="edit_menu()" class="customButton">Edit menu</button>
+                <button @click="edit_menu()" class="customButton" id="editMenuButton">Edit menu</button>
                 <button @click="clear_menu()" class="customButton display-toggle" id="clearMenuButton">Clear menu</button>
             </h1>    
-                <ul> 
-                    <li v-for="(item, index) in menu" v-bind:key="index">
+                <ul id="menuList"> 
+                    <li v-for="(item, index) in menu" v-bind:key="index" class="menuListItem">
                         {{ item }}
                         <img src="../assets/icons/cancel.png" class="icon display-toggle menuDeleteIcon" id="menuDeleteIcon" @click="remove_from_menu(item)" />
                     </li>
@@ -21,7 +21,17 @@
             <button @click="show_day(name, 'Lunch')" id="showLunchButton" class="addMealButton customButton">Add lunch</button> 
             <button @click="show_day(name, 'Dinner')" id="showDinnerButton" class="addMealButton customButton">Add dinner</button>    
             </h2> 
-            <div class="display-toggle" :id="`${name}LunchSelectors`">
+            <div v-show="value.lunch.recipe !=''">
+                <p class="menuTimeHeadline">Lunch</p> 
+                <p class="menuMealItem">{{ value.lunch.recipe }}</p>
+                <p v-show="value.lunch.serves != 0" class="menuServesAmount"><em>{{ value.lunch.serves }} serve<span v-show="value.lunch.serves > 1">s</span></em></p>
+            </div>
+            <div v-show="value.dinner.recipe !=''">
+                <p class="menuTimeHeadline">Dinner</p> 
+                <p class="menuMealItem">{{ value.dinner.recipe }} <em>{{ value.dinner.serves }}</em></p>
+                <p v-show="value.dinner.serves != 0" class="menuServesAmount"><em>{{ value.dinner.serves }} serve<span v-show="value.dinner.serves > 1">s</span></em></p>
+            </div>
+            <div class="display-toggle selectorCard" :id="`${name}LunchSelectors`">
             <span>Lunch &nbsp;</span>
             <select v-model="value.lunch.recipe" v-on:change="mealPlanChange">
                 <option value="" selected></option>
@@ -29,13 +39,13 @@
                     {{ item }}
                 </option>
             </select>
-            <p v-show="value.lunch.recipe != ''">
-            <button @click="value.lunch.serves -= 1" v-on:click="mealPlanChange">-</button>
+            <p class="servesSetters" v-show="value.lunch.recipe != ''">
+            <button class="plusMinusButton" @click="value.lunch.serves -= 1" v-on:click="mealPlanChange">-</button>
             {{ value.lunch.serves }}
-            <button @click="value.lunch.serves += 1" v-on:click="mealPlanChange">+</button>
+            <button class="plusMinusButton" @click="value.lunch.serves += 1" v-on:click="mealPlanChange">+</button>
             </p>
             </div>
-            <div class="display-toggle" :id="`${name}DinnerSelectors`">
+            <div class="display-toggle selectorCard" :id="`${name}DinnerSelectors`">
             <span>Dinner &nbsp;</span>
             <select v-model="value.dinner.recipe" v-on:change="mealPlanChange">
                 <option value="" selected></option>
@@ -43,11 +53,13 @@
                     {{ item }}
                 </option>
             </select>
-            <p v-show="value.dinner.recipe != ''">
-            <button @click="value.dinner.serves -= 1" v-on:click="mealPlanChange">-</button>
+            <p class="servesSetters" v-show="value.dinner.recipe != ''">
+            <button class="plusMinusButton" @click="value.dinner.serves -= 1" v-on:click="mealPlanChange">-</button>
             {{ value.dinner.serves }}
-            <button @click="value.dinner.serves += 1" v-on:click="mealPlanChange">+</button>
+            <button class="plusMinusButton" @click="value.dinner.serves += 1" v-on:click="mealPlanChange">+</button>
             </p>
+            </div>
+            <div class="divider">
             </div>
         </div>
     </div>
@@ -188,6 +200,36 @@ export default {
   },
 
   methods: {
+        remove_from_menu(recipe){
+            let mealsPlan = this.meal_plan;   
+            for (let meal in mealsPlan) {
+                console.log(mealsPlan[meal].lunch.recipe)
+                    if (mealsPlan[meal].lunch.recipe == recipe){
+                        mealsPlan[meal].lunch.serves = 0;
+                        }
+
+                    if (mealsPlan[meal].dinner.recipe == recipe){
+                        mealsPlan[meal].dinner.serves = 0;
+                    }    
+            }
+        console.log(mealsPlan);   
+          let index = this.menu.findIndex(x => x == recipe);
+          this.menu.splice(index, 1); 
+          localStorage.setItem('menu', JSON.stringify(this.menu)) 
+          eventBus.$emit('menu_edit', this.menu); 
+        this.meal_plan = mealsPlan;
+        this.meal_plan_summary_builder()
+        eventBus.$emit('meal_plan_summary_change', this.meal_plan_summary);
+              
+          },
+            clear_menu: function(){
+                let list = document.getElementById("menuList");
+                list.innerHTML = '';
+                this.menu = [];
+                localStorage.removeItem('menu');
+                this.reset_planner();
+
+            },
             edit_menu: function(){
                 let elems = document.getElementsByClassName("menuDeleteIcon");
                 console.log(elems);
@@ -354,6 +396,52 @@ ul {
 #menuDeleteIcon {
     position: relative;
     left: 5px;
+}
+
+#editMenuButton {
+    margin-right: 20px;
+    position: relative;
+    float: right;
+    top: 8px;
+}
+
+#menuDiv {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.menuListItem {
+    padding: 5px 0px 5px 0px;
+}
+
+.menuTimeHeadline {
+    font-size: 0.8rem;
+    margin: 0px 0px;
+}
+
+.menuMealItem {
+    margin: 0px 0px;
+}
+
+.menuServesAmount {
+    margin: 0px 0px 10px 0px;
+}
+
+.selectorCard {
+    margin: 10px 0px;
+    border: 1px solid rgba(0, 0, 0,0.1);
+    padding: 5px 5px;
+    border-radius: 5px;
+}
+
+.servesSetters {
+    margin: 0px 0px;
+}
+
+.plusMinusButton {
+    border-radius: 50px;
+    height: 20px;
+    width: 20px;
 }
 
 

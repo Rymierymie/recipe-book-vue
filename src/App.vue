@@ -6,7 +6,7 @@
     <img src="./assets/icons/tasks.png" class="nav-icon" @click="display('shop')" />
   </div>  
   <div v-if="selected === 'search'">
-    <p id="recentlyViewedList">Recent:&nbsp;
+    <p v-if="this.recentlyViewed.length !== 0" id="recentlyViewedList">Recent:&nbsp;
       <a href="#recipe-card"><span class="recentlyViewedItem" v-for="(item, index) in recentlyViewed" v-bind:key="index" @click="viewRecentView(item)">{{ item }}<img class="recentlyViewedDivide" src="./assets/icons/divider.png" v-if="recentlyViewed.length > 1"></span></a>
     </p>
   </div>
@@ -204,6 +204,30 @@ select {
 
 .customButton:hover {
     opacity: 0.9;
+}
+
+button {
+  outline: none;
+}
+
+.divider {
+    content: "";
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.7) 0%, rgba(228, 228, 228, 0.7) 15%, rgba(228, 228, 228, 0.7) 85%, rgba(255, 255, 255, 0.7) 100%);
+    height: 1px;
+    width: 100%;
+/*     position: absolute;
+    bottom: 0;
+    display: block; */
+}
+
+.divider-light {
+    content: "";
+    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.2) 0%, rgba(228, 228, 228, 0.2) 15%, rgba(228, 228, 228, 0.2) 85%, rgba(255, 255, 255, 0.2) 100%);
+    height: 1px;
+    width: 100%;
+/*     position: absolute;
+    bottom: 0;
+    display: block; */
 }
 
 </style>

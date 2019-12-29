@@ -140,8 +140,8 @@ export default {
               alert("That's already on your menu!");
               }  
           
-        },
-      remove_from_menu(recipe){
+        }
+/*       remove_from_menu(recipe){
           let index = this.menu.findIndex(x => x == recipe);
           this.menu.splice(index, 1); 
           eventBus.$emit('menu_edit', this.menu);         
@@ -149,7 +149,7 @@ export default {
       clear_menu(){
           this.menu = []
           localStorage.removeItem('menu')
-          }
+          } */
     }, 
   mounted() {
       if (localStorage.menu) {
@@ -251,26 +251,6 @@ ol {
 
 #ingredients-list {
     margin-bottom: 20px;
-}
-
-.divider {
-    content: "";
-    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.7) 0%, rgba(228, 228, 228, 0.7) 15%, rgba(228, 228, 228, 0.7) 85%, rgba(255, 255, 255, 0.7) 100%);
-    height: 1px;
-    width: 100%;
-/*     position: absolute;
-    bottom: 0;
-    display: block; */
-}
-
-.divider-light {
-    content: "";
-    background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0.2) 0%, rgba(228, 228, 228, 0.2) 15%, rgba(228, 228, 228, 0.2) 85%, rgba(255, 255, 255, 0.2) 100%);
-    height: 1px;
-    width: 100%;
-/*     position: absolute;
-    bottom: 0;
-    display: block; */
 }
 
 
