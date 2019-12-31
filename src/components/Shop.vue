@@ -304,13 +304,13 @@ ul {
 }
 
 .custom-list-item {
-    color: rgb(0, 132, 255);
+    color: #4897D8;
 }
 
 #editListButton {
     position: relative;
     float: right;
-    bottom: 5px;
+    top: 5px;
     margin-right: 20px;
 }
 
@@ -336,6 +336,7 @@ input#custom_list_item {
 #headline {
     margin-bottom: 10px;
     margin-top: 15px;
+    font-weight: 200;
 }
 
 .menuDeleteIcon {

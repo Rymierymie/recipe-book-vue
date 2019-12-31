@@ -22,8 +22,8 @@
         </h4>
         <div v-for="(value, name, index) in meal_plan" v-bind:key="index">
             <h2 id="dayHeadline">{{ name }}
-            <button @click="show_day(name, 'Lunch')" id="showLunchButton" class="addMealButton customButton">Add lunch</button> 
-            <button @click="show_day(name, 'Dinner')" id="showDinnerButton" class="addMealButton customButton">Add dinner</button>    
+            <button @click="show_day(name, 'Dinner')" id="showDinnerButton" class="addMealButton customButton">Plan dinner</button> 
+            <button @click="show_day(name, 'Lunch')" id="showLunchButton" class="addMealButton customButton">Plan lunch</button>   
             </h2> 
             <div v-show="value.lunch.recipe !=''">
                 <p class="menuTimeHeadline">Lunch</p> 
@@ -37,30 +37,30 @@
             </div>
             <div class="display-toggle selectorCard" :id="`${name}LunchSelectors`">
             <span>Lunch &nbsp;</span>
-            <select v-model="value.lunch.recipe" v-on:change="mealPlanChange">
+            <select class="mealSelecter" v-model="value.lunch.recipe" v-on:change="mealPlanChange">
                 <option value="" selected></option>
                 <option v-for="(item, index) in menu" v-bind:key="index">
                     {{ item }}
                 </option>
             </select>
             <p class="servesSetters" v-show="value.lunch.recipe != ''">
-            <button class="plusMinusButton" @click="value.lunch.serves -= 1" v-on:click="mealPlanChange">-</button>
+            <button class="plusMinusButton" @click="value.lunch.serves -= 1" v-on:click="mealPlanChange"><img class="icon" src="../assets/icons/minus.png" /></button>
             {{ value.lunch.serves }}
-            <button class="plusMinusButton" @click="value.lunch.serves += 1" v-on:click="mealPlanChange">+</button>
+            <button class="plusMinusButton" @click="value.lunch.serves += 1" v-on:click="mealPlanChange"><img class="icon" src="../assets/icons/plus.png" /></button>
             </p>
             </div>
             <div class="display-toggle selectorCard" :id="`${name}DinnerSelectors`">
             <span>Dinner &nbsp;</span>
-            <select v-model="value.dinner.recipe" v-on:change="mealPlanChange">
+            <select class="mealSelecter" v-model="value.dinner.recipe" v-on:change="mealPlanChange">
                 <option value="" selected></option>
                 <option v-for="(item, index) in menu" v-bind:key="index">
                     {{ item }}
                 </option>
             </select>
             <p class="servesSetters" v-show="value.dinner.recipe != ''">
-            <button class="plusMinusButton" @click="value.dinner.serves -= 1" v-on:click="mealPlanChange">-</button>
+            <button class="plusMinusButton" @click="value.dinner.serves -= 1" v-on:click="mealPlanChange"><img class="icon" src="../assets/icons/minus.png" /></button>
             {{ value.dinner.serves }}
-            <button class="plusMinusButton" @click="value.dinner.serves += 1" v-on:click="mealPlanChange">+</button>
+            <button class="plusMinusButton" @click="value.dinner.serves += 1" v-on:click="mealPlanChange"><img class="icon" src="../assets/icons/plus.png" /></button>
             </p>
             </div>
             <div class="divider dayDivider">
@@ -388,6 +388,8 @@ ul {
 
 #dayHeadline {
     margin-bottom: 0px;
+    margin-top: 15px;
+
 }
 
 .display-toggle {
@@ -396,6 +398,10 @@ ul {
 
 .addMealButton {
     margin: 5px 5px;
+    background-color: #ffffff;
+    position: relative;
+    float: right;
+
 }
 
 #menuDeleteIcon {
@@ -415,6 +421,7 @@ ul {
     padding-bottom: 20px; */
     margin-bottom: 10px;
     margin-top: 15px;
+    font-weight: 200;
 }
 
 .menuListItem {
@@ -438,26 +445,34 @@ ul {
     margin: 0px 0px 10px 0px;
 }
 
+.mealSelecter {
+    margin: 15px 0px;
+    padding: 0px 10px;
+}
+
 .selectorCard {
     margin: 10px 0px;
     border: 1px solid rgba(0, 0, 0,0.1);
     padding: 5px 5px;
     border-radius: 5px;
+    background-color: #ffffff;
 }
 
 .servesSetters {
     margin: 0px 0px;
+    text-align: center;
 }
 
 .plusMinusButton {
     border-radius: 50px;
-    height: 20px;
-    width: 20px;
+    height: 30px;
+    width: 30px;
 }
 
 #planHeadline {
     margin-top: 15px;
     margin-bottom: 10px;
+    font-weight: 200;
 }
 
 #resetPlanIcon {

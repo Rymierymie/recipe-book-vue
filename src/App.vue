@@ -1,13 +1,14 @@
 <template>
   <div id="app">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,400,600&display=swap" rel="stylesheet">
   <div id="nav">  
     <img src="./assets/icons/utensils.png" class="nav-icon" @click="display('search')" />
     <img src="./assets/icons/calendar.png" class="nav-icon" @click="display('plan')" />
     <img src="./assets/icons/tasks.png" class="nav-icon" @click="display('shop')" />
   </div>  
-  <div class="divider">
-  </div>
-  <div v-if="selected === 'search'">
+  <!-- <div class="divider">
+  </div> -->
+  <div style="padding-left:15px;" v-if="selected === 'search'">
     <p v-if="this.recentlyViewed.length !== 0" id="recentlyViewedList">Recent:&nbsp;
       <a href="#recipe-card"><span class="recentlyViewedItem" v-for="(item, index) in recentlyViewed" v-bind:key="index" @click="viewRecentView(item)">{{ item }}<img class="recentlyViewedDivide" src="./assets/icons/divider.png" v-if="recentlyViewed.length > 1"></span></a>
     </p>
@@ -97,16 +98,19 @@ export default {
 
 <style>
 
+
 html {
   scroll-behavior: smooth;
 }
 
 #app {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
   margin: 0px 0px;
+  color: #333333;
+  background-color: rgba(185, 217, 195, 0.1);
 }
 
 .componentDiv {
@@ -151,10 +155,11 @@ h1 {
   text-align: center;
   position: sticky;
   top: 0;
-  background-color: #ffffff;
-  -webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
-  -moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
-  box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+  background-color: #B9D9C3;
+  z-index: 1;
+  -webkit-box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.1);
 }
 
 .nav-icon {
@@ -203,7 +208,7 @@ select {
 
 .customButton {
     font-size: 0.8rem;
-    font-weight: 100;
+    /* font-weight: 100; */
     position: relative;
     bottom: 3px;
     opacity: 0.4;

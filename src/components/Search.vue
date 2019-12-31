@@ -5,13 +5,13 @@
             </div>
             <div v-bind:key="recipe_name"> 
                 <h1 id="recipeHeadline">{{ recipe_name }}
-                <span @click="add_to_menu(recipe_name)" class="customButton" id="headlineButton">Add to menu</span>
                 </h1>
             </div>
             <div v-bind:key="recipe_description" id="recipeDescription">
-                <p>{{ recipe_description }}</p>
+                <p class="recipeDescriptionPara">{{ recipe_description }}</p>
             </div>
-            <div class="divider-light">
+            <span @click="add_to_menu(recipe_name)" class="customButton" id="headlineButton">Add to menu</span>
+            <div style="margin-top:20px;" class="divider-light">
             </div>
             <div id="ingredientsContainer"> 
             <h2>Ingredients</h2>
@@ -62,7 +62,7 @@
         <div class="divider">
         </div>
         <div id="ingredientSelectDiv">
-            <h4>Browse by ingredients</h4>
+            <h4 class="browseByHeadline">Browse by ingredients</h4>
             <select id="ingredients-list" v-model="ingredient_name">
                 <option selected></option>
                 <option v-for="(item, index) in ingredients_list" v-bind:key="index">
@@ -72,11 +72,11 @@
         </div>
   
         <div id="ingredients-card" class="display-toggle">
-            <h4>Recipes with {{ ingredient_name }}</h4>
+            <h4 class="browseByHeadline">Recipes with {{ ingredient_name }}</h4>
                     <div v-for="(item, index) in ingredient_recipes" v-bind:key="index" class="recipeListItem">
                         <h3>{{ item }}</h3>
-                        <span class="customButton" @click="view_recipe(item)">View</span>
                         <span class="customButton" @click="add_to_menu(item)">Add to menu</span>
+                        <span class="customButton" @click="view_recipe(item)">View</span>
                     </div>
         </div>
     </div>
@@ -227,6 +227,7 @@ ol {
 
 .recipeDescription {
     font-size: 0.9rem;
+    font-weight: 200;
 }
 
 .recipeListItem {
@@ -235,6 +236,7 @@ ol {
     border: solid 1px rgba(0, 0, 0,0.1);
     border-radius: 5px;
     cursor: pointer;
+    background-color: #ffffff
 }
 
 #recipeDescription {
@@ -256,7 +258,7 @@ ol {
 
 
 .ingredientItem {
-    margin-bottom: 5px;
+   /*  margin-bottom: 5px; */
 }
 
 .ingredientsListItem {
@@ -268,6 +270,7 @@ ol {
 .ingredientNotes {
     font-size: 0.9rem;
     opacity: 0.6;
+    font-weight: 200;
 }
 
 h2 {
@@ -317,16 +320,32 @@ button {
 #recipeHeadline {
     margin-top: 30px;
     /* margin-bottom: 20px; */
-    padding-bottom: 20px;
+    /* padding-bottom: 20px; */
+    font-size: 26px;
+    font-weight: 400;
 }
 
 #headlineButton {
-    float: right;
+    /* float: right; */
     margin: 10px 10px 10px 0px;
+    font-weight: 200;
 }
 
 #allRecipesHeadline {
     margin-bottom: -10px;
+    font-weight: 200;
+}
+
+.browseByHeadline {
+    font-weight: 200;
+}
+
+.recipeDescriptionPara {
+    font-weight: 200;
+}
+
+h2 {
+    font-weight: 400;
 }
 
 </style>
