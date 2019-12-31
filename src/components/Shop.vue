@@ -1,19 +1,16 @@
 <template>
-    <div>
-        <h1 id="headline">Shop
-        <button @click="edit_list()" class="customButton">Edit List</button>
-        <button @click="add_to_list_input()" class="customButton">Add To List</button>
-        </h1>
-        <div id="add_to_list_input" class="display-toggle">
-                <input type="text" id="custom_list_item" placeholder="Toilet paper">
-                <img src="../assets/icons/plus.png" id="custom_list_add_button" class="icon" @click="custom_list_addition()"/>
-        </div>
+    <div class="componentDiv">
+        <h4 id="headline">Shop
+        <!-- <button @click="edit_list()" class="customButton" id="editListButton">Edit List</button> -->
+        <img @click="edit_list()" class="icon-big" src="../assets/icons/edit.png" id="editListButton" />
+        </h4>
         <ul> 
             <li v-for="(item, index) in shopping_list" v-bind:key="index" >
                 <span v-if="item.amount != 0">
                     <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click(item.item)">
                     {{ item.item }} {{ item.amount }} {{ item.type }}
-                    <button style="display:none;" class="delete-button" @click="remove_item(item.item)">remove</button>
+                    <!-- <button style="display:none;" class="delete-button" @click="remove_item(item.item)">remove</button> -->
+                    <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon delete-button" id="menuDeleteIcon" @click="remove_item(item.item)" />
                 </span>
             </li>
         </ul>
@@ -23,10 +20,17 @@
                 <span class="custom-list-item">
                 <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click_custom(item.item)">
                 {{ item.item }}
-                <button style="display:none;" class="delete-button" @click="remove_custom_item(item.item)">remove</button>
+                <!-- <button style="display:none;" class="delete-button" @click="remove_custom_item(item.item)">remove</button> -->
+                <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon delete-button" id="menuDeleteIcon" @click="remove_custom_item(item.item)" />
                 </span>
             </li>
         </ul>
+        <div id="add_to_list_input" class="display-toggle">
+                <input type="text" id="custom_list_item" placeholder="Toilet paper">
+                <img src="../assets/icons/plus.png" id="custom_list_add_button" class="icon-big" @click="custom_list_addition()"/>
+        </div>
+
+        <button @click="add_to_list_input()" class="customButton" id="addToListButton">Add To List</button>
 <!--         <h2>Shopping List</h2>
         {{ shopping_list }}
         {{ custom_list }} -->
@@ -291,6 +295,8 @@ ul {
     list-style-type:none;
     padding: 0px 0px;
     margin: 0px 0px;
+    line-height: 2rem;
+    font-size: 1.2rem;
 }
 
 .display-toggle {
@@ -298,7 +304,44 @@ ul {
 }
 
 .custom-list-item {
-    color: blue;
+    color: rgb(0, 132, 255);
+}
+
+#editListButton {
+    position: relative;
+    float: right;
+    bottom: 5px;
+    margin-right: 20px;
+}
+
+#addToListButton {
+    margin: 20px 0px 0px 30px;
+}
+
+input#custom_list_item {
+    font-size: 1.2rem;
+    margin: 10px 0px 0px 30px;
+    padding: 5px 5px; 
+    border-radius: 5px;
+    outline: none;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: rgba(0,0,0,0.1);
+}
+
+#custom_list_add_button {
+    margin-left: 10px;
+}
+
+#headline {
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+.menuDeleteIcon {
+    margin-left: 10px;
+    position: relative;
+    top: 2px;
 }
 
 /* Start of custom checkbox styling */

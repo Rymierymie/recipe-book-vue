@@ -1,21 +1,25 @@
 <template>
-    <div>
+    <div class="componentDiv">
         <div id="menuDiv" v-show="this.menu.length !== 0">
-            <h1>Menu
-                <button @click="edit_menu()" class="customButton" id="editMenuButton">Edit menu</button>
-                <button @click="clear_menu()" class="customButton display-toggle" id="clearMenuButton">Clear menu</button>
-            </h1>    
+            <h4>Menu
+                <!-- <button @click="edit_menu()" class="customButton" id="editMenuButton">Edit menu</button> -->
+                <img src="../assets/icons/edit.png" class="icon-big" id="editMenuButton" @click="edit_menu()"/>
+                <!-- <button @click="clear_menu()" class="customButton display-toggle" id="clearMenuButton">Clear menu</button> -->
+                <img src="../assets/icons/trash.png" @click="clear_menu()" class="icon-big display-toggle" id="clearMenuButton" />
+            </h4>    
                 <ul id="menuList"> 
                     <li v-for="(item, index) in menu" v-bind:key="index" class="menuListItem">
                         {{ item }}
                         <img src="../assets/icons/cancel.png" class="icon display-toggle menuDeleteIcon" id="menuDeleteIcon" @click="remove_from_menu(item)" />
                     </li>
                 </ul>
+                <div class="divider">
+                </div>
         </div>
 
-        <h1>Plan
-        <img src="../assets/icons/reset.png" @click="reset_planner()" class="icon-big"/>
-        </h1>
+        <h4 id="planHeadline">Plan
+        <img src="../assets/icons/reset.png" @click="reset_planner()" id="resetPlanIcon" class="icon-big"/>
+        </h4>
         <div v-for="(value, name, index) in meal_plan" v-bind:key="index">
             <h2 id="dayHeadline">{{ name }}
             <button @click="show_day(name, 'Lunch')" id="showLunchButton" class="addMealButton customButton">Add lunch</button> 
@@ -28,7 +32,7 @@
             </div>
             <div v-show="value.dinner.recipe !=''">
                 <p class="menuTimeHeadline">Dinner</p> 
-                <p class="menuMealItem">{{ value.dinner.recipe }} <em>{{ value.dinner.serves }}</em></p>
+                <p class="menuMealItem">{{ value.dinner.recipe }}</p>
                 <p v-show="value.dinner.serves != 0" class="menuServesAmount"><em>{{ value.dinner.serves }} serve<span v-show="value.dinner.serves > 1">s</span></em></p>
             </div>
             <div class="display-toggle selectorCard" :id="`${name}LunchSelectors`">
@@ -59,7 +63,7 @@
             <button class="plusMinusButton" @click="value.dinner.serves += 1" v-on:click="mealPlanChange">+</button>
             </p>
             </div>
-            <div class="divider">
+            <div class="divider dayDivider">
             </div>
         </div>
     </div>
@@ -379,6 +383,7 @@ ul {
     list-style-type:none;
     padding: 0px 0px;
     margin: 0px 0px;
+
 }
 
 #dayHeadline {
@@ -402,16 +407,22 @@ ul {
     margin-right: 20px;
     position: relative;
     float: right;
-    top: 8px;
+    /* bottom: 5px; */
 }
 
-#menuDiv {
-    padding-top: 10px;
-    padding-bottom: 20px;
+#menuDiv h4 {
+    /* padding-top: 10px;
+    padding-bottom: 20px; */
+    margin-bottom: 10px;
+    margin-top: 15px;
 }
 
 .menuListItem {
     padding: 5px 0px 5px 0px;
+}
+
+#menuList {
+    padding-bottom: 15px;
 }
 
 .menuTimeHeadline {
@@ -442,6 +453,27 @@ ul {
     border-radius: 50px;
     height: 20px;
     width: 20px;
+}
+
+#planHeadline {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+#resetPlanIcon {
+    position: relative;
+    float: right;
+    margin-right: 20px;
+}
+
+#clearMenuButton {
+    position: relative;
+    float: right;
+    margin-right: 20px;
+}
+
+.dayDivider {
+    margin-top: 15px;
 }
 
 

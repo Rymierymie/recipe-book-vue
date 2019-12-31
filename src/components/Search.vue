@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="componentDiv">
         <div id="recipe-card" class="display-toggle">
             <div class="divider">
             </div>

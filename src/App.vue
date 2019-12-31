@@ -5,6 +5,8 @@
     <img src="./assets/icons/calendar.png" class="nav-icon" @click="display('plan')" />
     <img src="./assets/icons/tasks.png" class="nav-icon" @click="display('shop')" />
   </div>  
+  <div class="divider">
+  </div>
   <div v-if="selected === 'search'">
     <p v-if="this.recentlyViewed.length !== 0" id="recentlyViewedList">Recent:&nbsp;
       <a href="#recipe-card"><span class="recentlyViewedItem" v-for="(item, index) in recentlyViewed" v-bind:key="index" @click="viewRecentView(item)">{{ item }}<img class="recentlyViewedDivide" src="./assets/icons/divider.png" v-if="recentlyViewed.length > 1"></span></a>
@@ -104,7 +106,11 @@ html {
 }
 
 body {
-  margin: 10px 15px;
+  margin: 0px 0px;
+}
+
+.componentDiv {
+  margin: 5px 15px;
 }
 
 .component {
@@ -143,8 +149,12 @@ h1 {
 
 #nav {
   text-align: center;
-/*   position: sticky;
-  top: 0; */
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
 }
 
 .nav-icon {
@@ -183,7 +193,7 @@ select {
 }
 
 .icon-big {
-  width: 20px;
+  width: 15px;
   opacity: 0.4;
 }
 
