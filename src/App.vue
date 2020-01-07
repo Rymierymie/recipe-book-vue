@@ -57,7 +57,7 @@ export default {
                 }
                 
                 this.recentlyViewed.unshift(viewedItem);
-                if (this.recentlyViewed.length > 4){
+                if (this.recentlyViewed.length > 3){
                   this.recentlyViewed.pop();
                 }
                 localStorage.setItem('recentlyViewed', JSON.stringify(this.recentlyViewed));
@@ -153,19 +153,22 @@ h1 {
 
 #nav {
   text-align: center;
-  position: sticky;
-  top: 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
   background-color: #B9D9C3;
   z-index: 1;
-  -webkit-box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.1);
-  -moz-box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.1);
-  box-shadow: 0px 5px 8px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0px -5px 8px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px -5px 8px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px -5px 8px 0px rgba(0,0,0,0.1);
 }
 
 .nav-icon {
   width: 30px;
-  margin: 10px 30px; 
+  margin: 10px 35px; 
   cursor: pointer;
+  padding-top: 7px;
 }
 
 /* #nav::after {

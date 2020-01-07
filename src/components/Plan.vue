@@ -21,10 +21,38 @@
         <img src="../assets/icons/reset.png" @click="reset_planner()" id="resetPlanIcon" class="icon-big"/>
         </h4>
         <div v-for="(value, name, index) in meal_plan" v-bind:key="index">
-            <h2 id="dayHeadline">{{ name }}
+            <h2 id="dayHeadline">{{ name.charAt(0).toUpperCase() + name.slice(1)}}
             <button @click="show_day(name, 'Dinner')" id="showDinnerButton" class="addMealButton customButton">Plan dinner</button> 
             <button @click="show_day(name, 'Lunch')" id="showLunchButton" class="addMealButton customButton">Plan lunch</button>   
             </h2> 
+            <div class="display-toggle selectorCard" :id="`${name}LunchSelectors`">
+            <span>Lunch &nbsp; <img src="../assets/icons/cancel.png" @click="show_day(name, 'Lunch')" class="icon closeSelectorCard" /> </span>
+            <select class="mealSelecter" v-model="value.lunch.recipe" v-on:change="mealPlanChange">
+                <option value="" selected></option>
+                <option v-for="(item, index) in menu" v-bind:key="index">
+                    {{ item }}
+                </option>
+            </select>
+            <p class="servesSetters" v-show="value.lunch.recipe != ''">
+            <button class="plusMinusButton" @click="value.lunch.serves -= 1" v-on:click="mealPlanChange"><img class="icon" src="../assets/icons/minus.png" /></button>
+            <span class="selectorServes">{{ value.lunch.serves }}</span>
+            <button class="plusMinusButton" @click="value.lunch.serves += 1" v-on:click="mealPlanChange"><img class="icon" src="../assets/icons/plus.png" /></button>
+            </p>
+            </div>
+            <div class="display-toggle selectorCard" :id="`${name}DinnerSelectors`">
+            <span>Dinner &nbsp; <img src="../assets/icons/cancel.png" @click="show_day(name, 'Dinner')" class="icon closeSelectorCard" /> </span>
+            <select class="mealSelecter" v-model="value.dinner.recipe" v-on:change="mealPlanChange">
+                <option value="" selected></option>
+                <option v-for="(item, index) in menu" v-bind:key="index">
+                    {{ item }}
+                </option>
+            </select>
+            <p class="servesSetters" v-show="value.dinner.recipe != ''">
+            <button class="plusMinusButton" @click="value.dinner.serves -= 1" v-on:click="mealPlanChange"><img class="icon" src="../assets/icons/minus.png" /></button>
+            <span class="selectorServes">{{ value.dinner.serves }}</span>
+            <button class="plusMinusButton" @click="value.dinner.serves += 1" v-on:click="mealPlanChange"><img class="icon" src="../assets/icons/plus.png" /></button>
+            </p>
+            </div>
             <div v-show="value.lunch.recipe !=''">
                 <p class="menuTimeHeadline">Lunch</p> 
                 <p class="menuMealItem">{{ value.lunch.recipe }}</p>
@@ -34,34 +62,6 @@
                 <p class="menuTimeHeadline">Dinner</p> 
                 <p class="menuMealItem">{{ value.dinner.recipe }}</p>
                 <p v-show="value.dinner.serves != 0" class="menuServesAmount"><em>{{ value.dinner.serves }} serve<span v-show="value.dinner.serves > 1">s</span></em></p>
-            </div>
-            <div class="display-toggle selectorCard" :id="`${name}LunchSelectors`">
-            <span>Lunch &nbsp;</span>
-            <select class="mealSelecter" v-model="value.lunch.recipe" v-on:change="mealPlanChange">
-                <option value="" selected></option>
-                <option v-for="(item, index) in menu" v-bind:key="index">
-                    {{ item }}
-                </option>
-            </select>
-            <p class="servesSetters" v-show="value.lunch.recipe != ''">
-            <button class="plusMinusButton" @click="value.lunch.serves -= 1" v-on:click="mealPlanChange"><img class="icon" src="../assets/icons/minus.png" /></button>
-            {{ value.lunch.serves }}
-            <button class="plusMinusButton" @click="value.lunch.serves += 1" v-on:click="mealPlanChange"><img class="icon" src="../assets/icons/plus.png" /></button>
-            </p>
-            </div>
-            <div class="display-toggle selectorCard" :id="`${name}DinnerSelectors`">
-            <span>Dinner &nbsp;</span>
-            <select class="mealSelecter" v-model="value.dinner.recipe" v-on:change="mealPlanChange">
-                <option value="" selected></option>
-                <option v-for="(item, index) in menu" v-bind:key="index">
-                    {{ item }}
-                </option>
-            </select>
-            <p class="servesSetters" v-show="value.dinner.recipe != ''">
-            <button class="plusMinusButton" @click="value.dinner.serves -= 1" v-on:click="mealPlanChange"><img class="icon" src="../assets/icons/minus.png" /></button>
-            {{ value.dinner.serves }}
-            <button class="plusMinusButton" @click="value.dinner.serves += 1" v-on:click="mealPlanChange"><img class="icon" src="../assets/icons/plus.png" /></button>
-            </p>
             </div>
             <div class="divider dayDivider">
             </div>
@@ -459,8 +459,19 @@ ul {
 }
 
 .servesSetters {
-    margin: 0px 0px;
+    margin: 0px 0px 8px 0px;
     text-align: center;
+}
+
+.selectorServes {
+    margin: 0px 10px;
+}
+
+.closeSelectorCard {
+    position: relative;
+    float: right;
+    top: 5px;
+    right: 5px;
 }
 
 .plusMinusButton {
