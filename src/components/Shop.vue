@@ -8,7 +8,7 @@
             <li v-for="(item, index) in shopping_list" v-bind:key="index" >
                 <span v-if="item.amount != 0">
                     <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click(item.item)">
-                    {{ item.item }} {{ item.amount }} {{ item.type }}
+                    {{ item.item }} {{ parseFloat(item.amount.toFixed(2)) }} {{ item.type }}
                     <!-- <button style="display:none;" class="delete-button" @click="remove_item(item.item)">remove</button> -->
                     <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon delete-button" id="menuDeleteIcon" @click="remove_item(item.item)" />
                 </span>

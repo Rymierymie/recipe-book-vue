@@ -251,9 +251,9 @@ export default {
                 elem.classList.toggle("display-toggle");
                 /* this.meal_plan[dayName][dayTime].serves = 1
                 this.meal_plan[dayName][dayTime].recipe = ; */
-                let buttonId = 'show' + dayTime + 'Button'
+                /* let buttonId = 'show' + dayTime + 'Button'
                 let button = document.getElementById(buttonId)
-                console.log(button)
+                console.log(button) */
                 //need to decide what to do with this button here. Do I want the add lunch/dinner button to disappear or change the text?
 
             },

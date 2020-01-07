@@ -129,6 +129,12 @@ export default {
       },
       view_recipe(recipe){
           this.recipe_name = recipe;
+          let opacityElems = document.getElementsByClassName("opacity_toggle");
+          console.log(opacityElems);
+          Array.from(opacityElems).forEach(function (element) { 
+                    console.log(element) 
+                    element.classList.toggle("display-toggle");
+                });
           },
       add_to_menu(recipe){
           if (this.menu.findIndex(x => x == recipe) == -1){
