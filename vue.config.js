@@ -1,3 +1,5 @@
 module.exports = {
-    publicPath: '/recipe-book-vue/'
-}
+    publicPath: process.env.NODE_ENV === 'production'
+      ? '/recipe-book-vue/'
+      : '/'
+  }
