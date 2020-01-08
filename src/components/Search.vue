@@ -11,7 +11,13 @@
                 <p class="recipeDescriptionPara">{{ recipe_description }}</p>
             </div>
             <span @click="add_to_menu(recipe_name)" class="customButton" id="headlineButton">Add to menu</span>
-            <div style="margin-top:20px;" class="divider-light">
+            <div style="margin-top:20px;" class="divider">
+            </div>
+            <div id="relatedRecipeDiv" v-if="related_recipe !== null" v-bind:key="related_recipe">
+            <p><strong>Related Recipe:</strong> {{ related_recipe }}</p>
+            <p><a href="#recipe-card"><button class="customButton" @click="view_recipe(related_recipe)">View</button></a></p>
+            </div>
+            <div class="divider">
             </div>
             <div id="ingredientsContainer"> 
             <h2>Ingredients</h2>
@@ -36,11 +42,6 @@
             </div> 
             <div class="divider">
             </div>
-            <div v-if="related_recipe !== null" v-bind:key="related_recipe">
-            <p><strong>Related Recipe:</strong> {{ related_recipe }} <button @click="view_recipe(related_recipe)">View</button></p>
-            <div class="divider">
-            </div>
-        </div>
         </div> 
 
         <div>
@@ -352,6 +353,10 @@ button {
 
 h2 {
     font-weight: 400;
+}
+
+#relatedRecipeDiv {
+    padding: 20px 0px;
 }
 
 </style>
