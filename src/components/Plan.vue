@@ -21,7 +21,7 @@
         <img src="../assets/icons/reset.png" @click="reset_planner()" id="resetPlanIcon" class="icon-big"/>
         </h4>
         <div v-for="(value, name, index) in meal_plan" v-bind:key="index">
-            <h2 id="dayHeadline">{{ name.charAt(0).toUpperCase() + name.slice(1)}}
+            <h2 id="dayHeadline">{{ name.charAt(0).toUpperCase() + name.slice(1) }}
             <button @click="show_day(name, 'Dinner')" id="showDinnerButton" class="addMealButton customButton">Plan dinner</button> 
             <button @click="show_day(name, 'Lunch')" id="showLunchButton" class="addMealButton customButton">Plan lunch</button>   
             </h2> 
@@ -56,12 +56,15 @@
             <div v-show="value.lunch.recipe !=''">
                 <p class="menuTimeHeadline">Lunch</p> 
                 <p class="menuMealItem">{{ value.lunch.recipe }}</p>
-                <p class="menuServesAmount"><em>{{ value.lunch.serves }} serve<span v-show="value.lunch.serves === 1">s</span></em></p>
+                <p class="menuServesAmount"><em>{{ value.lunch.serves }} serve<span v-show="value.lunch.serves !== 1">s</span></em></p>
+                <button class="customButton" @click="show_day(name, 'Lunch')" v-on:click="removePlannedMeal(name, 'lunch')" >Remove</button>
             </div>
             <div v-show="value.dinner.recipe !=''">
+                <div class="divider-light lunchDinnerDivider">
+                </div>
                 <p class="menuTimeHeadline">Dinner</p> 
                 <p class="menuMealItem">{{ value.dinner.recipe }}</p>
-                <p class="menuServesAmount"><em>{{ value.dinner.serves }} serve<span v-show="value.dinner.serves === 1">s</span></em></p>
+                <p class="menuServesAmount"><em>{{ value.dinner.serves }} serve<span v-show="value.dinner.serves !== 1">s</span></em></p>
             </div>
             <div class="divider dayDivider">
             </div>
@@ -204,6 +207,28 @@ export default {
   },
 
   methods: {
+      removePlannedMeal: function(day, meal){
+          this.meal_plan[day][meal].serves = 0;
+          this.meal_plan[day][meal].recipe = '';
+          this.mealPlanChange()
+          console.log(day);
+          console.log('meal');
+          console.log(meal);
+          let capitalisedMeal = meal.charAt(0).toUpperCase() + meal.slice(1);
+          console.log(capitalisedMeal);
+          let selector = day + capitalisedMeal + "Selectors";
+          console.log(selector);
+          let elem = document.getElementById(selector);
+          console.log(elem);
+            //next pull the class list from this elem to see if display-toggle is present
+
+          //Need to pull the display-toggle into this function from the @click on the element 
+          //add in here an IF that checks for whether the element has a class of display-toggle
+          //IF it doesn't then it needs one added to hide it
+          //IF it does, then we don't want to add one (as the display-toggle is currently doing, becasue that will show the element incorrectly!) 
+
+      },
+
         remove_from_menu(recipe){
             let mealsPlan = this.meal_plan;   
             for (let meal in mealsPlan) {
@@ -500,6 +525,10 @@ ul {
 
 .dayDivider {
     margin-top: 15px;
+}
+
+.lunchDinnerDivider {
+    margin: 10px 0px;
 }
 
 
