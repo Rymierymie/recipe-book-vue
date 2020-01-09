@@ -45,6 +45,7 @@ import { eventBus } from '../event-bus';
 
 export default {
     data ()  {
+
         return {
             shopping_list: [],
             custom_list: []
@@ -59,11 +60,20 @@ export default {
             }
             console.log(custom_item);
             this.custom_list.push(custom_item);
+            document.getElementById("custom_list_item").value = '';
         },
         add_to_list_input: function(){
             let elem = document.getElementById("add_to_list_input")
             console.log(elem);
             elem.classList.toggle("display-toggle");
+            let input = document.getElementById("custom_list_item");
+            console.log(input);
+            input.addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("custom_list_add_button").click();
+                }
+            });  
         },
         remove_custom_item: function(item){
             let index = this.custom_list.findIndex(x => x.item == item);
@@ -141,6 +151,9 @@ export default {
         }
     },
     created () {
+  
+
+
         if (localStorage.shopping_list) {
           this.shopping_list = JSON.parse(localStorage.getItem('shopping_list'));
           console.log("Shopping list set from local storage")
