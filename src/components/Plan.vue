@@ -57,7 +57,7 @@
                 <p class="menuTimeHeadline">Lunch</p> 
                 <p class="menuMealItem">{{ value.lunch.recipe }}</p>
                 <p class="menuServesAmount"><em>{{ value.lunch.serves }} serve<span v-show="value.lunch.serves !== 1">s</span></em></p>
-                <button class="customButton" @click="show_day(name, 'Lunch')" v-on:click="removePlannedMeal(name, 'lunch')" >Remove</button>
+                <button class="customButton" v-on:click="removePlannedMeal(name, 'lunch')" >Remove</button>
             </div>
             <div v-show="value.dinner.recipe !=''">
                 <div class="divider-light lunchDinnerDivider">
@@ -65,6 +65,7 @@
                 <p class="menuTimeHeadline">Dinner</p> 
                 <p class="menuMealItem">{{ value.dinner.recipe }}</p>
                 <p class="menuServesAmount"><em>{{ value.dinner.serves }} serve<span v-show="value.dinner.serves !== 1">s</span></em></p>
+                <button class="customButton" v-on:click="removePlannedMeal(name, 'dinner')" >Remove</button>
             </div>
             <div class="divider dayDivider">
             </div>
@@ -208,6 +209,7 @@ export default {
 
   methods: {
       removePlannedMeal: function(day, meal){
+          //let that = this;
           this.meal_plan[day][meal].serves = 0;
           this.meal_plan[day][meal].recipe = '';
           this.mealPlanChange()
@@ -219,7 +221,31 @@ export default {
           let selector = day + capitalisedMeal + "Selectors";
           console.log(selector);
           let elem = document.getElementById(selector);
-          console.log(elem);
+          console.log("elem.classList");
+          let classes = elem.classList;
+/*           for (let c in classes){
+              console.log(classes[c])
+          } */
+          classes = Array.from(classes);
+          let index = classes.indexOf('display-toggle');
+          console.log(index);
+          if (index === -1){
+              console.log("the element doesn't have the class 'display-toggle'");
+              elem.classList.toggle("display-toggle");
+          } else {
+              console.log("the element already has the class 'display-toggle");
+          }
+
+          /* Array.from(classes).forEach(function (element) { 
+                    console.log(element) 
+                    if (element === 'display-toggle'){
+                        console.log("display toggle is in this class list already, we don't want to toggle it!")
+                    } else {
+                        console.log("calling show_day func to toggle display")
+                        elem.classList.toggle("display-toggle");
+                    }
+                    //element.classList.toggle("display-toggle");
+                });  */
             //next pull the class list from this elem to see if display-toggle is present
 
           //Need to pull the display-toggle into this function from the @click on the element 
