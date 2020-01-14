@@ -52,13 +52,31 @@
                 </option>
             </select> -->
            <!--  <button>View all recipes</button> -->
-           <h4 id="allRecipesHeadline">All Recipes</h4>
-            <div v-for="(item, index) in recipesData" v-bind:key="index" class="recipeListItem">
+           <div>
+               <span id="allRecipesHeadline">All Recipes 
+                   <span id="vegoFilterCheckbox">Vego?
+                        <label class="switch">
+                            <input type="checkbox" v-model="vegoFilter">
+                            <span class="slider round"></span>
+                        </label>
+                   </span>
+                </span> 
+           </div>
+           <div id="filterButtons">
+               <button class="customButton btn active" @click="filterSelection('all')">Show all</button>
+               <template v-for="(item,index) in recipeCategories">
+                   <button class="customButton btn" v-bind:key="index" @click="filterSelection(item)">{{ item }}</button>
+               </template>
+           </div>
+           <template v-for="(item, index) in recipesData">
+            <div v-bind:key="index" v-bind:class="[item.category]" class="recipeListItem filterDiv show">
+                {{ item.vegetarian }}
                 <h3>{{ item.recipe }}</h3>
                 <p class="recipeDescription">{{ item.description }}</p>
                 <span class="customButton" @click="add_to_menu(item.recipe)">Add to menu</span>
                 <a href="#recipe-card"><span class="customButton" @click="view_recipe(item.recipe)">View</span></a>
             </div>   
+            </template>
         </div>
         <div class="divider">
         </div>
@@ -119,10 +137,43 @@ export default {
       recipe_method: null,
       recipe_description: null,
       related_recipe: null,
-      menu: []
+      menu: [],
+      vegoFilter: false,
+      recipeCategories: []
         }   
   },
   methods: {
+      filterSelection(c){
+        var x, i;
+        x = document.getElementsByClassName("filterDiv");
+        if (c == "all") c = "";
+        // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+        for (i = 0; i < x.length; i++) {
+            this.removeClass(x[i], "show");
+            if (x[i].className.indexOf(c) > -1) this.addClass(x[i], "show");
+        }
+      },
+      addClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            if (arr1.indexOf(arr2[i]) == -1) {
+            element.className += " " + arr2[i];
+            }
+        }
+        },
+      removeClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            while (arr1.indexOf(arr2[i]) > -1) {
+            arr1.splice(arr1.indexOf(arr2[i]), 1);
+            }
+        }
+        element.className = arr1.join(" ");
+        },  
       opacityToggle(item){
           console.log(document.getElementById(item));
           let elem = document.getElementById(item)
@@ -158,6 +209,22 @@ export default {
           localStorage.removeItem('menu')
           } */
     }, 
+  created() {
+
+      Recipes.forEach(item => {
+          let cats = item.category;
+          //console.log(cats)
+          cats.forEach(cat => {
+             let index = this.recipeCategories.findIndex(x => x === cat);
+             //console.log(index);
+             if (index === -1){
+                 this.recipeCategories.push(cat)
+             }
+          })
+      });
+      console.log(this.recipeCategories);
+      this.filterSelection("all");
+  },  
   mounted() {
       if (localStorage.menu) {
       this.menu = JSON.parse(localStorage.getItem('menu'))
@@ -165,6 +232,17 @@ export default {
     eventBus.$on('viewRecentClick', item => {
                 this.recipe_name = item;
                 });
+
+    var btnContainer = document.getElementById("filterButtons");
+        var btns = btnContainer.getElementsByClassName("btn");
+        console.log(btns);
+        for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+        }
   },
   watch: {
       recipe_name: function() {
@@ -341,6 +419,7 @@ button {
 #allRecipesHeadline {
     margin-bottom: -10px;
     font-weight: 200;
+    margin-top: 20px;
 }
 
 .browseByHeadline {
@@ -358,5 +437,94 @@ h2 {
 #relatedRecipeDiv {
     padding: 20px 0px;
 }
+
+#vegoFilterCheckbox {
+    position: relative;
+    float: right;
+}
+
+/* Stolen styles for the filtering */
+
+.filterDiv {
+    display: none;
+}
+
+.show {
+  display: block;
+}
+
+button.active {
+    opacity: 1;
+}
+
+/* End of styles for filtering */
+
+/* Start of VERY stolen styles for rounded switch */
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 30px;
+  height: 17px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 17px;
+  width: 17px;
+  left: -1px;
+  bottom: 0px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  box-shadow: 0 0 2px rgba(185, 217, 195, 1);
+}
+
+input:checked + .slider {
+  background-color: rgba(185, 217, 195, 1);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 2px rgba(185, 217, 195, 1);
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(15px);
+  -ms-transform: translateX(15px);
+  transform: translateX(15px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* End of styles for rounded switch */
 
 </style>
