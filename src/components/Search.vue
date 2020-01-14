@@ -54,7 +54,7 @@
            <!--  <button>View all recipes</button> -->
            <div>
                <span id="allRecipesHeadline">All Recipes 
-                   <span id="vegoFilterCheckbox">Vego?
+                   <span id="vegoFilterCheckbox"><span style="padding-right:5px">Vegetarian</span>
                         <label class="switch">
                             <input type="checkbox" v-model="vegoFilter">
                             <span class="slider round"></span>
@@ -69,13 +69,14 @@
                </template>
            </div>
            <template v-for="(item, index) in recipesData">
-            <div v-bind:key="index" v-bind:class="[item.category]" class="recipeListItem filterDiv show">
-                {{ item.vegetarian }}
-                <h3>{{ item.recipe }}</h3>
-                <p class="recipeDescription">{{ item.description }}</p>
-                <span class="customButton" @click="add_to_menu(item.recipe)">Add to menu</span>
-                <a href="#recipe-card"><span class="customButton" @click="view_recipe(item.recipe)">View</span></a>
-            </div>   
+            <div v-bind:key="index" :class="`${item.vegetarian}`">
+                <div v-bind:class="[item.category]" class="recipeListItem filterDiv show">
+                    <h3>{{ item.recipe }}</h3>
+                    <p class="recipeDescription">{{ item.description }}</p>
+                    <span class="customButton" @click="add_to_menu(item.recipe)">Add to menu</span>
+                    <a href="#recipe-card"><span class="customButton" @click="view_recipe(item.recipe)">View</span></a>
+                </div>   
+            </div>
             </template>
         </div>
         <div class="divider">
@@ -233,9 +234,10 @@ export default {
                 this.recipe_name = item;
                 });
 
+// Stolen code for the filter buttons
     var btnContainer = document.getElementById("filterButtons");
         var btns = btnContainer.getElementsByClassName("btn");
-        console.log(btns);
+        //console.log(btns);
         for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener("click", function() {
             var current = document.getElementsByClassName("active");
@@ -245,6 +247,28 @@ export default {
         }
   },
   watch: {
+      vegoFilter: function(){
+          // If the vego filter is true, need to hide all the recipes with a class of false
+          if (this.vegoFilter === true){
+              console.log("Vego filter set to true");
+              let elems = document.getElementsByClassName('false');
+              console.log(elems);
+              Array.from(elems).forEach(function (element) { 
+                    console.log(element) 
+                    element.classList.add("non-vego");
+                });
+          }
+          // If the vego filter is false, need to show all. Remove any classes that are hiding the non-vego meals
+          if (this.vegoFilter === false){
+              console.log("Vego filter set to false");
+              let elems = document.getElementsByClassName('non-vego');
+              console.log(elems);
+              Array.from(elems).forEach(function (element) { 
+                    console.log(element) 
+                    element.classList.remove("non-vego");
+                });
+          }
+      },
       recipe_name: function() {
                 if (document.getElementById("recipe-card").classList.contains("display-toggle")){
                     let element = document.getElementById("recipe-card");
@@ -441,6 +465,7 @@ h2 {
 #vegoFilterCheckbox {
     position: relative;
     float: right;
+    font-size:0.8rem;
 }
 
 /* Stolen styles for the filtering */
@@ -526,5 +551,9 @@ input:checked + .slider:before {
 }
 
 /* End of styles for rounded switch */
+
+.non-vego {
+    display: none;
+}
 
 </style>
