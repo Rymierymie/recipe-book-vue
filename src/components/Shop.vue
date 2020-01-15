@@ -1,16 +1,18 @@
 <template>
     <div class="componentDiv">
-        <h4 id="headline">Shop
+        <h4 class="headline">Shop
         <!-- <button @click="edit_list()" class="customButton" id="editListButton">Edit List</button> -->
         <img @click="edit_list()" class="icon-big" src="../assets/icons/edit.png" id="editListButton" />
         </h4>
         <ul> 
             <li v-for="(item, index) in shopping_list" v-bind:key="index" >
-                <span v-if="item.amount != 0">
+                <span v-if="!pantryItems.includes(item.item)">
+                <span v-if="item.amount !== 0">
                     <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click(item.item)">
                     {{ item.item }} {{ parseFloat(item.amount.toFixed(2)) }} {{ item.type }}
                     <!-- <button style="display:none;" class="delete-button" @click="remove_item(item.item)">remove</button> -->
                     <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon delete-button" id="menuDeleteIcon" @click="remove_item(item.item)" />
+                </span>
                 </span>
             </li>
         </ul>
@@ -33,6 +35,12 @@
 
         <button @click="add_to_list_input()" class="customButton" id="addToListButton">Add To List</button>
         </div>
+        <div class="card" id="pantry">
+            <h4 class="headline-card">Pantry <button @click="showHidePantry()">view</button></h4> 
+                <ul :class="pantryView">
+                    <li v-for="(item, index) in pantryItems" v-bind:key="index" >{{ item }}</li>
+                </ul>
+        </div>
         <div style="padding-bottom: 100px;"></div>
     </div>
     
@@ -48,10 +56,19 @@ export default {
 
         return {
             shopping_list: [],
-            custom_list: []
+            custom_list: [],
+            pantryItems: ['olive oil','garlic'],
+            pantryView: 'hidePantry'
         }
     },
     methods: {
+        showHidePantry: function(){
+            if (this.pantryView === 'showPantry'){
+                this.pantryView = 'hidePantry'
+            } else if (this.pantryView === 'hidePantry'){
+                this.pantryView = 'showPantry'
+            }
+        },
         custom_list_addition: function(){
             let custom_item_value = document.getElementById("custom_list_item").value;
             let custom_item = {
@@ -346,10 +363,16 @@ input#custom_list_item {
     margin-left: 10px;
 }
 
-#headline {
+.headline {
     margin-bottom: 10px;
     margin-top: 15px;
     font-weight: 200;
+}
+
+.headline-card {
+    font-weight: 200;
+    margin-bottom: 0px;
+    margin-top: 0px;
 }
 
 .menuDeleteIcon {
@@ -393,5 +416,13 @@ input.checkbox:focus {
     outline: none;
 }
 /* End of custom checkbox styling */
+
+.showPantry {
+    display: block;
+}
+
+.hidePantry {
+    display: none;
+}
 
 </style>
