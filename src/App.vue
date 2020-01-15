@@ -22,9 +22,9 @@
     <div v-show="this.selected=='shop'" class="component" id="shop-component">
       <shop />
     </div>
-    <div style="padding: 20px 0px 20px 0px">
+<!--     <div style="padding: 20px 0px 20px 0px">
     <button @click="clear_all_local()">Clear All Local</button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -122,6 +122,15 @@ body {
   padding: 10px 10px;
   border: solid 1px rgba(0, 0, 0,0.1);
   border-radius: 5px; */
+}
+
+.card {
+    margin: 20px 0px;
+    padding: 10px 10px;
+    border: solid 1px rgba(0, 0, 0,0.1);
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #ffffff
 }
 
 a {

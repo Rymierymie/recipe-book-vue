@@ -52,7 +52,7 @@
                 </option>
             </select> -->
            <!--  <button>View all recipes</button> -->
-           <div>
+           <div id="headlineDiv">
                <span id="allRecipesHeadline">All Recipes 
                    <span id="vegoFilterCheckbox"><span style="padding-right:5px">Vegetarian</span>
                         <label class="switch">
@@ -99,6 +99,7 @@
                         <span class="customButton" @click="view_recipe(item)">View</span>
                     </div>
         </div>
+        <div style="padding-bottom: 100px;"></div>
     </div>
 </template>
 
@@ -231,7 +232,8 @@ export default {
       this.menu = JSON.parse(localStorage.getItem('menu'))
     }
     eventBus.$on('viewRecentClick', item => {
-                this.recipe_name = item;
+                this.view_recipe(item);
+                //this.recipe_name = item;
                 });
 
 // Stolen code for the filter buttons
@@ -465,6 +467,7 @@ h2 {
 #vegoFilterCheckbox {
     position: relative;
     float: right;
+    top: 5px;
     font-size:0.8rem;
 }
 
@@ -554,6 +557,11 @@ input:checked + .slider:before {
 
 .non-vego {
     display: none;
+}
+
+#headlineDiv {
+    padding-top: 15px;
+    padding-bottom: 10px;
 }
 
 </style>

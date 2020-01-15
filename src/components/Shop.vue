@@ -25,15 +25,15 @@
                 </span>
             </li>
         </ul>
+        <div>
         <div id="add_to_list_input" class="display-toggle">
                 <input type="text" id="custom_list_item" placeholder="Toilet paper">
                 <img src="../assets/icons/plus.png" id="custom_list_add_button" class="icon-big" @click="custom_list_addition()"/>
         </div>
 
         <button @click="add_to_list_input()" class="customButton" id="addToListButton">Add To List</button>
-<!--         <h2>Shopping List</h2>
-        {{ shopping_list }}
-        {{ custom_list }} -->
+        </div>
+        <div style="padding-bottom: 100px;"></div>
     </div>
     
 </template>

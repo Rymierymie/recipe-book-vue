@@ -7,20 +7,21 @@
                 <!-- <button @click="clear_menu()" class="customButton display-toggle" id="clearMenuButton">Clear menu</button> -->
                 <img src="../assets/icons/trash.png" @click="clear_menu()" class="icon-big display-toggle" id="clearMenuButton" />
             </h4>    
+                <div class="card">
                 <ul id="menuList"> 
                     <li v-for="(item, index) in menu" v-bind:key="index" class="menuListItem">
                         {{ item }}
                         <img src="../assets/icons/cancel.png" class="icon display-toggle menuDeleteIcon" id="menuDeleteIcon" @click="remove_from_menu(item)" />
                     </li>
                 </ul>
-                <div class="divider">
+                
                 </div>
         </div>
 
         <h4 id="planHeadline">Plan
         <img src="../assets/icons/reset.png" @click="reset_planner()" id="resetPlanIcon" class="icon-big"/>
         </h4>
-        <div v-for="(value, name, index) in meal_plan" v-bind:key="index">
+        <div class="card" v-for="(value, name, index) in meal_plan" v-bind:key="index">
             <h2 id="dayHeadline">{{ name.charAt(0).toUpperCase() + name.slice(1) }}
             <button @click="show_day(name, 'Dinner')" id="showDinnerButton" class="addMealButton customButton">Plan dinner</button> 
             <button @click="show_day(name, 'Lunch')" id="showLunchButton" class="addMealButton customButton">Plan lunch</button>   
@@ -67,9 +68,8 @@
                 <p class="menuServesAmount"><em>{{ value.dinner.serves }} serve<span v-show="value.dinner.serves !== 1">s</span></em></p>
                 <button class="customButton" v-on:click="removePlannedMeal(name, 'dinner')" >Remove</button>
             </div>
-            <div class="divider dayDivider">
-            </div>
         </div>
+        <div style="padding-bottom: 100px;"></div>
     </div>
 </template>
 
@@ -439,7 +439,7 @@ ul {
 
 #dayHeadline {
     margin-bottom: 0px;
-    margin-top: 15px;
+    margin-top: 0px;
 
 }
 
@@ -451,6 +451,7 @@ ul {
     margin: 5px 5px;
     background-color: #ffffff;
     position: relative;
+    top: 0px;
     float: right;
 
 }
@@ -480,7 +481,7 @@ ul {
 }
 
 #menuList {
-    padding-bottom: 15px;
+    /* padding-bottom: 15px; */
 }
 
 .menuTimeHeadline {
@@ -506,7 +507,7 @@ ul {
     border: 1px solid rgba(0, 0, 0,0.1);
     padding: 5px 5px;
     border-radius: 5px;
-    background-color: #ffffff;
+    background-color: rgba(0, 0, 0,0.01);
 }
 
 .servesSetters {
