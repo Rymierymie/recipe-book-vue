@@ -257,4 +257,22 @@ button {
     display: block; */
 }
 
+/* Padding styles */
+
+.pl10 {
+  padding-left: 10px
+}
+
+.pr10 {
+  padding-right: 10px;
+}
+
+.pt10 {
+  padding-top: 10px;
+}
+
+.pb10 {
+  padding-bottom: 10px;
+}
+
 </style>

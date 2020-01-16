@@ -40,10 +40,11 @@
                 <img src="../assets/icons/chevron-down.png" class="icon-big viewPantryButton" id="pantry-chevron-down" />
                 <img src="../assets/icons/chevron-up.png" class="icon-big viewPantryButton hidePantry" id="pantry-chevron-up" />
             </h4> 
-                <ul :class="pantryView">
+            <p :class="pantryView" class="small-p"><em>Items in the pantry list won't display in your shopping list.</em></p>
+                <ul :class="pantryView" class="list-ul">
                     <li v-for="(item, index) in pantryItems" v-bind:key="index" >{{ item }} <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon pantry-delete-button" @click="removePantryItem(item)" /></li>
                 </ul>
-                <button :class="pantryView" class="customButton" @click="editPantryList()">Edit Pantry</button>
+                <button :class="pantryView" class="customButton" @click="editPantryList()" id="editPantryButton">Edit Pantry</button>
             <div id="ingredientSelectDiv" :class="pantryView">
                 <h4 class="headline-card" >Add to pantry</h4>
                 <select id="ingredients-list" >
@@ -53,7 +54,6 @@
                     </option>
                 </select>
                 <button class="customButton" @click="addToPantry()">Add item</button>
-                <p>Items in your Pantry won't display in your shopping list.</p>
             </div>
         </div>
         <div style="padding-bottom: 100px;"></div>
@@ -95,12 +95,21 @@ export default {
     },
     methods: {
         addToPantry: function(){
+            // hiding any delete buttons if the user is currently editing the list
+            let delete_buttons = document.getElementsByClassName('pantry-delete-button')
+            for (let i = 0; i < delete_buttons.length; i++) {
+                if (delete_buttons.item(i).style.display == "inline"){                
+                    delete_buttons.item(i).style.display = "none";
+                    //document.getElementById("edit_list_button").src = "icons/edit.png";
+                }
+            }
             let item = document.getElementById('ingredients-list').value
             console.log(item);
             let index = this.pantryItems.findIndex(x => x == item)
             console.log(index)
             if (index == -1){
               this.pantryItems.push(item);
+              localStorage.setItem('pantryItems', JSON.stringify(this.pantryItems))
           } else {
               console.log("Already in the list!")
               }
@@ -160,7 +169,7 @@ export default {
             let index = this.pantryItems.findIndex(x => x == item);
             console.log(index)
             this.pantryItems.splice(index, 1)
-
+            localStorage.setItem('pantryItems', JSON.stringify(this.pantryItems))
         },
 
         edit_list: function(){
@@ -238,7 +247,13 @@ export default {
     },
     created () {
   
-
+        if (localStorage.pantryItems) {
+        this.pantryItems = JSON.parse(localStorage.getItem('pantryItems'));
+        console.log("pantryItems list set from local storage")
+        } else {
+            console.log("no local storage to build a pantryItems from");
+            localStorage.setItem('pantryItems', JSON.stringify(this.pantryItems))
+         } 
 
         if (localStorage.shopping_list) {
           this.shopping_list = JSON.parse(localStorage.getItem('shopping_list'));
@@ -501,4 +516,25 @@ input.checkbox:focus {
     right: 5px;
 }
 
+.small-p {
+    font-size: 0.8rem;
+    font-weight: 200;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.list-ul {
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 15px;
+}
+
+#editPantryButton {
+    margin-bottom: 15px;
+}
+
+#ingredients-list {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
 </style>
