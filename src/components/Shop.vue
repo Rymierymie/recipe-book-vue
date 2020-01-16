@@ -36,10 +36,25 @@
         <button @click="add_to_list_input()" class="customButton" id="addToListButton">Add To List</button>
         </div>
         <div class="card" id="pantry">
-            <h4 class="headline-card">Pantry <button @click="showHidePantry()">view</button></h4> 
+            <h4 class="headline-card" @click="showHidePantry()">Pantry 
+                <img src="../assets/icons/chevron-down.png" class="icon-big viewPantryButton" id="pantry-chevron-down" />
+                <img src="../assets/icons/chevron-up.png" class="icon-big viewPantryButton hidePantry" id="pantry-chevron-up" />
+            </h4> 
                 <ul :class="pantryView">
-                    <li v-for="(item, index) in pantryItems" v-bind:key="index" >{{ item }}</li>
+                    <li v-for="(item, index) in pantryItems" v-bind:key="index" >{{ item }} <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon pantry-delete-button" @click="removePantryItem(item)" /></li>
                 </ul>
+                <button :class="pantryView" class="customButton" @click="editPantryList()">Edit Pantry</button>
+            <div id="ingredientSelectDiv" :class="pantryView">
+                <h4 class="headline-card" >Add to pantry</h4>
+                <select id="ingredients-list" >
+                    <option selected></option>
+                    <option v-for="(item, index) in ingredients_list" v-bind:key="index">
+                        {{ item }}
+                    </option>
+                </select>
+                <button class="customButton" @click="addToPantry()">Add item</button>
+                <p>Items in your Pantry won't display in your shopping list.</p>
+            </div>
         </div>
         <div style="padding-bottom: 100px;"></div>
     </div>
@@ -54,19 +69,54 @@ import { eventBus } from '../event-bus';
 export default {
     data ()  {
 
+        
+  let ingredients_list = [];
+  for (var recipe in Recipes){
+      for (var ingredient in Recipes[recipe].ingredients){
+          let name = Recipes[recipe].ingredients[ingredient].name
+          if (ingredients_list.findIndex(x => x == name) == -1){
+              ingredients_list.push(name);
+          } else {
+              //console.log("Already in the list!")
+              }
+      }
+     
+      }
+   ingredients_list.sort()
+
         return {
             shopping_list: [],
+            ingredients_list: ingredients_list,
             custom_list: [],
-            pantryItems: ['olive oil','garlic'],
-            pantryView: 'hidePantry'
+            pantryItems: [],
+            pantryView: 'hidePantry',
+            chevron: '../assets/chevron-down.png'
         }
     },
     methods: {
+        addToPantry: function(){
+            let item = document.getElementById('ingredients-list').value
+            console.log(item);
+            let index = this.pantryItems.findIndex(x => x == item)
+            console.log(index)
+            if (index == -1){
+              this.pantryItems.push(item);
+          } else {
+              console.log("Already in the list!")
+              }
+        },
         showHidePantry: function(){
             if (this.pantryView === 'showPantry'){
                 this.pantryView = 'hidePantry'
+                document.getElementById("pantry-chevron-up").classList.add('hidePantry')
+                document.getElementById("pantry-chevron-down").classList.remove('hidePantry')
+                
             } else if (this.pantryView === 'hidePantry'){
                 this.pantryView = 'showPantry'
+                document.getElementById("pantry-chevron-down").classList.add('hidePantry')
+                document.getElementById("pantry-chevron-up").classList.remove('hidePantry')
+
+                //document.getElementById("viewPantryButton").src = "'../assets/icons/chevron-up.png'"
             }
         },
         custom_list_addition: function(){
@@ -106,10 +156,29 @@ export default {
             this.shopping_list[index].amount = 0;
         //TO DO - make the list able to parse a 'removed' item
         },
+        removePantryItem: function(item){
+            let index = this.pantryItems.findIndex(x => x == item);
+            console.log(index)
+            this.pantryItems.splice(index, 1)
+
+        },
 
         edit_list: function(){
             //TO DO - add in icons for delete buttons
             let delete_buttons = document.getElementsByClassName('delete-button')
+            for (let i = 0; i < delete_buttons.length; i++) {
+                if (delete_buttons.item(i).style.display == "inline"){                
+                    delete_buttons.item(i).style.display = "none";
+                    //document.getElementById("edit_list_button").src = "icons/edit.png";
+                } else {
+                    delete_buttons.item(i).style.display = "inline";
+                    //document.getElementById("edit_list_button").src = "icons/check.png";
+                }
+            } 
+    },
+    editPantryList: function(){
+            //TO DO - add in icons for delete buttons
+            let delete_buttons = document.getElementsByClassName('pantry-delete-button')
             for (let i = 0; i < delete_buttons.length; i++) {
                 if (delete_buttons.item(i).style.display == "inline"){                
                     delete_buttons.item(i).style.display = "none";
@@ -423,6 +492,13 @@ input.checkbox:focus {
 
 .hidePantry {
     display: none;
+}
+
+.viewPantryButton {
+    position: relative;
+    float: right;
+    top: 5px;
+    right: 5px;
 }
 
 </style>
