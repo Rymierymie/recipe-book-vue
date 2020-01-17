@@ -92,6 +92,19 @@ export default {
       location.reload();
     }
 
+  },
+  watch: {
+    recentlyViewed: function(){
+      console.log("this changed");
+      if (this.recentlyViewed.length > 1){
+        let items = document.getElementsByClassName("recentlyViewedDivide");
+        let index = items.length - 1;
+        console.log(items);
+        console.log(index);
+        items[index].style.display = 'none'
+        
+      }
+    }
   }
 }
 </script>
