@@ -1,35 +1,38 @@
 <template>
     <div class="componentDiv">
         <div id="recipe-card" class="display-toggle">
-            <div v-bind:key="recipe_name"> 
+            <div class="ml10" v-bind:key="recipe_name"> 
                 <h1 class="recipe-headline">{{ recipe_name }}</h1>
             </div>
-            <div v-bind:key="recipe_description" id="recipeDescription">
+            <div class="ml10" v-bind:key="recipe_description" id="recipeDescription">
                 <p>{{ recipe_description }}</p>
             </div>
+            <div class="ml10">
             <button @click="add_to_menu(recipe_name)" class="c-button c-button-fill" id="headlineButton">Add to menu</button>
-            <div id="relatedRecipeDiv" v-if="related_recipe !== null" v-bind:key="related_recipe">
+            </div>
+            <div class="ml10" id="relatedRecipeDiv" v-if="related_recipe !== null" v-bind:key="related_recipe">
             <p><strong>Related Recipe:</strong> {{ related_recipe }}</p>
             <p><a href="#recipe-card"><button class="c-button" @click="view_recipe(related_recipe)">View</button></a></p>
             </div>
             <div id="ingredientsContainer"> 
-            <h2>Ingredients</h2>
+            <h3 class="ml10">Ingredients</h3>
                 <div  v-for="(item, index) in recipe_ingredients" v-bind:key="index" :id="`${item.name}`" class="card" @click="opacityToggle(item.name)"> 
-                    <h3>
+                    <h2>
                         {{ item.name }} {{ item.amount }}<span style="opacity:0;" v-if="item.type === 'whole' || item.type === 'cup' || item.type === 'clove' ">-</span>{{ item.type }}
-                    </h3>
+                    </h2>
                     <p>
                         {{ item.notes }}
                     </p>
                 </div>
             </div> 
             <div> 
-            <h2>Method</h2>
-                <ol>
-                    <li v-for="(item, index) in recipe_method" v-bind:key="index" class="methodListItem" :id="`${item.step_number}`" @click="opacityToggle(item.step_number)">
+            <h3>Method</h3>
+                <ul>
+                    <li v-for="(item, index) in recipe_method" v-bind:key="index" class="methodListItem card" :id="`${item.step_number}`" @click="opacityToggle(item.step_number)">
+                        <button class="c-button-round">{{ item.step_number }}</button>
                         {{ item.instruction }}
                     </li>
-                </ol>
+                </ul>
             </div> 
         </div> 
 
@@ -41,8 +44,8 @@
                 </option>
             </select> -->
            <!--  <button>View all recipes</button> -->
-           <div id="headlineDiv">
-               <span id="allRecipesHeadline">All Recipes 
+           <div id="headlineDiv" class="ml10">
+               <span id="allRecipesHeadline">Filter Recipes
                    <span id="vegoFilterCheckbox"><span style="padding-right:5px">Vegetarian</span>
                         <label class="switch">
                             <input type="checkbox" v-model="vegoFilter">
@@ -51,7 +54,7 @@
                    </span>
                 </span> 
            </div>
-           <div id="filterButtons">
+           <div id="filterButtons" class="ml10">
                <button class="c-button btn active" @click="filterSelection('all')">Show all</button>
                <template v-for="(item,index) in recipeCategories">
                    <button class="c-button btn" v-bind:key="index" @click="filterSelection(item)">{{ item }}</button>
@@ -332,10 +335,7 @@ ol {
 }
 
 .methodListItem {
-    font-size: 1.1rem;
     padding-bottom: 20px;
-    line-height: 1.7rem;
-    color: #333333;
     cursor: pointer;
 }
 
@@ -355,11 +355,6 @@ h3 {
 
 h1 {
     margin-top: 10px;
-}
-
-button {
-/*     margin-top: 10px;
-    margin-right: 20px; */
 }
 
 
@@ -431,7 +426,8 @@ button {
 }
 
 button.active {
-    opacity: 1;
+  background-color: rgba(125, 192, 146, 1);
+  color: #ffffff;
 }
 
 /* End of styles for filtering */

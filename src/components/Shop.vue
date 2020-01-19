@@ -5,16 +5,19 @@
         <img @click="edit_list()" class="icon-big" src="../assets/icons/edit.png" id="editListButton" />
         </h4>
         <ul> 
-            <li v-for="(item, index) in shopping_list" v-bind:key="index" class="card">
-                <span v-if="!pantryItems.includes(item.item)">
-                <span v-if="item.amount !== 0">
+            <template v-for="(item, index) in shopping_list">
+            <span v-if="!pantryItems.includes(item.item)" v-bind:key="index">
+            <span v-if="item.amount !== 0" v-bind:key="index">
+            <li v-bind:key="index" class="card">
+                
                     <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click(item.item)">
                     {{ item.item }} {{ parseFloat(item.amount.toFixed(2)) }} {{ item.type }}
                     <!-- <button style="display:none;" class="delete-button" @click="remove_item(item.item)">remove</button> -->
-                    <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon delete-button" id="menuDeleteIcon" @click="remove_item(item.item)" />
-                </span>
-                </span>
+                    <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon delete-button" id="menuDeleteIcon" @click="remove_item(item.item)" />  
             </li>
+            </span>
+            </span>
+            </template>
         </ul>
 <!--         <h3 v-if="custom_list.length !== 0">Custom items:</h3> -->
         <ul>

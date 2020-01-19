@@ -57,13 +57,13 @@
             <div v-show="value.lunch.recipe !=''">
                 <p class="menuTimeHeadline">Lunch</p> 
                 <p class="menuMealItem">{{ value.lunch.recipe }}</p>
-                <p class="menuServesAmount"><em>{{ value.lunch.serves }} serve<span v-show="value.lunch.serves !== 1">s</span></em></p>
+                <p class="menuServesAmount">{{ value.lunch.serves }} serve<span v-show="value.lunch.serves !== 1">s</span></p>
                 <button class="c-button" v-on:click="removePlannedMeal(name, 'lunch')" >Remove</button>
             </div>
             <div v-show="value.dinner.recipe !=''">
                 <p class="menuTimeHeadline">Dinner</p> 
                 <p class="menuMealItem">{{ value.dinner.recipe }}</p>
-                <p class="menuServesAmount"><em>{{ value.dinner.serves }} serve<span v-show="value.dinner.serves !== 1">s</span></em></p>
+                <p class="menuServesAmount">{{ value.dinner.serves }} serve<span v-show="value.dinner.serves !== 1">s</span></p>
                 <button class="c-button" v-on:click="removePlannedMeal(name, 'dinner')" >Remove</button>
             </div>
         </div>

@@ -8,8 +8,8 @@
     <img src="./assets/icons/tasks.png" class="nav-icon" @click="display('shop')" />
   </div>  
   <div style="padding-left:15px;" v-if="selected === 'search'">
-    <p v-if="this.recentlyViewed.length !== 0" id="recentlyViewedList">Recent:&nbsp;
-      <a href="#recipe-card"><button class="c-button c-button-recent recentlyViewedItem" v-for="(item, index) in recentlyViewed" v-bind:key="index" @click="viewRecentView(item)">{{ item.substring(0, 20) + '...' }}</button></a>
+    <p v-if="this.recentlyViewed.length !== 0" id="recentlyViewedList"><span class="mr10">Recently Viewed</span>
+      <a href="#recipe-card"><button class="c-button c-button-recent mr10" v-for="(item, index) in recentlyViewed" v-bind:key="index" @click="viewRecentView(item)">{{ item.substring(0, 20) + '...' }}</button></a>
     </p>
   </div>
     <div v-if="this.selected=='search'" id="search-component">
@@ -178,6 +178,12 @@ h4 {
   line-height: 22px;
 }
 
+li {
+  font-weight: 200;
+  font-size: 16px;
+  line-height: 26px;
+}
+
 #nav {
   text-align: center;
   position: fixed;
@@ -260,7 +266,26 @@ select {
 }
 
 .c-button:hover {
-    opacity: 0.9;
+  background-color: rgba(125, 192, 146, 1);
+  color: #ffffff;
+}
+
+.c-button-recent:hover {
+  border: solid 0.5px rgba(125, 192, 146, 1);
+  color: rgba(125, 192, 146, 1);
+  background-color: #ffffff
+}
+
+.c-button-fill:hover {
+
+}
+
+.c-button-round: {
+  width: 42px;
+  border: solid 0.5px rgba(125, 192, 146, 1);
+  background-color: rgba(125, 192, 146, 1);
+  color: #ffffff;
+  border-radius: 50px;
 }
 
 button {
@@ -274,7 +299,6 @@ hr {
 
 
 /* Padding styles */
-
 .pl10 {
   padding-left: 10px
 }
@@ -289,6 +313,23 @@ hr {
 
 .pb10 {
   padding-bottom: 10px;
+}
+
+/* Margin styles */
+.ml10 {
+  margin-left: 10px
+}
+
+.mr10 {
+  margin-right: 10px;
+}
+
+.mt10 {
+  margin-top: 10px;
+}
+
+.mb10 {
+  margin-bottom: 10px;
 }
 
 </style>
