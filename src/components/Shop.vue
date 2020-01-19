@@ -1,11 +1,11 @@
 <template>
     <div class="componentDiv">
         <h4 class="headline">Shop
-        <!-- <button @click="edit_list()" class="customButton" id="editListButton">Edit List</button> -->
+        <!-- <button @click="edit_list()" class="c-button" id="editListButton">Edit List</button> -->
         <img @click="edit_list()" class="icon-big" src="../assets/icons/edit.png" id="editListButton" />
         </h4>
         <ul> 
-            <li v-for="(item, index) in shopping_list" v-bind:key="index" >
+            <li v-for="(item, index) in shopping_list" v-bind:key="index" class="card">
                 <span v-if="!pantryItems.includes(item.item)">
                 <span v-if="item.amount !== 0">
                     <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click(item.item)">
@@ -18,7 +18,7 @@
         </ul>
 <!--         <h3 v-if="custom_list.length !== 0">Custom items:</h3> -->
         <ul>
-            <li v-for="(item, index) in custom_list" v-bind:key="index">
+            <li v-for="(item, index) in custom_list" v-bind:key="index" class="card">
                 <span class="custom-list-item">
                 <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click_custom(item.item)">
                 {{ item.item }}
@@ -33,7 +33,7 @@
                 <img src="../assets/icons/plus.png" id="custom_list_add_button" class="icon-big" @click="custom_list_addition()"/>
         </div>
 
-        <button @click="add_to_list_input()" class="customButton" id="addToListButton">Add To List</button>
+        <button @click="add_to_list_input()" class="c-button" id="addToListButton">Add To List</button>
         </div>
         <div class="card" id="pantry">
             <h4 class="headline-card" @click="showHidePantry()">Pantry 
@@ -44,7 +44,7 @@
                 <ul :class="pantryView" class="list-ul">
                     <li v-for="(item, index) in pantryItems" v-bind:key="index" >{{ item }} <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon pantry-delete-button" @click="removePantryItem(item)" /></li>
                 </ul>
-                <button :class="pantryView" class="customButton" @click="editPantryList()" id="editPantryButton">Edit Pantry</button>
+                <button :class="pantryView" class="c-button" @click="editPantryList()" id="editPantryButton">Edit Pantry</button>
             <div id="ingredientSelectDiv" :class="pantryView">
                 <h4 class="headline-card" >Add to pantry</h4>
                 <select id="ingredients-list" >
@@ -53,7 +53,7 @@
                         {{ item }}
                     </option>
                 </select>
-                <button class="customButton" @click="addToPantry()">Add item</button>
+                <button class="c-button" @click="addToPantry()">Add item</button>
             </div>
         </div>
         <div style="padding-bottom: 100px;"></div>

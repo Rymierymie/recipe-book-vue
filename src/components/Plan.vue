@@ -2,9 +2,9 @@
     <div class="componentDiv">
         <div id="menuDiv" v-show="this.menu.length !== 0">
             <h4>Menu
-                <!-- <button @click="edit_menu()" class="customButton" id="editMenuButton">Edit menu</button> -->
+                <!-- <button @click="edit_menu()" class="c-button" id="editMenuButton">Edit menu</button> -->
                 <img src="../assets/icons/edit.png" class="icon-big" id="editMenuButton" @click="edit_menu()"/>
-                <!-- <button @click="clear_menu()" class="customButton display-toggle" id="clearMenuButton">Clear menu</button> -->
+                <!-- <button @click="clear_menu()" class="c-button display-toggle" id="clearMenuButton">Clear menu</button> -->
                 <img src="../assets/icons/trash.png" @click="clear_menu()" class="icon-big display-toggle" id="clearMenuButton" />
             </h4>    
                 <div class="card">
@@ -23,10 +23,10 @@
         </h4>
         <div class="card" v-for="(value, name, index) in meal_plan" v-bind:key="index">
             <h2 id="dayHeadline">{{ name.charAt(0).toUpperCase() + name.slice(1) }}
-            <button @click="show_day(name, 'Dinner')" id="showDinnerButton" class="addMealButton customButton">Plan dinner</button> 
-            <button @click="show_day(name, 'Lunch')" id="showLunchButton" class="addMealButton customButton">Plan lunch</button>   
+            <button @click="show_day(name, 'Dinner')" id="showDinnerButton" class="addMealButton c-button">Plan dinner</button> 
+            <button @click="show_day(name, 'Lunch')" id="showLunchButton" class="addMealButton c-button">Plan lunch</button>   
             </h2> 
-            <div class="display-toggle selectorCard" :id="`${name}LunchSelectors`">
+            <div class="display-toggle" :id="`${name}LunchSelectors`">
             <span>Lunch &nbsp; <img src="../assets/icons/cancel.png" @click="show_day(name, 'Lunch')" class="icon closeSelectorCard" /> </span>
             <select class="mealSelecter" v-model="value.lunch.recipe" v-on:change="mealPlanChange">
                 <option value="" selected></option>
@@ -40,7 +40,7 @@
             <button class="plusMinusButton" @click="value.lunch.serves += 1" v-on:click="mealPlanChange"><img class="icon" src="../assets/icons/plus.png" /></button>
             </p>
             </div>
-            <div class="display-toggle selectorCard" :id="`${name}DinnerSelectors`">
+            <div class="display-toggle" :id="`${name}DinnerSelectors`">
             <span>Dinner &nbsp; <img src="../assets/icons/cancel.png" @click="show_day(name, 'Dinner')" class="icon closeSelectorCard" /> </span>
             <select class="mealSelecter" v-model="value.dinner.recipe" v-on:change="mealPlanChange">
                 <option value="" selected></option>
@@ -58,15 +58,13 @@
                 <p class="menuTimeHeadline">Lunch</p> 
                 <p class="menuMealItem">{{ value.lunch.recipe }}</p>
                 <p class="menuServesAmount"><em>{{ value.lunch.serves }} serve<span v-show="value.lunch.serves !== 1">s</span></em></p>
-                <button class="customButton" v-on:click="removePlannedMeal(name, 'lunch')" >Remove</button>
+                <button class="c-button" v-on:click="removePlannedMeal(name, 'lunch')" >Remove</button>
             </div>
             <div v-show="value.dinner.recipe !=''">
-                <div class="divider-light lunchDinnerDivider">
-                </div>
                 <p class="menuTimeHeadline">Dinner</p> 
                 <p class="menuMealItem">{{ value.dinner.recipe }}</p>
                 <p class="menuServesAmount"><em>{{ value.dinner.serves }} serve<span v-show="value.dinner.serves !== 1">s</span></em></p>
-                <button class="customButton" v-on:click="removePlannedMeal(name, 'dinner')" >Remove</button>
+                <button class="c-button" v-on:click="removePlannedMeal(name, 'dinner')" >Remove</button>
             </div>
         </div>
         <div style="padding-bottom: 100px;"></div>
@@ -502,13 +500,6 @@ ul {
     padding: 0px 10px;
 }
 
-.selectorCard {
-    margin: 10px 0px;
-    border: 1px solid rgba(0, 0, 0,0.1);
-    padding: 5px 5px;
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0,0.01);
-}
 
 .servesSetters {
     margin: 0px 0px 8px 0px;
@@ -550,13 +541,6 @@ ul {
     margin-right: 20px;
 }
 
-.dayDivider {
-    margin-top: 15px;
-}
-
-.lunchDinnerDivider {
-    margin: 10px 0px;
-}
 
 
 </style>
