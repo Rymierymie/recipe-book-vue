@@ -62,7 +62,8 @@
                 <div v-bind:class="[item.category]" class="card filterDiv show">
                     <a href="#recipe-card" @click="view_recipe(item.recipe)"><h2>{{ item.recipe }}</h2>
                     <p class="mb10">{{ item.description }}</p></a>
-                    <button class="c-button c-button-fill" @click="add_to_menu(item.recipe)">Add to menu</button>
+                    <button class="c-button c-button-fill" @click="add_to_menu(item.recipe)">Add to menu</button> 
+                    <img v-if="menu.includes(item.recipe)" src="../assets/icons/calendar-check.png" class="icon-bigger in-menu-icon" />
                     <!-- <button class="c-button c-button-fill" >View</button> -->
                 </div>   
             </div>
@@ -411,6 +412,14 @@ button.active {
   color: #ffffff;
 }
 
+button.active:hover {
+  background-color: #649A75;
+  border: solid 0.5px #649A75;
+  -webkit-box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
+}
+
 /* End of styles for filtering */
 
 /* Start of VERY stolen styles for rounded switch */
@@ -499,6 +508,12 @@ input:checked + .slider:before {
   color: #ffffff;
   border-radius: 50px;
   display: inline-block;
+}
+
+.in-menu-icon {
+    position: relative;
+    float: right;
+    right: 10px;
 }
 
 </style>

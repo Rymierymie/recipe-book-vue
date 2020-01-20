@@ -8,9 +8,12 @@
     <img src="./assets/icons/tasks.png" class="nav-icon" @click="display('shop')" />
   </div>  
   <div style="padding-left:15px;" v-if="selected === 'search'">
-    <p v-if="this.recentlyViewed.length !== 0" id="recentlyViewedList"><span class="mr10">Recently Viewed</span>
-      <a href="#recipe-card"><button class="c-button c-button-recent mr10" v-for="(item, index) in recentlyViewed" v-bind:key="index" @click="viewRecentView(item)">{{ item.substring(0, 20) + '...' }}</button></a>
-    </p>
+    <div v-if="this.recentlyViewed.length !== 0" id="recentlyViewedList">
+      <h3>Recently Viewed</h3>
+    </div>
+    <div v-if="this.recentlyViewed.length !== 0" id="recentlyViewedList">
+      <a href="#recipe-card"><button class="c-button c-button-recent mr10" v-for="(item, index) in recentlyViewed" v-bind:key="index" @click="viewRecentView(item)"><img class="icon history-button-icon" v-bind:src="historyGrey" /> {{ item.substring(0, 15) + '...' }}</button></a>
+    </div>
   </div>
     <div v-if="this.selected=='search'" id="search-component">
       <search />
@@ -39,7 +42,9 @@ export default {
   data () {
     return {
       selected: 'search',
-      recentlyViewed: []
+      recentlyViewed: [],
+      historyGrey: require('./assets/icons/history.png'), // Not quite the solution: https://stackoverflow.com/questions/45311433/how-to-change-image-on-mouseover-in-vue-js
+      historyGreen: require('./assets/icons/history-green.png')
     }
   },
   created (){
@@ -89,7 +94,17 @@ export default {
       /* eventBus.$emit('local_cleared', true); */
       alert("Local Storage Cleared!")
       location.reload();
-    }
+    },
+/*     mouseOver(that){
+      console.log("hey");
+      console.log(that);
+      let elems = document.getElementsByClassName("history-button-icon")
+
+      Array.from(elems).forEach(function (element) { 
+                    console.log(element) 
+                    element.classList.toggle("display-toggle");
+                });
+    } */
 
   },
   watch: {
@@ -233,20 +248,26 @@ select {
 
 .icon {
     width: 10px;
-    opacity: 0.4;
+/*     opacity: 0.4; */
 }
 
 .icon:hover {
-    opacity: 0.9;
+    /* opacity: 0.9; */
 }
 
 .icon-big {
   width: 15px;
-  opacity: 0.4;
+/*   opacity: 0.4; */
 }
 
+.icon-bigger {
+  width: 20px;
+/*   opacity: 0.4; */
+}
+
+
 .icon-big:hover {
-    opacity: 0.9;
+    /* opacity: 0.9; */
 }
 
 .c-button {
@@ -269,6 +290,7 @@ select {
 
 .c-button-recent {
   border: solid 0.5px rgba(229, 229, 229, 1);
+  padding: 0px 10px;
   color: #6d6d6d;
 }
 
@@ -283,7 +305,16 @@ select {
   background-color: #ffffff
 }
 
+.c-button-recent:hover img {
+  opacity: 1;
+}
+
 .c-button-fill:hover {
+  background-color: #649A75;
+  border: solid 0.5px #649A75;
+  -webkit-box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
 
 }
 
