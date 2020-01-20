@@ -1,9 +1,9 @@
 <template>
     <div class="componentDiv">
-        <h4 class="headline">Shop
+        <h3 class="headline pl10">Shop
         <!-- <button @click="edit_list()" class="c-button" id="editListButton">Edit List</button> -->
         <img @click="edit_list()" class="icon-big" src="../assets/icons/edit.png" id="editListButton" />
-        </h4>
+        </h3>
         <ul> 
             <template v-for="(item, index) in shopping_list">
             <span v-if="!pantryItems.includes(item.item)" v-bind:key="index">

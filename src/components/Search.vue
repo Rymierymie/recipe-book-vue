@@ -8,7 +8,9 @@
                 <p>{{ recipe_description }}</p>
             </div>
             <div class="ml10">
-            <button @click="add_to_menu(recipe_name)" class="c-button c-button-fill" id="headlineButton">Add to menu</button>
+            <button v-if="!menu.includes(recipe_name)" @click="add_to_menu(recipe_name)" class="c-button c-button-fill headlineButton">Add to menu</button>
+            <button v-if="menu.includes(recipe_name)" class="c-button c-button-fill headlineButton" @click="remove_from_menu(recipe_name)">Remove from menu</button>
+            <img v-if="menu.includes(recipe_name)" src="../assets/icons/calendar-check.png" class="icon-bigger in-menu-icon" />
             </div>
             <div class="ml10" id="relatedRecipeDiv" v-if="related_recipe !== null" v-bind:key="related_recipe">
             <p><strong>Related Recipe:</strong> {{ related_recipe }}</p>
@@ -62,7 +64,8 @@
                 <div v-bind:class="[item.category]" class="card filterDiv show">
                     <a href="#recipe-card" @click="view_recipe(item.recipe)"><h2>{{ item.recipe }}</h2>
                     <p class="mb10">{{ item.description }}</p></a>
-                    <button class="c-button c-button-fill" @click="add_to_menu(item.recipe)">Add to menu</button> 
+                    <button v-if="!menu.includes(item.recipe)" class="c-button c-button-fill" @click="add_to_menu(item.recipe)">Add to menu</button>
+                    <button v-if="menu.includes(item.recipe)" class="c-button c-button-fill" @click="remove_from_menu(item.recipe)">Remove from menu</button>  
                     <img v-if="menu.includes(item.recipe)" src="../assets/icons/calendar-check.png" class="icon-bigger in-menu-icon" />
                     <!-- <button class="c-button c-button-fill" >View</button> -->
                 </div>   
@@ -188,13 +191,13 @@ export default {
               alert("That's already on your menu!");
               }  
           
-        }
-/*       remove_from_menu(recipe){
+        },
+       remove_from_menu(recipe){
           let index = this.menu.findIndex(x => x == recipe);
           this.menu.splice(index, 1); 
           eventBus.$emit('menu_edit', this.menu);         
           },
-      clear_menu(){
+    /*  clear_menu(){
           this.menu = []
           localStorage.removeItem('menu')
           } */
@@ -373,10 +376,9 @@ h1 {
     margin-top: 30px;
 }
 
-#headlineButton {
+.headlineButton {
     /* float: right; */
     margin: 10px 10px 10px 0px;
-    font-weight: 200;
 }
 
 #allRecipesHeadline {
@@ -407,7 +409,7 @@ h1 {
   display: block;
 }
 
-button.active {
+/* button.active {
   background-color: rgba(125, 192, 146, 1);
   color: #ffffff;
 }
@@ -419,7 +421,7 @@ button.active:hover {
   -moz-box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
   box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
 }
-
+ */
 /* End of styles for filtering */
 
 /* Start of VERY stolen styles for rounded switch */

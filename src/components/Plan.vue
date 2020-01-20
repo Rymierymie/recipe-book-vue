@@ -1,12 +1,12 @@
 <template>
     <div class="componentDiv">
         <div id="menuDiv" v-show="this.menu.length !== 0">
-            <h4>Menu
+            <h3 class="pl10">Menu
                 <!-- <button @click="edit_menu()" class="c-button" id="editMenuButton">Edit menu</button> -->
                 <img src="../assets/icons/edit.png" class="icon-big" id="editMenuButton" @click="edit_menu()"/>
                 <!-- <button @click="clear_menu()" class="c-button display-toggle" id="clearMenuButton">Clear menu</button> -->
                 <img src="../assets/icons/trash.png" @click="clear_menu()" class="icon-big display-toggle" id="clearMenuButton" />
-            </h4>    
+            </h3>    
                 <div class="card">
                 <ul id="menuList"> 
                     <li v-for="(item, index) in menu" v-bind:key="index" class="menuListItem">
@@ -18,9 +18,9 @@
                 </div>
         </div>
 
-        <h4 id="planHeadline">Plan
+        <h3 class="pl10">Plan
         <img src="../assets/icons/reset.png" @click="reset_planner()" id="resetPlanIcon" class="icon-big"/>
-        </h4>
+        </h3>
         <div class="card" v-for="(value, name, index) in meal_plan" v-bind:key="index">
             <h2 id="dayHeadline">{{ name.charAt(0).toUpperCase() + name.slice(1) }}
             <button @click="show_day(name, 'Dinner')" id="showDinnerButton" class="addMealButton c-button">Plan dinner</button> 
@@ -170,7 +170,7 @@ export default {
       eventBus.$on('menu_edit', new_menu => {
                 this.menu = new_menu;
                 });
-    
+
   },
   watch: { 
         'meal_plan': { 
@@ -523,11 +523,6 @@ ul {
     width: 30px;
 }
 
-#planHeadline {
-    margin-top: 15px;
-    margin-bottom: 10px;
-    font-weight: 200;
-}
 
 #resetPlanIcon {
     position: relative;

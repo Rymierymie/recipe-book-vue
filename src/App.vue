@@ -7,7 +7,7 @@
     <img src="./assets/icons/calendar.png" class="nav-icon" @click="display('plan')" />
     <img src="./assets/icons/tasks.png" class="nav-icon" @click="display('shop')" />
   </div>  
-  <div style="padding-left:15px;" v-if="selected === 'search'">
+  <div class="pl10" v-if="selected === 'search'">
     <div v-if="this.recentlyViewed.length !== 0" id="recentlyViewedList">
       <h3>Recently Viewed</h3>
     </div>
@@ -325,6 +325,20 @@ select {
   color: #ffffff;
   border-radius: 50px; */
 }
+
+button.active {
+  background-color: rgba(125, 192, 146, 1);
+  color: #ffffff;
+}
+
+button.active:hover {
+  background-color: #649A75;
+  border: solid 0.5px #649A75;
+  -webkit-box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
+}
+
 
 button {
   outline: none;
