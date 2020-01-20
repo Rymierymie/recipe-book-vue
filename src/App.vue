@@ -115,19 +115,18 @@ html {
   scroll-behavior: smooth;
 }
 
+
 #app {
   font-family: 'Poppins', sans-serif;
 }
 
-p {
-  font-family: 'Roboto', sans-serif;
-}
+
 
 body {
   margin: 0px 0px;
   color: #6D6D6D;
   background-color: #fff;
-  background: url("./assets/woodbackground.jpg") no-repeat fixed center; 
+  /* background: url("./assets/woodbackground.jpg") no-repeat fixed center;  */
 }
 
 .componentDiv {
@@ -152,6 +151,13 @@ a {
     cursor: pointer;
 }
 
+p {
+  /* font-family: 'Roboto', sans-serif; */
+  font-weight: 200;
+  font-size: 13px;
+  line-height: 22px;
+}
+
 h1 {
   font-weight: 200;
   font-size: 26px;
@@ -164,6 +170,7 @@ h2 {
   font-weight: 200;
   font-size: 20px;
   line-height: 32px;
+  margin-top: 0px;
 }
 
 h3 {
@@ -281,11 +288,11 @@ select {
 }
 
 .c-button-round: {
-  width: 42px;
+/*   width: 42px;
   border: solid 0.5px rgba(125, 192, 146, 1);
   background-color: rgba(125, 192, 146, 1);
   color: #ffffff;
-  border-radius: 50px;
+  border-radius: 50px; */
 }
 
 button {
@@ -331,5 +338,27 @@ hr {
 .mb10 {
   margin-bottom: 10px;
 }
+
+.ml5 {
+  margin-left: 5px
+}
+
+.mr5 {
+  margin-right: 5px;
+}
+
+.mt5 {
+  margin-top: 5px;
+}
+
+.mb5 {
+  margin-bottom: 5px;
+}
+
+/* Start of stolen custom dropdown styles */
+
+
+
+/* End of stolen custom dropdown styles */
 
 </style>

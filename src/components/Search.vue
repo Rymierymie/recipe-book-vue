@@ -17,19 +17,16 @@
             <div id="ingredientsContainer"> 
             <h3 class="ml10">Ingredients</h3>
                 <div  v-for="(item, index) in recipe_ingredients" v-bind:key="index" :id="`${item.name}`" class="card" @click="opacityToggle(item.name)"> 
-                    <h2>
-                        {{ item.name }} {{ item.amount }}<span style="opacity:0;" v-if="item.type === 'whole' || item.type === 'cup' || item.type === 'clove' ">-</span>{{ item.type }}
-                    </h2>
-                    <p>
-                        {{ item.notes }}
-                    </p>
+                    <h2>{{ item.name.charAt(0).toUpperCase() + item.name.slice(1) }}</h2>
+                    <h3>{{ item.amount }}<span style="opacity:0;" v-if="item.type === 'whole' || item.type === 'cup' || item.type === 'clove' ">-</span>{{ item.type }}</h3>
+                    <p>{{ item.notes }}</p>
                 </div>
             </div> 
             <div> 
-            <h3>Method</h3>
+            <h3 class="ml10">Method</h3>
                 <ul>
                     <li v-for="(item, index) in recipe_method" v-bind:key="index" class="methodListItem card" :id="`${item.step_number}`" @click="opacityToggle(item.step_number)">
-                        <button class="c-button-round">{{ item.step_number }}</button>
+                        <div class="counter-round mr5">{{ item.step_number }}</div>
                         {{ item.instruction }}
                     </li>
                 </ul>
@@ -44,7 +41,7 @@
                 </option>
             </select> -->
            <!--  <button>View all recipes</button> -->
-           <div id="headlineDiv" class="ml10">
+           <div id="headlineDiv" class="ml10 mr10">
                <span id="allRecipesHeadline">Filter Recipes
                    <span id="vegoFilterCheckbox"><span style="padding-right:5px">Vegetarian</span>
                         <label class="switch">
@@ -62,9 +59,9 @@
            </div>
            <template v-for="(item, index) in recipesData">
             <div v-bind:key="index" :class="`${item.vegetarian}`">
-                <div v-bind:class="[item.category]" class="recipeListItem card filterDiv show">
+                <div v-bind:class="[item.category]" class="card filterDiv show">
                     <a href="#recipe-card" @click="view_recipe(item.recipe)"><h2>{{ item.recipe }}</h2>
-                    <p>{{ item.description }}</p></a>
+                    <p class="mb10">{{ item.description }}</p></a>
                     <button class="c-button c-button-fill" @click="add_to_menu(item.recipe)">Add to menu</button>
                     <!-- <button class="c-button c-button-fill" >View</button> -->
                 </div>   
@@ -72,8 +69,8 @@
             </template>
         </div>
         <div id="ingredientSelectDiv">
-            <h4 class="browseByHeadline">Browse by ingredients</h4>
-            <select id="ingredients-list" v-model="ingredient_name">
+            <h3 class="ml10">Browse by ingredients</h3>
+            <select id="ingredients-list" class="custom-select" v-model="ingredient_name">
                 <option selected></option>
                 <option v-for="(item, index) in ingredients_list" v-bind:key="index">
                     {{ item }}
@@ -82,8 +79,8 @@
         </div>
   
         <div id="ingredients-card" class="display-toggle">
-            <h4 class="browseByHeadline">Recipes with {{ ingredient_name }}</h4>
-                    <div v-for="(item, index) in ingredient_recipes" v-bind:key="index" class="recipeListItem card">
+            <h3 class="ml10">Recipes with {{ ingredient_name }}</h3>
+                    <div v-for="(item, index) in ingredient_recipes" v-bind:key="index" class="card">
                         <h3>{{ item }}</h3>
                         <button class="c-button" @click="add_to_menu(item)">Add to menu</button>
                         <button class="c-button" @click="view_recipe(item)">View</button>
@@ -307,10 +304,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-p {
-    margin: 0px 0px;
-}
-
 .display-toggle {
   display: none;
 }
@@ -326,16 +319,12 @@ ol {
     margin: 0px 0px;
 }
 
-.recipeListItem {
-    padding: 10px 10px;
-}
 
 #recipeDescription {
     padding-bottom: 20px;
 }
 
 .methodListItem {
-    padding-bottom: 20px;
     cursor: pointer;
 }
 
@@ -357,10 +346,6 @@ h1 {
     margin-top: 10px;
 }
 
-
-.recipeListItem .c-button {
-    margin: 10px 10px 10px 0px;
-}
 
 #filterButtons .c-button {
     margin-right: 10px;
@@ -397,10 +382,6 @@ h1 {
     margin-bottom: -10px;
     font-weight: 200;
     margin-top: 20px;
-}
-
-.browseByHeadline {
-    font-weight: 200;
 }
 
 
@@ -507,6 +488,17 @@ input:checked + .slider:before {
 #headlineDiv {
     padding-top: 15px;
     padding-bottom: 10px;
+}
+
+.counter-round {
+  width: 26px;
+  line-height:26px;
+  text-align: center;
+  border: solid 0.5px rgba(125, 192, 146, 1);
+  background-color: rgba(125, 192, 146, 1);
+  color: #ffffff;
+  border-radius: 50px;
+  display: inline-block;
 }
 
 </style>
