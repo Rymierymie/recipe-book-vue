@@ -9,10 +9,10 @@
   </div>  
   <div class="pl10" v-if="selected === 'search'">
     <div v-if="this.recentlyViewed.length !== 0" id="recentlyViewedList">
-      <h3>Recently Viewed</h3>
+      <h3 class="mb5 mt5">Recently Viewed</h3>
     </div>
     <div v-if="this.recentlyViewed.length !== 0" id="recentlyViewedList">
-      <a href="#recipe-card"><button class="c-button c-button-recent mr10" v-for="(item, index) in recentlyViewed" v-bind:key="index" @click="viewRecentView(item)"><img class="icon history-button-icon" v-bind:src="historyGrey" /> {{ item.substring(0, 15) + '...' }}</button></a>
+      <a href="#recipe-card"><button class="c-button c-button-recent mr10 mb5" v-for="(item, index) in recentlyViewed" v-bind:key="index" @click="viewRecentView(item)"><img class="icon history-button-icon" v-bind:src="historyGrey" /> {{ item.substring(0, 15) + '...' }}</button></a>
     </div>
   </div>
     <div v-if="this.selected=='search'" id="search-component">
@@ -160,6 +160,17 @@ body {
     box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
 }
 
+.list-card {
+    margin: 10px 10px;
+/*     padding: 10px 10px;
+    border: solid 0.5px rgba(180, 194, 211, 0.2);
+    border-radius: 10px;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1); */
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -237,13 +248,29 @@ li {
 } */
 
 select {
-    margin: 5px 15px 5px 0px;
-    height: 2rem;
-    font-size: 1rem;
-    width: 100%;
+    height: 3rem;
+    font-size: 16px;
+    color: #6D6D6D;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    width: 95%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+/*     width: 150px; */
+    padding: 5px 35px 5px 5px;
+/*     font-size: 16px; */
+    border: solid 0.5px rgba(180, 194, 211, 0.2);
+/*     height: 34px; */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url('./assets/icons/chevron-down.png') 96% / 15% no-repeat #ffffff;
+    background-size: 15px 15px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 5px 20px 0px rgba(0,0,0,0.1);
 }
 
 .icon {
@@ -372,6 +399,22 @@ hr {
   padding-bottom: 10px;
 }
 
+.pl0 {
+  padding-left: 0px
+}
+
+.pr0 {
+  padding-right: 0px;
+}
+
+.pt0 {
+  padding-top: 0px;
+}
+
+.pb0 {
+  padding-bottom: 0px;
+}
+
 /* Margin styles */
 .ml10 {
   margin-left: 10px
@@ -404,6 +447,39 @@ hr {
 .mb5 {
   margin-bottom: 5px;
 }
+
+.ml0 {
+  margin-left: 0px
+}
+
+.mr0 {
+  margin-right: 0px;
+}
+
+.mt0 {
+  margin-top: 0px;
+}
+
+.mb0 {
+  margin-bottom: 0px;
+}
+
+.ml20 {
+  margin-left: 20px
+}
+
+.mr20 {
+  margin-right: 20px;
+}
+
+.mt20 {
+  margin-top: 20px;
+}
+
+.mb20 {
+  margin-bottom: 20px;
+}
+
 
 /* Start of stolen custom dropdown styles */
 

@@ -2,9 +2,9 @@
     <div class="componentDiv">
         <div id="recipe-card" class="display-toggle">
             <div class="ml10" v-bind:key="recipe_name"> 
-                <h1 class="recipe-headline">{{ recipe_name }}</h1>
+                <h1 class="mt10">{{ recipe_name }}</h1>
             </div>
-            <div class="ml10" v-bind:key="recipe_description" id="recipeDescription">
+            <div class="ml10" v-bind:key="recipe_description">
                 <p>{{ recipe_description }}</p>
             </div>
             <div class="ml10">
@@ -17,11 +17,11 @@
             <p><a href="#recipe-card"><button class="c-button" @click="view_recipe(related_recipe)">View</button></a></p>
             </div>
             <div id="ingredientsContainer"> 
-            <h3 class="ml10">Ingredients</h3>
-                <div  v-for="(item, index) in recipe_ingredients" v-bind:key="index" :id="`${item.name}`" class="card" @click="opacityToggle(item.name)"> 
-                    <h2>{{ item.name.charAt(0).toUpperCase() + item.name.slice(1) }}</h2>
-                    <h3>{{ item.amount }}<span style="opacity:0;" v-if="item.type === 'whole' || item.type === 'cup' || item.type === 'clove' ">-</span>{{ item.type }}</h3>
-                    <p>{{ item.notes }}</p>
+            <h3 class="ml10 mb10">Ingredients</h3>
+                <div  v-for="(item, index) in recipe_ingredients" v-bind:key="index" :id="`${item.name}`" class="card list-card" @click="opacityToggle(item.name)"> 
+                    <h2 class="mb0">{{ item.name.charAt(0).toUpperCase() + item.name.slice(1) }}</h2>
+                    <h3 class="mb0 mt0">{{ item.amount }}<span style="opacity:0;" v-if="item.type === 'whole' || item.type === 'cup' || item.type === 'clove' ">-</span>{{ item.type }}</h3>
+                    <p class="mb0 mt0">{{ item.notes }}</p>
                 </div>
             </div> 
             <div> 
@@ -43,7 +43,7 @@
                 </option>
             </select> -->
            <!--  <button>View all recipes</button> -->
-           <div id="headlineDiv" class="ml10 mr10">
+           <div class="ml10 mr10 mb10">
                <span id="allRecipesHeadline">Filter Recipes
                    <span id="vegoFilterCheckbox"><span style="padding-right:5px">Vegetarian</span>
                         <label class="switch">
@@ -54,16 +54,17 @@
                 </span> 
            </div>
            <div id="filterButtons" class="ml10">
-               <button class="c-button btn active" @click="filterSelection('all')">Show all</button>
+               <button class="c-button btn active mb10" @click="filterSelection('all')">Show all</button>
                <template v-for="(item,index) in recipeCategories">
-                   <button class="c-button btn" v-bind:key="index" @click="filterSelection(item)">{{ item }}</button>
+                   <button class="c-button btn mb10" v-bind:key="index" @click="filterSelection(item)">{{ item }}</button>
                </template>
            </div>
            <template v-for="(item, index) in recipesData">
             <div v-bind:key="index" :class="`${item.vegetarian}`">
                 <div v-bind:class="[item.category]" class="card filterDiv show">
-                    <a href="#recipe-card" @click="view_recipe(item.recipe)"><h2>{{ item.recipe }}</h2>
-                    <p class="mb10">{{ item.description }}</p></a>
+                    <a href="#recipe-card" @click="view_recipe(item.recipe)">
+                    <h2 class="mb0">{{ item.recipe }}</h2>
+                    <p class="mb20 mt5">{{ item.description }}</p></a>
                     <button v-if="!menu.includes(item.recipe)" class="c-button c-button-fill" @click="add_to_menu(item.recipe)">Add to menu</button>
                     <button v-if="menu.includes(item.recipe)" class="c-button c-button-fill" @click="remove_from_menu(item.recipe)">Remove from menu</button>  
                     <img v-if="menu.includes(item.recipe)" src="../assets/icons/calendar-check.png" class="icon-bigger in-menu-icon" />
@@ -73,8 +74,8 @@
             </template>
         </div>
         <div id="ingredientSelectDiv">
-            <h3 class="ml10">Browse by ingredients</h3>
-            <select id="ingredients-list" class="custom-select" v-model="ingredient_name">
+            <h3 class="ml10 mb5">Browse by ingredients</h3>
+            <select class="custom-select ml10 mr10 pl10" v-model="ingredient_name">
                 <option selected></option>
                 <option v-for="(item, index) in ingredients_list" v-bind:key="index">
                     {{ item }}
@@ -83,11 +84,11 @@
         </div>
   
         <div id="ingredients-card" class="display-toggle">
-            <h3 class="ml10">Recipes with {{ ingredient_name }}</h3>
-                    <div v-for="(item, index) in ingredient_recipes" v-bind:key="index" class="card">
-                        <h3>{{ item }}</h3>
-                        <button class="c-button" @click="add_to_menu(item)">Add to menu</button>
-                        <button class="c-button" @click="view_recipe(item)">View</button>
+            <h3 class="ml10 mb0 pb0">Recipes with {{ ingredient_name }}</h3>
+                    <div v-for="(item, index) in ingredient_recipes" v-bind:key="index" class="card list-card">
+                        <h2 class="mb15" @click="view_recipe(item)">{{ item }}</h2>
+                        <button class="c-button c-button-fill" @click="add_to_menu(item)">Add to menu</button>
+                        <img v-if="menu.includes(item)" src="../assets/icons/calendar-check.png" class="icon-bigger in-menu-icon" />
                     </div>
         </div>
         <div style="padding-bottom: 100px;"></div>
@@ -324,32 +325,14 @@ ol {
 }
 
 
-#recipeDescription {
-    padding-bottom: 20px;
-}
-
 .methodListItem {
     cursor: pointer;
 }
 
-#ingredients-list {
-    margin-bottom: 20px;
+
+#filterButtons {
+    margin-bottom: -15px;
 }
-
-
-h2 {
-    margin-bottom: 10px;
-}
-
-h3 {
-    margin-bottom: 5px;
-    margin-top: 0px;
-}
-
-h1 {
-    margin-top: 10px;
-}
-
 
 #filterButtons .c-button {
     margin-right: 10px;
@@ -360,9 +343,6 @@ h1 {
     opacity: 0.3;
 }
 
-#ingredients-card h3 {
-    padding-bottom: 10px;
-}
 
 #ingredients-card h4 {
     margin: 0px 0px -15px 0px;
@@ -370,10 +350,6 @@ h1 {
 
 #ingredientSelectDiv h4 {
     margin: 15px 0px 0px 0px;
-}
-
-.recipe-headline {
-    margin-top: 30px;
 }
 
 .headlineButton {
@@ -464,7 +440,7 @@ button.active:hover {
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
-  box-shadow: 0 0 2px rgba(185, 217, 195, 1);
+  box-shadow: 0 0 2px #6D6D6D;
 }
 
 input:checked + .slider {
@@ -472,7 +448,7 @@ input:checked + .slider {
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 2px rgba(185, 217, 195, 1);
+  box-shadow: 0 0 2px #6D6D6D;
 }
 
 input:checked + .slider:before {
@@ -494,11 +470,6 @@ input:checked + .slider:before {
 
 .non-vego {
     display: none;
-}
-
-#headlineDiv {
-    padding-top: 15px;
-    padding-bottom: 10px;
 }
 
 .counter-round {
