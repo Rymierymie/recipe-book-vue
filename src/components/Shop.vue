@@ -8,7 +8,7 @@
             <template v-for="(item, index) in shopping_list">
             <span v-if="!pantryItems.includes(item.item)" v-bind:key="index">
             <span v-if="item.amount !== 0" v-bind:key="index">
-            <li v-bind:key="index" class="card">
+            <li v-bind:key="index" class="card list-card">
                 
                     <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click(item.item)">
                     {{ item.item }} {{ parseFloat(item.amount.toFixed(2)) }} {{ item.type }}
@@ -31,7 +31,7 @@
             </li>
         </ul>
         <div>
-        <div id="add_to_list_input" class="display-toggle">
+        <div id="add_to_list_input" class="display-toggle card list-card">
                 <input type="text" id="custom_list_item" placeholder="Toilet paper">
                 <img src="../assets/icons/plus.png" id="custom_list_add_button" class="icon-big" @click="custom_list_addition()"/>
         </div>
@@ -436,14 +436,14 @@ ul {
 }
 
 input#custom_list_item {
-    font-size: 1.2rem;
-    margin: 10px 0px 0px 30px;
-    padding: 5px 5px; 
-    border-radius: 5px;
+    font-size: 1rem;
+    font-weight:200;
+    padding: 5px 15px; 
+    border-radius: 10px;
     outline: none;
     border-style: solid;
     border-width: 0.5px;
-    border-color: rgba(0,0,0,0.1);
+    border: solid 0.5px rgba(180, 194, 211, 0.2);
 }
 
 #custom_list_add_button {

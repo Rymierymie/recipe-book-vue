@@ -3,9 +3,9 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,400,600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
   <div id="nav">  
-    <img src="./assets/icons/utensils.png" class="nav-icon" @click="display('search')" />
-    <img src="./assets/icons/calendar.png" class="nav-icon" @click="display('plan')" />
-    <img src="./assets/icons/tasks.png" class="nav-icon" @click="display('shop')" />
+    <a href="#search-anchor"><img src="./assets/icons/utensils.png" class="nav-icon" @click="display('search')" /></a>
+    <a href="#plan-anchor"><img src="./assets/icons/calendar.png" class="nav-icon" @click="display('plan')" /></a>
+    <a href="#shop-anchor"><img src="./assets/icons/tasks.png" class="nav-icon" @click="display('shop')" /></a>
   </div>  
   <div class="pl10" v-if="selected === 'search'">
     <div v-if="this.recentlyViewed.length !== 0" id="recentlyViewedList">
@@ -16,12 +16,15 @@
     </div>
   </div>
     <div v-if="this.selected=='search'" id="search-component">
+      <div id="search-anchor"></div>
       <search />
     </div>  
     <div v-if="this.selected=='plan'" id="plan-component">  
+      <div id="plan-anchor"></div>
       <mealplanner />
     </div>
     <div v-show="this.selected=='shop'" id="shop-component">
+      <div id="shop-anchor"></div>
       <shop />
     </div>
 <!--     <div style="padding: 20px 0px 20px 0px">
