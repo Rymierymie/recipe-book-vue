@@ -248,27 +248,32 @@ select {
 
 .icon {
     width: 10px;
-/*     opacity: 0.4; */
+    opacity: 0.5;
 }
 
 .icon:hover {
-    /* opacity: 0.9; */
+    opacity: 1;
 }
 
 .icon-big {
   width: 15px;
-/*   opacity: 0.4; */
+  opacity: 0.5;
 }
 
 .icon-bigger {
   width: 20px;
-/*   opacity: 0.4; */
+  opacity: 0.5;
 }
 
 
 .icon-big:hover {
-    /* opacity: 0.9; */
+    opacity: 1;
 }
+
+.icon-bigger:hover {
+    opacity: 1;
+}
+
 
 .c-button {
     font-size: 13px;

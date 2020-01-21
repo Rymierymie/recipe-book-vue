@@ -19,7 +19,7 @@
         </div>
 
         <h3 class="pl10">Plan
-        <img src="../assets/icons/reset.png" @click="reset_planner()" id="resetPlanIcon" class="icon-big"/>
+        <img :src="reset_plan_icon_dark" @mouseover="reset_plan_hover = true" @mouseleave="reset_plan_hover = false" @click="reset_planner()" id="resetPlanIcon" class="icon-big"/>
         </h3>
         <div class="card" v-for="(value, name, index) in meal_plan" v-bind:key="index">
             <h2 id="dayHeadline">{{ name.charAt(0).toUpperCase() + name.slice(1) }}
@@ -82,6 +82,9 @@ export default {
    return {
       menu: [],
       meal_plan_summary: Array,
+      reset_plan_icon: require('../assets/icons/reset.png'),
+      reset_plan_icon_dark: require('../assets/icons/reset-dark.png'),
+      reset_plan_hover: false,
       meal_plan: {
         sunday: {
             lunch: {
