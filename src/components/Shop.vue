@@ -22,23 +22,24 @@
         </ul>
 <!--         <h3 v-if="custom_list.length !== 0">Custom items:</h3> -->
         <ul>
-            <li v-for="(item, index) in custom_list" v-bind:key="index" class="card">
-                <span class="custom-list-item">
+            <li v-for="(item, index) in custom_list" v-bind:key="index" class="card list-card">
+                
                 <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click_custom(item.item)">
-                {{ item.item }}
+                <h2 style="display:inline-block; margin-bottom:2px;" class="mb0 custom-list-item" >{{ item.item }}</h2>
                 <!-- <button style="display:none;" class="delete-button" @click="remove_custom_item(item.item)">remove</button> -->
                 <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon delete-button" id="menuDeleteIcon" @click="remove_custom_item(item.item)" />
-                </span>
+                
             </li>
         </ul>
         <div>
         <div id="add_to_list_input" class="display-toggle card list-card">
-                <input type="text" id="custom_list_item" placeholder="Toilet paper">
-                <button>Add item</button>
-                <img src="../assets/icons/plus.png" id="custom_list_add_button" class="icon-big" @click="custom_list_addition()"/>
+                <input type="text" class="mr10" id="custom_list_item" placeholder="Toilet paper">
+                <!-- decrease padding on these buttons to make fit in row on small decive -->
+                <button @click="custom_list_addition()" id="custom_list_add_button" class="c-button mr10">Add</button>
+                <button class="c-button">Done</button>
         </div>
 
-        <button @click="add_to_list_input()" class="c-button" id="addToListButton">Add To List</button>
+        <button v-if="!customListAddDisplay === true" @click="add_to_list_input()" class="c-button" id="addToListButton">Add To List</button>
         </div>
         <div class="card" id="pantry">
             <h4 class="headline-card" @click="showHidePantry()">Pantry 
@@ -95,7 +96,8 @@ export default {
             custom_list: [],
             pantryItems: [],
             pantryView: 'hidePantry',
-            chevron: '../assets/chevron-down.png'
+            chevron: '../assets/chevron-down.png',
+            customListAddDisplay: false
         }
     },
     methods: {
@@ -147,6 +149,18 @@ export default {
             let elem = document.getElementById("add_to_list_input")
             console.log(elem);
             elem.classList.toggle("display-toggle");
+            console.log(this.customListAddDisplay);
+
+            if(this.customListAddDisplay === false){
+                console.log(" = false, changing")
+                this.customListAddDisplay = true;
+            } else if(this.customListAddDisplay === true){
+                console.log(" = true, changing")
+                this.customListAddDisplay = false;
+            }
+
+
+    
             let input = document.getElementById("custom_list_item");
             console.log(input);
             input.addEventListener("keyup", function(event) {
@@ -439,21 +453,20 @@ ul {
 
 input#custom_list_item {
     font-family: 'Poppins', sans-serif;
-    color: #E5E5E5;
+    color: #6D6D6D;
     font-size: 1rem;
-    width: 60%;
+    width: 45%;
     font-weight:200;
-    padding: 5px 15px; 
+    padding: 9px 15px; 
     border-radius: 10px;
     outline: none;
     border-style: solid;
     border-width: 0.5px;
     border: solid 0.5px rgba(180, 194, 211, 0.2);
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-#custom_list_add_button {
-    margin-left: 10px;
-}
 
 .headline {
     margin-bottom: 10px;
