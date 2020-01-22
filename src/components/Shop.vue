@@ -9,9 +9,10 @@
             <span v-if="!pantryItems.includes(item.item)" v-bind:key="index">
             <span v-if="item.amount !== 0" v-bind:key="index">
             <li v-bind:key="index" class="card list-card">
-                
+                <!-- NEED TO FORMAT THESE -->
                     <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click(item.item)">
-                    {{ item.item }} {{ parseFloat(item.amount.toFixed(2)) }} {{ item.type }}
+                    <h2 style="display:inline-block" class="mb0">{{ item.item.charAt(0).toUpperCase() + item.item.slice(1) }}</h2> 
+                    <p style="position:relative; left: 30px;" class="mb0 mt0"> {{ parseFloat(item.amount.toFixed(2)) }} {{ item.type }}</p>
                     <!-- <button style="display:none;" class="delete-button" @click="remove_item(item.item)">remove</button> -->
                     <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon delete-button" id="menuDeleteIcon" @click="remove_item(item.item)" />  
             </li>
@@ -33,6 +34,7 @@
         <div>
         <div id="add_to_list_input" class="display-toggle card list-card">
                 <input type="text" id="custom_list_item" placeholder="Toilet paper">
+                <button>Add item</button>
                 <img src="../assets/icons/plus.png" id="custom_list_add_button" class="icon-big" @click="custom_list_addition()"/>
         </div>
 
@@ -436,7 +438,10 @@ ul {
 }
 
 input#custom_list_item {
+    font-family: 'Poppins', sans-serif;
+    color: #E5E5E5;
     font-size: 1rem;
+    width: 60%;
     font-weight:200;
     padding: 5px 15px; 
     border-radius: 10px;
@@ -472,8 +477,8 @@ input#custom_list_item {
 input.checkbox {
     margin: 0px 10px 0px 0px;
     -webkit-appearance: none;
-	background-color: #fafafa;
-	border: 1px solid #cacece;
+	background-color: #ffffff;
+	border: solid 0.5px rgba(180, 194, 211, 0.2);
 	padding: 9px;
 	border-radius: 10px;
 	display: inline-block;
@@ -486,8 +491,8 @@ input.checkbox:active, input.checkbox:checked:active {
 }
 
 input.checkbox:checked {
-    background-color: #e9ecee;
-	border: 1px solid #adb8c0;
+    background-color: #7DC092;
+	border: solid 0.5px rgba(180, 194, 211, 0.2);
 	color: #99a1a7;
 }
 
@@ -495,7 +500,7 @@ input.checkbox:checked:after {
     content: url(../assets/icons/check.png);
     transform: scale(.3);
 	position: absolute;
-	top: -8px;
+	top: -7px;
 	left: -12px;
 	color: #99a1a7;
 }

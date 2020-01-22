@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+<!--     <div style="padding: 20px 0px 20px 0px">
+    <button @click="clear_all_local()">Clear All Local</button>
+    </div> -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,400,600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
   <div id="nav">  
@@ -27,9 +30,6 @@
       <div id="shop-anchor"></div>
       <shop />
     </div>
-<!--     <div style="padding: 20px 0px 20px 0px">
-    <button @click="clear_all_local()">Clear All Local</button>
-    </div> -->
   </div>
 </template>
 
