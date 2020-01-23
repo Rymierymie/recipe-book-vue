@@ -11,10 +11,12 @@
             <li v-bind:key="index" class="card list-card">
                 <!-- NEED TO FORMAT THESE -->
                     <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click(item.item)">
-                    <h2 style="display:inline-block" class="mb0">{{ item.item.charAt(0).toUpperCase() + item.item.slice(1) }}</h2> 
+                    <h2 style="display:inline-block" class="mb0">{{ item.item.charAt(0).toUpperCase() + item.item.slice(1) }} </h2> 
+                    <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon delete-button" id="menuDeleteIcon" @click="remove_item(item.item)" />
+                    
                     <p style="position:relative; left: 30px;" class="mb0 mt0"> {{ parseFloat(item.amount.toFixed(2)) }} {{ item.type }}</p>
                     <!-- <button style="display:none;" class="delete-button" @click="remove_item(item.item)">remove</button> -->
-                    <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon delete-button" id="menuDeleteIcon" @click="remove_item(item.item)" />  
+                      
             </li>
             </span>
             </span>
@@ -35,8 +37,8 @@
         <div id="add_to_list_input" class="display-toggle card list-card">
                 <input type="text" class="mr10" id="custom_list_item" placeholder="Toilet paper">
                 <!-- decrease padding on these buttons to make fit in row on small decive -->
-                <button @click="custom_list_addition()" id="custom_list_add_button" class="c-button mr10">Add</button>
-                <button class="c-button">Done</button>
+                <button @click="custom_list_addition()" id="custom_list_add_button" class="c-button c-button-fill mr10 pl10 pr10">Add</button>
+                <button class="c-button pl10 pr10" @click="doneAddingCustom()">Done</button>
         </div>
 
         <button v-if="!customListAddDisplay === true" @click="add_to_list_input()" class="c-button" id="addToListButton">Add To List</button>
@@ -137,13 +139,31 @@ export default {
         },
         custom_list_addition: function(){
             let custom_item_value = document.getElementById("custom_list_item").value;
-            let custom_item = {
+            if (custom_item_value.length >= 3){
+                let custom_item = {
                 item: custom_item_value,
                 checked: false
             }
             console.log(custom_item);
             this.custom_list.push(custom_item);
             document.getElementById("custom_list_item").value = '';
+            } else {
+                alert("Did you mean to add that?")
+            }
+            
+        },
+        doneAddingCustom: function(){
+            let elem = document.getElementById("add_to_list_input")
+            console.log(elem);
+            elem.classList.toggle("display-toggle");
+
+            if(this.customListAddDisplay === false){
+                console.log(" = false, changing")
+                this.customListAddDisplay = true;
+            } else if(this.customListAddDisplay === true){
+                console.log(" = true, changing")
+                this.customListAddDisplay = false;
+            }
         },
         add_to_list_input: function(){
             let elem = document.getElementById("add_to_list_input")
@@ -481,9 +501,12 @@ input#custom_list_item {
 }
 
 .menuDeleteIcon {
-    margin-left: 10px;
+    margin-left: 42px;
+    display: inline-block;
     position: relative;
-    top: 2px;
+    float: right;
+    top: 10px;
+    right: 10px;
 }
 
 /* Start of custom checkbox styling */
