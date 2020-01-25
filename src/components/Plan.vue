@@ -23,8 +23,8 @@
         </h3>
         <div class="card" v-for="(value, name, index) in meal_plan" v-bind:key="index">
             <h2 id="dayHeadline">{{ name.charAt(0).toUpperCase() + name.slice(1) }}
-            <button @click="show_day(name, 'Dinner')" id="showDinnerButton" class="addMealButton c-button">Plan dinner</button> 
-            <button @click="show_day(name, 'Lunch')" id="showLunchButton" class="addMealButton c-button">Plan lunch</button>   
+            <button @click="show_day(name, 'Dinner')" id="showDinnerButton" class="addMealButton c-button pl10 pr10">Plan dinner</button> 
+            <button @click="show_day(name, 'Lunch')" id="showLunchButton" class="addMealButton c-button pl10 pr10">Plan lunch</button>   
             </h2> 
             <div class="display-toggle" :id="`${name}LunchSelectors`">
             <span>Lunch &nbsp; <img src="../assets/icons/cancel.png" @click="show_day(name, 'Lunch')" class="icon closeSelectorCard" /> </span>

@@ -4,7 +4,7 @@
         <!-- <button @click="edit_list()" class="c-button" id="editListButton">Edit List</button> -->
         <img @click="edit_list()" class="icon-big" src="../assets/icons/edit.png" id="editListButton" />
         </h3>
-        <ul> 
+        <ul class="pb0 pl0 mb0 mt0"> 
             <template v-for="(item, index) in shopping_list">
             <span v-if="!pantryItems.includes(item.item)" v-bind:key="index">
             <span v-if="item.amount !== 0" v-bind:key="index">
@@ -23,7 +23,7 @@
             </template>
         </ul>
 <!--         <h3 v-if="custom_list.length !== 0">Custom items:</h3> -->
-        <ul>
+        <ul class="pb0 pl0 mb0 mt0">
             <li v-for="(item, index) in custom_list" v-bind:key="index" class="card list-card">
                 
                 <input v-bind:id="item.item" type="checkbox" class="checkbox" @click="check_click_custom(item.item)">
@@ -38,23 +38,24 @@
                 <input type="text" class="mr10" id="custom_list_item" placeholder="Toilet paper">
                 <!-- decrease padding on these buttons to make fit in row on small decive -->
                 <button @click="custom_list_addition()" id="custom_list_add_button" class="c-button c-button-fill mr10 pl10 pr10">Add</button>
-                <button class="c-button pl10 pr10" @click="doneAddingCustom()">Done</button>
+                <button class="c-button pl10 pr10" style="float:right; top:10px;" @click="doneAddingCustom()">Done</button>
         </div>
-
-        <button v-if="!customListAddDisplay === true" @click="add_to_list_input()" class="c-button" id="addToListButton">Add To List</button>
+          <div>
+            <button v-if="!customListAddDisplay === true" @click="add_to_list_input()" class="c-button ml10">Add To List</button>
+         </div>
         </div>
         <div class="card" id="pantry">
-            <h4 class="headline-card" @click="showHidePantry()">Pantry 
+            <h3 class="headline-card" @click="showHidePantry()">Pantry 
                 <img src="../assets/icons/chevron-down.png" class="icon-big viewPantryButton" id="pantry-chevron-down" />
                 <img src="../assets/icons/chevron-up.png" class="icon-big viewPantryButton hidePantry" id="pantry-chevron-up" />
-            </h4> 
-            <p :class="pantryView" class="small-p"><em>Items in the pantry list won't display in your shopping list.</em></p>
-                <ul :class="pantryView" class="list-ul">
-                    <li v-for="(item, index) in pantryItems" v-bind:key="index" >{{ item }} <img src="../assets/icons/cancel.png" class="icon-big display-toggle menuDeleteIcon pantry-delete-button" @click="removePantryItem(item)" /></li>
+            </h3> 
+            <p :class="pantryView" class="small-p">Items in the pantry list won't display in your shopping list.</p>
+                <ul :class="pantryView" class="pb10 pl0 mb0 mt0">
+                    <li v-for="(item, index) in pantryItems" v-bind:key="index" ><h2>{{ item }} <img src="../assets/icons/cancel.png" class="icon display-toggle pantry-delete-button" @click="removePantryItem(item)" /></h2></li>
                 </ul>
                 <button :class="pantryView" class="c-button" @click="editPantryList()" id="editPantryButton">Edit Pantry</button>
             <div id="ingredientSelectDiv" :class="pantryView">
-                <h4 class="headline-card" >Add to pantry</h4>
+                <h3 class="headline-card" >Add to pantry</h3>
                 <select id="ingredients-list" >
                     <option selected></option>
                     <option v-for="(item, index) in ingredients_list" v-bind:key="index">
@@ -446,10 +447,6 @@ export default {
 
 ul {
     list-style-type:none;
-    padding: 0px 0px;
-    margin: 0px 0px;
-    line-height: 2rem;
-    font-size: 1.2rem;
 }
 
 .display-toggle {
@@ -465,10 +462,6 @@ ul {
     float: right;
     top: 5px;
     margin-right: 20px;
-}
-
-#addToListButton {
-    margin: 20px 0px 0px 30px;
 }
 
 input#custom_list_item {
@@ -502,7 +495,6 @@ input#custom_list_item {
 
 .menuDeleteIcon {
     margin-left: 42px;
-    display: inline-block;
     position: relative;
     float: right;
     top: 10px;
@@ -567,11 +559,6 @@ input.checkbox:focus {
     margin-bottom: 0px;
 }
 
-.list-ul {
-    margin-top: 10px;
-    padding-left: 10px;
-    padding-bottom: 15px;
-}
 
 #editPantryButton {
     margin-bottom: 15px;
@@ -581,4 +568,11 @@ input.checkbox:focus {
     margin-bottom: 20px;
     margin-top: 10px;
 }
+
+.pantry-delete-button {
+ float: right;
+ top: 5px;
+ right: 10px;
+}
+
 </style>

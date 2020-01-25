@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,400,600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
   <div id="nav">  
-    <a href="#search-anchor"><img src="./assets/icons/utensils.png" class="nav-icon" @click="display('search')" /></a>
+    <a href="#allRecipesHeadline"><img src="./assets/icons/utensils.png" class="nav-icon" @click="display('search')" /></a>
     <a href="#plan-anchor"><img src="./assets/icons/calendar.png" class="nav-icon" @click="display('plan')" /></a>
     <a href="#shop-anchor"><img src="./assets/icons/tasks.png" class="nav-icon" @click="display('shop')" /></a>
   </div>  
@@ -261,7 +261,7 @@ select {
     overflow: hidden;
     text-overflow: ellipsis;
 /*     width: 150px; */
-    padding: 5px 35px 5px 5px;
+    padding: 5px 35px 5px 15px;
 /*     font-size: 16px; */
     border: solid 0.5px rgba(180, 194, 211, 0.2);
 /*     height: 34px; */

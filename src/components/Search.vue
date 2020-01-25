@@ -87,7 +87,8 @@
             <h3 class="ml10 mb0 pb0">Recipes with {{ ingredient_name }}</h3>
                     <div v-for="(item, index) in ingredient_recipes" v-bind:key="index" class="card list-card">
                         <h2 class="mb15" @click="view_recipe(item)">{{ item }}</h2>
-                        <button class="c-button c-button-fill" @click="add_to_menu(item)">Add to menu</button>
+                        <button v-if="!menu.includes(item)" class="c-button c-button-fill" @click="add_to_menu(item)">Add to menu</button>
+                        <button v-if="menu.includes(item)" class="c-button c-button-fill" @click="remove_from_menu(item)">Remove from menu</button>
                         <img v-if="menu.includes(item)" src="../assets/icons/calendar-check.png" class="icon-bigger in-menu-icon" />
                     </div>
         </div>
@@ -322,6 +323,10 @@ ul {
 ol {
     padding-left: 20px;
     margin: 0px 0px;
+}
+
+h2 {
+      color: #7DC092;
 }
 
 
