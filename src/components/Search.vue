@@ -60,8 +60,8 @@
                </template>
            </div>
            <template v-for="(item, index) in recipesData">
-            <div v-bind:key="index" :class="`${item.vegetarian}`">
-                <div v-bind:class="[item.category]" class="card filterDiv show">
+            <div v-bind:key="index" :class="`${item.vegetarian}`" class="card" >
+                <div v-bind:class="[item.category]" class="filterDiv show">
                     <a href="#recipe-card" @click="view_recipe(item.recipe)">
                     <h2 class="mb0">{{ item.recipe }}</h2>
                     <p class="mb20 mt5">{{ item.description }}</p></a>
@@ -70,6 +70,27 @@
                     <img v-if="menu.includes(item.recipe)" src="../assets/icons/calendar-check.png" class="icon-bigger in-menu-icon" />
                     <!-- <button class="c-button c-button-fill" >View</button> -->
                 </div>   
+
+<!--            Attempting here to put the ingredients and steps with in the cards, rather than at the top of the component. 
+                Needs to be that that the section only renders if the name of the recipe matches the selected one. 
+                So needs to sit within the v-for of the main recipe card  -->  
+                <div v-if="recipe_name === item.recipe" id="ingredientsContainer"> 
+                    <h3 class="ml10 mb10">Ingredients</h3>
+                    <div  v-for="(item, index) in recipe_ingredients" v-bind:key="index" :id="`${item.name}`" @click="opacityToggle(item.name)"> 
+                        <h2 class="mb0">{{ item.name.charAt(0).toUpperCase() + item.name.slice(1) }}</h2>
+                        <h3 class="mb0 mt0">{{ item.amount }}<span style="opacity:0;" v-if="item.type === 'whole' || item.type === 'cup' || item.type === 'clove' ">-</span>{{ item.type }}</h3>
+                        <p class="mb0 mt0">{{ item.notes }}</p>
+                    </div>
+                </div> 
+                <div v-if="recipe_name === item.recipe"> 
+                    <h3 class="ml10">Method</h3>
+                        <ul>
+                            <li v-for="(item, index) in recipe_method" v-bind:key="index" class="methodListItem" :id="`${item.step_number}`" @click="opacityToggle(item.step_number)">
+                                <div class="counter-round mr5">{{ item.step_number }}</div>
+                                {{ item.instruction }}
+                            </li>
+                        </ul>
+                 </div> 
             </div>
             </template>
         </div>
